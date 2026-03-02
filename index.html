@@ -836,8 +836,8 @@
   }
 
   @media (max-width: 768px) {
-    .nav-bar { padding: 16px 16px; min-height: 56px; }
-    .nav-logo { font-size: 15px; letter-spacing: 2px; }
+    .nav-bar { padding: 18px 16px; min-height: 70px; }
+    .nav-logo { font-size: 22px; letter-spacing: 3px; }
     .nav-links { display: none; }
     .slide-counter { display: none; }
 
@@ -846,27 +846,27 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      gap: 7px;
-      width: 44px;
-      height: 44px;
+      gap: 8px;
+      width: 56px;
+      height: 56px;
       cursor: pointer;
       z-index: 201;
-      padding: 8px 6px;
+      padding: 12px 10px;
       flex-shrink: 0;
-      border-radius: 6px;
-      border: 1px solid rgba(200,169,81,0.25);
+      border-radius: 8px;
+      border: 1px solid rgba(200,169,81,0.3);
     }
     .hamburger span {
       display: block;
-      width: 28px;
-      height: 3px;
+      width: 34px;
+      height: 3.5px;
       background: var(--imperial-gold);
       border-radius: 2px;
       transition: all 0.3s;
     }
-    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(1) { transform: translateY(11px) rotate(45deg); }
     .hamburger.open span:nth-child(2) { opacity: 0; }
-    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .hamburger.open span:nth-child(3) { transform: translateY(-11px) rotate(-45deg); }
 
     /* Mobile menu overlay */
     .mobile-menu {
@@ -1077,35 +1077,35 @@
   }
 
   /* ============ JS Mobile Fallback (if media queries fail) ============ */
-  body.is-mobile .nav-bar { padding: 16px 16px; min-height: 56px; }
-  body.is-mobile .nav-logo { font-size: 15px; letter-spacing: 2px; }
+  body.is-mobile .nav-bar { padding: 18px 16px; min-height: 70px; }
+  body.is-mobile .nav-logo { font-size: 22px; letter-spacing: 3px; }
   body.is-mobile .nav-links { display: none !important; }
   body.is-mobile .slide-counter { display: none !important; }
   body.is-mobile .hamburger {
     display: flex !important;
     flex-direction: column;
     justify-content: center;
-    gap: 7px;
-    width: 44px;
-    height: 44px;
+    gap: 8px;
+    width: 56px;
+    height: 56px;
     cursor: pointer;
     z-index: 201;
-    padding: 8px 6px;
+    padding: 12px 10px;
     flex-shrink: 0;
-    border-radius: 6px;
-    border: 1px solid rgba(200,169,81,0.25);
+    border-radius: 8px;
+    border: 1px solid rgba(200,169,81,0.3);
   }
   body.is-mobile .hamburger span {
     display: block;
-    width: 28px;
-    height: 3px;
+    width: 34px;
+    height: 3.5px;
     background: var(--imperial-gold);
     border-radius: 2px;
     transition: all 0.3s;
   }
-  body.is-mobile .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  body.is-mobile .hamburger.open span:nth-child(1) { transform: translateY(11.5px) rotate(45deg); }
   body.is-mobile .hamburger.open span:nth-child(2) { opacity: 0; }
-  body.is-mobile .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  body.is-mobile .hamburger.open span:nth-child(3) { transform: translateY(-11.5px) rotate(-45deg); }
   body.is-mobile .slide { padding: 60px 24px 80px 24px; min-height: auto; }
   body.is-mobile .greek-border { top: 10px; left: 10px; right: 10px; bottom: 10px; }
   body.is-mobile .corner-ornament { width: 24px; height: 24px; }
@@ -1994,7 +1994,7 @@ function scrollToId(id){var s=document.getElementById(id);if(s)s.scrollIntoView(
   <div class="about-content">
     <div class="about-avatar">MBS</div>
     <div class="about-text-block">
-      <div class="about-name">Mark B</div>
+      <div class="about-name">Mark Bardsley-Smith</div>
       <div class="about-role">Founder & Portfolio Manager</div>
       <div class="about-bio">
         Active in markets since 2008, with experience spanning personal trading accounts to executing billions of dollars in notional value across 50+ Futures and FX markets for Boronia Capital, a large hedge fund and family office. Managing risk across diverse global markets taught me that capital preservation is the foundation of long-term outperformance.
@@ -2087,7 +2087,7 @@ function scrollToId(id){var s=document.getElementById(id);if(s)s.scrollIntoView(
 
   <div style="max-width: 500px; margin: 0 auto;">
     <div style="padding: 28px; background: rgba(245,240,232,0.08); border: 1px solid rgba(200,169,81,0.25); border-radius: 10px;">
-      <div style="font-family: 'Cinzel', serif; font-size: 24px; font-weight: 700; color: var(--imperial-gold); margin-bottom: 6px;">Mark B</div>
+      <div style="font-family: 'Cinzel', serif; font-size: 24px; font-weight: 700; color: var(--imperial-gold); margin-bottom: 6px;">Mark Bardsley-Smith</div>
       <div style="font-family: 'Inter', sans-serif; font-size: 13px; color: rgba(245,240,232,0.5); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px;">Founder & Portfolio Manager</div>
       <div style="font-family: 'Inter', sans-serif; font-size: 16px; color: rgba(245,240,232,0.75); line-height: 2.2;">
         ✉ &nbsp; <span style="color: var(--imperial-gold);">[email address]</span><br>
