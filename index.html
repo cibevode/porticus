@@ -836,7 +836,7 @@
   }
 
   @media (max-width: 768px) {
-    .nav-bar { padding: 10px 16px; }
+    .nav-bar { padding: 16px 16px; min-height: 56px; }
     .nav-logo { font-size: 15px; letter-spacing: 2px; }
     .nav-links { display: none; }
     .slide-counter { display: none; }
@@ -846,18 +846,20 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      gap: 5px;
-      width: 28px;
-      height: 28px;
+      gap: 7px;
+      width: 44px;
+      height: 44px;
       cursor: pointer;
       z-index: 201;
-      padding: 2px 0;
+      padding: 8px 6px;
       flex-shrink: 0;
+      border-radius: 6px;
+      border: 1px solid rgba(200,169,81,0.25);
     }
     .hamburger span {
       display: block;
-      width: 22px;
-      height: 2px;
+      width: 28px;
+      height: 3px;
       background: var(--imperial-gold);
       border-radius: 2px;
       transition: all 0.3s;
@@ -1075,7 +1077,7 @@
   }
 
   /* ============ JS Mobile Fallback (if media queries fail) ============ */
-  body.is-mobile .nav-bar { padding: 10px 16px; }
+  body.is-mobile .nav-bar { padding: 16px 16px; min-height: 56px; }
   body.is-mobile .nav-logo { font-size: 15px; letter-spacing: 2px; }
   body.is-mobile .nav-links { display: none !important; }
   body.is-mobile .slide-counter { display: none !important; }
@@ -1083,18 +1085,20 @@
     display: flex !important;
     flex-direction: column;
     justify-content: center;
-    gap: 5px;
-    width: 28px;
-    height: 28px;
+    gap: 7px;
+    width: 44px;
+    height: 44px;
     cursor: pointer;
     z-index: 201;
-    padding: 2px 0;
+    padding: 8px 6px;
     flex-shrink: 0;
+    border-radius: 6px;
+    border: 1px solid rgba(200,169,81,0.25);
   }
   body.is-mobile .hamburger span {
     display: block;
-    width: 22px;
-    height: 2px;
+    width: 28px;
+    height: 3px;
     background: var(--imperial-gold);
     border-radius: 2px;
     transition: all 0.3s;
@@ -1140,12 +1144,6 @@
 </style>
 </head>
 <body>
-<div id="debugBanner" style="position:fixed;bottom:0;left:0;right:0;background:red;color:white;text-align:center;padding:8px;font-family:monospace;font-size:14px;z-index:9999;"></div>
-<script>
-var d=document.getElementById('debugBanner');
-d.textContent='Screen: '+window.innerWidth+'x'+window.innerHeight+' | CSS px ratio: '+window.devicePixelRatio;
-window.addEventListener('resize',function(){d.textContent='Screen: '+window.innerWidth+'x'+window.innerHeight+' | CSS px ratio: '+window.devicePixelRatio;});
-</script>
 
 <!-- Navigation -->
 <nav class="nav-bar">
