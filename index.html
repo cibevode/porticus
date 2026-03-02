@@ -1,0 +1,2025 @@
+html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Porticus Capital – Investment Presentation</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap');
+
+  :root {
+    --imperial-gold: #C8A951;
+    --imperial-gold-light: #E2C97A;
+    --imperial-gold-dark: #A88B3D;
+    --roman-red: #8B2332;
+    --roman-red-dark: #6B1A27;
+    --marble-white: #F5F0E8;
+    --marble-light: #FAF7F2;
+    --parchment: #EDE4D3;
+    --bronze: #8B6914;
+    --dark-slate: #1A1A2E;
+    --charcoal: #2D2D3F;
+    --text-dark: #1C1C28;
+    --text-muted: #5A5A6E;
+    --laurel-green: #4A6741;
+    --green-bright: #5C8350;
+    --column-shadow: rgba(26, 26, 46, 0.08);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    background: #0D0D1A;
+    color: var(--text-dark);
+    overflow-x: hidden;
+  }
+
+  /* Navigation */
+  .nav-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: rgba(26, 26, 46, 0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(200, 169, 81, 0.3);
+    padding: 14px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-logo {
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    font-size: 20px;
+    color: var(--imperial-gold);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 6px;
+  }
+
+  .nav-links button {
+    background: none;
+    border: 1px solid transparent;
+    color: rgba(245, 240, 232, 0.6);
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .nav-links button:hover, .nav-links button.active {
+    color: var(--imperial-gold);
+    border-color: rgba(200, 169, 81, 0.4);
+    background: rgba(200, 169, 81, 0.08);
+  }
+
+  .slide-counter {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    color: rgba(245, 240, 232, 0.4);
+    letter-spacing: 1px;
+  }
+
+  /* Hide mobile elements on desktop */
+  .hamburger { display: none; }
+  .mobile-menu { display: none; }
+
+  /* Slide Container */
+  .slides-wrapper { margin-top: 56px; }
+
+  .slide {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 90px 90px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Decorative Elements */
+  .greek-border {
+    position: absolute;
+    top: 22px; left: 22px; right: 22px; bottom: 22px;
+    border: 1px solid rgba(200, 169, 81, 0.15);
+    pointer-events: none;
+  }
+
+  .corner-ornament {
+    position: absolute;
+    width: 44px; height: 44px;
+    border-color: var(--imperial-gold);
+    opacity: 0.4;
+  }
+  .corner-ornament.tl { top: 20px; left: 20px; border-top: 2px solid; border-left: 2px solid; }
+  .corner-ornament.tr { top: 20px; right: 20px; border-top: 2px solid; border-right: 2px solid; }
+  .corner-ornament.bl { bottom: 20px; left: 20px; border-bottom: 2px solid; border-left: 2px solid; }
+  .corner-ornament.br { bottom: 20px; right: 20px; border-bottom: 2px solid; border-right: 2px solid; }
+
+  /* ============ Title Slide ============ */
+  .slide-title-page {
+    background: linear-gradient(135deg, #1A1A2E 0%, #16213E 40%, #1A1A2E 100%);
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .title-laurel { font-size: 52px; opacity: 0.3; margin-bottom: 22px; color: var(--imperial-gold); }
+
+  .main-title {
+    font-family: 'Cinzel', serif;
+    font-size: 72px;
+    font-weight: 900;
+    color: var(--imperial-gold);
+    letter-spacing: 8px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    text-shadow: 0 2px 20px rgba(200, 169, 81, 0.3);
+  }
+
+  .title-divider {
+    width: 130px; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--imperial-gold), transparent);
+    margin: 28px auto;
+  }
+
+  .subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-weight: 300;
+    color: rgba(245, 240, 232, 0.7);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .title-tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 21px;
+    font-style: italic;
+    color: rgba(245, 240, 232, 0.5);
+    max-width: 700px;
+    margin: 22px auto 0;
+    line-height: 1.6;
+  }
+
+  .title-period {
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    color: rgba(200, 169, 81, 0.6);
+    letter-spacing: 2px;
+    margin-top: 44px;
+  }
+
+  /* ============ Content Slides ============ */
+  .slide-content { background: var(--marble-light); }
+  .slide-dark { background: linear-gradient(160deg, #1A1A2E, #16213E); color: var(--marble-white); }
+  .slide-accent { background: linear-gradient(160deg, var(--roman-red-dark), #4A1525); color: var(--marble-white); }
+
+  .section-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--imperial-gold);
+    margin-bottom: 10px;
+  }
+
+  .slide-heading {
+    font-family: 'Cinzel', serif;
+    font-size: 46px;
+    font-weight: 700;
+    color: var(--dark-slate);
+    margin-bottom: 12px;
+    letter-spacing: 2px;
+  }
+
+  .slide-dark .slide-heading, .slide-accent .slide-heading { color: var(--imperial-gold); }
+
+  .heading-underline {
+    width: 90px; height: 3px;
+    background: var(--imperial-gold);
+    margin-bottom: 36px;
+  }
+
+  .slide-text {
+    font-size: 22px;
+    line-height: 1.7;
+    color: var(--text-muted);
+    max-width: 960px;
+  }
+
+  .slide-dark .slide-text { color: rgba(245, 240, 232, 0.75); }
+  .slide-accent .slide-text { color: rgba(245, 240, 232, 0.8); }
+
+  /* ============ Stats Grid ============ */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 26px;
+    margin-top: 32px;
+    max-width: 1060px;
+  }
+
+  .stat-card {
+    background: white;
+    border: 1px solid rgba(200, 169, 81, 0.2);
+    border-radius: 10px;
+    padding: 32px 26px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+  }
+
+  .stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--imperial-gold), var(--imperial-gold-light));
+  }
+
+  .slide-dark .stat-card, .slide-accent .stat-card-dark {
+    background: rgba(245, 240, 232, 0.06);
+    border-color: rgba(200, 169, 81, 0.2);
+  }
+
+  .stat-value {
+    font-family: 'Cinzel', serif;
+    font-size: 40px;
+    font-weight: 700;
+    color: var(--imperial-gold-dark);
+    margin-bottom: 8px;
+  }
+
+  .slide-dark .stat-value, .slide-accent .stat-value { color: var(--imperial-gold); }
+
+  .stat-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .slide-dark .stat-label, .slide-accent .stat-label { color: rgba(245, 240, 232, 0.5); }
+
+  /* ============ Tables ============ */
+  .data-table {
+    width: 100%;
+    max-width: 1060px;
+    border-collapse: collapse;
+    margin-top: 26px;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+  }
+
+  .data-table thead th {
+    background: var(--dark-slate);
+    color: var(--imperial-gold);
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-size: 13px;
+    padding: 16px 22px;
+    text-align: left;
+    border-bottom: 2px solid var(--imperial-gold);
+  }
+
+  .data-table tbody td {
+    padding: 16px 22px;
+    border-bottom: 1px solid rgba(200, 169, 81, 0.15);
+    color: var(--text-dark);
+  }
+
+  .data-table tbody tr:nth-child(even) { background: rgba(200, 169, 81, 0.04); }
+
+  .data-table tbody tr:first-child td { font-weight: 600; color: var(--roman-red); }
+
+  .slide-dark .data-table tbody td {
+    color: rgba(245, 240, 232, 0.85);
+    border-bottom-color: rgba(200, 169, 81, 0.1);
+  }
+  .slide-dark .data-table tbody tr:nth-child(even) { background: rgba(200, 169, 81, 0.06); }
+  .slide-dark .data-table tbody tr:first-child td { color: var(--imperial-gold); }
+
+  /* ============ Metric Bars ============ */
+  .metric-row {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    margin-bottom: 20px;
+    max-width: 860px;
+  }
+
+  .metric-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    width: 150px;
+    flex-shrink: 0;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .metric-bar-bg {
+    flex: 1;
+    height: 34px;
+    background: rgba(200, 169, 81, 0.1);
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .metric-bar {
+    height: 100%;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 14px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+  }
+
+  .bar-porticus { background: linear-gradient(90deg, var(--imperial-gold-dark), var(--imperial-gold)); }
+  .bar-qqq { background: linear-gradient(90deg, #4A6741, #5C8350); }
+  .bar-spy { background: linear-gradient(90deg, #4A5568, #718096); }
+  .bar-ewa { background: linear-gradient(90deg, #3D7A8A, #5B8A9A); }
+
+  /* ============ Strategy Cards ============ */
+  .strategy-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 26px;
+    margin-top: 32px;
+    max-width: 1160px;
+  }
+
+  .strategy-card {
+    background: rgba(245, 240, 232, 0.06);
+    border: 1px solid rgba(200, 169, 81, 0.2);
+    border-radius: 10px;
+    padding: 34px 28px;
+    position: relative;
+  }
+
+  .strategy-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    border-radius: 10px 10px 0 0;
+  }
+
+  .strategy-card.bullish::before { background: var(--laurel-green); }
+  .strategy-card.neutral::before { background: var(--imperial-gold); }
+  .strategy-card.bearish::before { background: var(--roman-red); }
+
+  .env-badge {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 20px;
+    display: inline-block;
+    margin-bottom: 18px;
+  }
+
+  .bullish .env-badge { background: rgba(74, 103, 65, 0.3); color: #8BC77A; }
+  .neutral .env-badge { background: rgba(200, 169, 81, 0.2); color: var(--imperial-gold-light); }
+  .bearish .env-badge { background: rgba(139, 35, 50, 0.3); color: #E87A8A; }
+
+  .strategy-title {
+    font-family: 'Cinzel', serif;
+    font-size: 21px;
+    font-weight: 600;
+    color: var(--marble-white);
+    margin-bottom: 16px;
+  }
+
+  .strategy-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    line-height: 1.75;
+    color: rgba(245, 240, 232, 0.65);
+  }
+
+  /* ============ Takeaway Cards ============ */
+  .takeaway-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 22px;
+    margin-top: 32px;
+    max-width: 1060px;
+  }
+
+  .takeaway-card {
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+    background: rgba(245, 240, 232, 0.05);
+    border: 1px solid rgba(200, 169, 81, 0.15);
+    border-radius: 10px;
+    padding: 28px;
+  }
+
+  .takeaway-icon {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    background: rgba(200, 169, 81, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 22px;
+    color: var(--imperial-gold);
+  }
+
+  .takeaway-title {
+    font-family: 'Cinzel', serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--imperial-gold);
+    margin-bottom: 8px;
+  }
+
+  .takeaway-desc {
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    line-height: 1.65;
+    color: rgba(245, 240, 232, 0.65);
+  }
+
+  /* ============ About Section ============ */
+  .about-content {
+    display: flex;
+    gap: 60px;
+    align-items: flex-start;
+    margin-top: 32px;
+    max-width: 1060px;
+  }
+
+  .about-avatar {
+    width: 170px; height: 170px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--imperial-gold-dark), var(--imperial-gold));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-family: 'Cinzel', serif;
+    font-size: 52px;
+    font-weight: 700;
+    color: var(--dark-slate);
+    border: 3px solid rgba(200, 169, 81, 0.4);
+  }
+
+  .about-text-block { flex: 1; }
+
+  .about-name {
+    font-family: 'Cinzel', serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--imperial-gold);
+    margin-bottom: 5px;
+  }
+
+  .about-role {
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    color: rgba(245, 240, 232, 0.5);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 22px;
+  }
+
+  .about-bio {
+    font-size: 20px;
+    line-height: 1.8;
+    color: rgba(245, 240, 232, 0.75);
+  }
+
+  /* ============ Chart Containers ============ */
+  .chart-container {
+    background: white;
+    border: 1px solid rgba(200, 169, 81, 0.2);
+    border-radius: 10px;
+    padding: 32px;
+    margin-top: 26px;
+    max-width: 1060px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+  }
+
+  .slide-dark .chart-container {
+    background: rgba(245, 240, 232, 0.04);
+    border-color: rgba(200, 169, 81, 0.15);
+  }
+
+  .chart-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 22px;
+  }
+
+  .slide-dark .chart-title { color: rgba(245, 240, 232, 0.5); }
+
+  /* ============ SVG Line Charts ============ */
+  .line-chart-svg {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* ============ VAMI Bar Chart ============ */
+  .vami-chart {
+    display: flex;
+    align-items: flex-end;
+    gap: 34px;
+    height: 240px;
+    justify-content: center;
+    padding: 0 40px;
+  }
+
+  .vami-bar-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .vami-bar {
+    width: 90px;
+    border-radius: 5px 5px 0 0;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 12px;
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: white;
+  }
+
+  .vami-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+  }
+
+  .slide-dark .vami-label { color: rgba(245, 240, 232, 0.5); }
+
+  /* ============ Waterfall Chart ============ */
+  .waterfall {
+    display: flex;
+    align-items: flex-end;
+    gap: 18px;
+    height: 190px;
+    padding: 0 20px;
+  }
+
+  .waterfall-bar-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .waterfall-bar {
+    width: 100%;
+    max-width: 110px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: white;
+    min-height: 28px;
+  }
+
+  .waterfall-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    text-align: center;
+  }
+
+  /* ============ Plain English Explainers ============ */
+  .explainer-box {
+    margin-top: 28px;
+    max-width: 1060px;
+    padding: 26px 30px;
+    border-radius: 10px;
+    border-left: 4px solid var(--imperial-gold);
+  }
+
+  .slide-content .explainer-box {
+    background: rgba(200, 169, 81, 0.06);
+    border-color: var(--imperial-gold);
+  }
+
+  .slide-dark .explainer-box {
+    background: rgba(200, 169, 81, 0.08);
+    border-color: var(--imperial-gold);
+  }
+
+  .slide-accent .explainer-box {
+    background: rgba(245, 240, 232, 0.08);
+    border-color: var(--imperial-gold);
+  }
+
+  .explainer-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--imperial-gold);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .explainer-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    line-height: 1.8;
+  }
+
+  .slide-content .explainer-text { color: var(--text-muted); }
+  .slide-dark .explainer-text { color: rgba(245, 240, 232, 0.6); }
+  .slide-accent .explainer-text { color: rgba(245, 240, 232, 0.65); }
+
+  .explainer-text strong { color: var(--imperial-gold-dark); }
+  .slide-dark .explainer-text strong, .slide-accent .explainer-text strong { color: var(--imperial-gold); }
+
+  /* ============ Two Column ============ */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    max-width: 1160px;
+  }
+
+  /* ============ Opportunity Slide ============ */
+  .opportunity-statement {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--marble-white);
+    line-height: 1.6;
+    max-width: 860px;
+    margin-bottom: 44px;
+    border-left: 3px solid var(--imperial-gold);
+    padding-left: 32px;
+  }
+
+  .opp-highlight {
+    color: var(--imperial-gold);
+    font-weight: 600;
+    font-style: normal;
+  }
+
+  /* ============ Hero Stat ============ */
+  .hero-stat {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+
+  .hero-stat-value {
+    font-family: 'Cinzel', serif;
+    font-size: 78px;
+    font-weight: 900;
+    color: var(--imperial-gold);
+    line-height: 1;
+  }
+
+  .hero-stat-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    color: rgba(245, 240, 232, 0.5);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  /* ============ Footer ============ */
+  .slide-footer {
+    position: absolute;
+    bottom: 32px; left: 90px; right: 90px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    color: rgba(90, 90, 110, 0.4);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .slide-dark .slide-footer, .slide-accent .slide-footer { color: rgba(245, 240, 232, 0.2); }
+
+  /* ============ Monthly Returns Heatmap ============ */
+  .heatmap-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+  }
+  .heatmap-table thead th {
+    background: var(--dark-slate);
+    color: var(--imperial-gold);
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 12px 10px;
+    text-align: center;
+    border-bottom: 2px solid var(--imperial-gold);
+  }
+  .heatmap-table tbody td, .heatmap-table tfoot td {
+    padding: 11px 8px;
+    text-align: center;
+    font-weight: 500;
+    border-bottom: 1px solid rgba(200,169,81,0.12);
+    font-size: 14px;
+    min-width: 52px;
+  }
+  .heatmap-table .row-label {
+    text-align: left;
+    font-weight: 700;
+    color: var(--dark-slate);
+    font-size: 14px;
+    letter-spacing: 1px;
+    min-width: 60px;
+    padding-left: 4px;
+  }
+  .heatmap-table .year-col { border-left: 2px solid var(--imperial-gold); }
+  .heatmap-table .year-cell {
+    font-weight: 700;
+    font-size: 15px;
+    border-left: 2px solid var(--imperial-gold);
+  }
+  .heatmap-table tfoot td { border-top: 2px solid rgba(200,169,81,0.25); }
+  .heatmap-table .qtr-cell { font-weight: 600; }
+
+  /* Heatmap colour scale */
+  .neutral-cell { color: #999; background: rgba(200,169,81,0.03); }
+  .pos-1 { background: rgba(74,103,65,0.12); color: #3D6B35; }
+  .pos-2 { background: rgba(74,103,65,0.20); color: #3D6B35; }
+  .pos-3 { background: rgba(74,103,65,0.30); color: #2D5525; }
+  .pos-4 { background: rgba(74,103,65,0.42); color: #1A3F15; font-weight: 700; }
+  .pos-5 { background: rgba(74,103,65,0.58); color: #0F2A0B; font-weight: 700; }
+  .neg-1 { background: rgba(139,35,50,0.12); color: #8B2332; }
+  .neg-2 { background: rgba(139,35,50,0.25); color: #6B1A27; }
+  .neg-3 { background: rgba(139,35,50,0.40); color: #4A0F19; font-weight: 700; }
+
+  /* ============ Mobile / Tablet Responsive ============ */
+  @media (max-width: 1024px) {
+    .slide { padding: 70px 50px; }
+    .main-title { font-size: 52px; letter-spacing: 4px; }
+    .subtitle { font-size: 22px; letter-spacing: 3px; }
+    .slide-heading { font-size: 38px; }
+    .two-col { grid-template-columns: 1fr; gap: 30px; }
+    .strategy-grid { grid-template-columns: 1fr 1fr; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .hero-stat-value { font-size: 60px; }
+    .about-content { gap: 40px; }
+    .opportunity-statement { font-size: 28px; }
+  }
+
+  @media (max-width: 768px) {
+    .nav-bar { padding: 10px 16px; }
+    .nav-logo { font-size: 15px; letter-spacing: 2px; }
+    .nav-links { display: none; }
+    .slide-counter { display: none; }
+
+    /* Hamburger button */
+    .hamburger {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 28px;
+      height: 28px;
+      cursor: pointer;
+      z-index: 201;
+      padding: 2px 0;
+      flex-shrink: 0;
+    }
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--imperial-gold);
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Mobile menu overlay */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(26,26,46,0.97);
+      backdrop-filter: blur(16px);
+      z-index: 200;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 20px;
+    }
+    .mobile-menu.open { display: flex; }
+
+    .mobile-menu a {
+      font-family: 'Cinzel', serif;
+      font-size: 20px;
+      font-weight: 600;
+      color: rgba(245,240,232,0.6);
+      text-decoration: none;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      padding: 14px 30px;
+      border-radius: 8px;
+      transition: all 0.3s;
+      text-align: center;
+      width: 100%;
+      max-width: 320px;
+    }
+    .mobile-menu a:hover, .mobile-menu a:active {
+      color: var(--imperial-gold);
+      background: rgba(200,169,81,0.1);
+    }
+    .mobile-menu .menu-divider {
+      width: 60px;
+      height: 1px;
+      background: rgba(200,169,81,0.2);
+      margin: 8px 0;
+    }
+    .mobile-menu .menu-close-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      color: rgba(245,240,232,0.25);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-top: 20px;
+      cursor: pointer;
+    }
+
+    .slide {
+      padding: 60px 24px 80px 24px;
+      min-height: auto;
+    }
+
+    .greek-border { top: 10px; left: 10px; right: 10px; bottom: 10px; }
+    .corner-ornament { width: 24px; height: 24px; }
+    .corner-ornament.tl { top: 8px; left: 8px; }
+    .corner-ornament.tr { top: 8px; right: 8px; }
+    .corner-ornament.bl { bottom: 8px; left: 8px; }
+    .corner-ornament.br { bottom: 8px; right: 8px; }
+
+    .main-title { font-size: 36px; letter-spacing: 3px; }
+    .subtitle { font-size: 18px; letter-spacing: 2px; }
+    .title-tagline { font-size: 17px; max-width: 100%; }
+    .title-period { font-size: 12px; }
+    .title-laurel { font-size: 36px; }
+
+    .section-label { font-size: 11px; letter-spacing: 2px; }
+    .slide-heading { font-size: 30px; letter-spacing: 1px; }
+    .heading-underline { width: 60px; margin-bottom: 24px; }
+    .slide-text { font-size: 17px; }
+
+    .opportunity-statement {
+      font-size: 22px;
+      padding-left: 20px;
+      margin-bottom: 28px;
+    }
+
+    .stats-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 20px;
+    }
+    .stat-card { padding: 20px 16px; }
+    .stat-value { font-size: 30px; }
+    .stat-label { font-size: 11px; }
+
+    .strategy-grid {
+      grid-template-columns: 1fr;
+      gap: 16px;
+      margin-top: 20px;
+    }
+    .strategy-card { padding: 24px 20px; }
+    .strategy-title { font-size: 18px; }
+    .strategy-text { font-size: 14px; }
+    .env-badge { font-size: 10px; }
+
+    .two-col {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .data-table { font-size: 13px; }
+    .data-table thead th { padding: 10px 12px; font-size: 10px; }
+    .data-table tbody td { padding: 10px 12px; }
+
+    .metric-row { gap: 12px; margin-bottom: 14px; }
+    .metric-label { font-size: 12px; width: 90px; letter-spacing: 0.5px; }
+    .metric-bar { font-size: 12px; padding-right: 8px; }
+    .metric-bar-bg { height: 28px; }
+
+    .chart-container { padding: 20px 16px; margin-top: 16px; }
+    .chart-title { font-size: 12px; margin-bottom: 14px; }
+
+    .vami-chart { gap: 16px; height: 180px; padding: 0 10px; }
+    .vami-bar { width: 60px; font-size: 12px; padding-top: 8px; }
+    .vami-label { font-size: 11px; }
+
+    .waterfall { height: 140px; gap: 12px; padding: 0 8px; }
+    .waterfall-bar { font-size: 12px; }
+    .waterfall-label { font-size: 10px; }
+
+    .hero-stat-value { font-size: 52px; }
+    .hero-stat-label { font-size: 13px; }
+
+    .about-content {
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+      text-align: center;
+    }
+    .about-avatar { width: 120px; height: 120px; font-size: 36px; }
+    .about-name { font-size: 26px; }
+    .about-role { font-size: 13px; }
+    .about-bio { font-size: 17px; text-align: left; }
+
+    .takeaway-grid {
+      grid-template-columns: 1fr;
+      gap: 14px;
+      margin-top: 20px;
+    }
+    .takeaway-card { padding: 20px; }
+    .takeaway-card[style*="grid-column: span 2"] { grid-column: span 1; }
+    .takeaway-icon { width: 40px; height: 40px; font-size: 18px; }
+    .takeaway-title { font-size: 16px; }
+    .takeaway-desc { font-size: 14px; }
+
+    .explainer-box { padding: 20px; margin-top: 20px; }
+    .explainer-title { font-size: 12px; }
+    .explainer-text { font-size: 14px; line-height: 1.7; }
+
+    .slide-footer {
+      position: relative;
+      bottom: auto; left: auto; right: auto;
+      margin-top: 30px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(200,169,81,0.15);
+      font-size: 9px;
+    }
+
+    .line-chart-svg { max-width: 100%; }
+
+    .heatmap-table { font-size: 11px; }
+    .heatmap-table thead th { padding: 8px 4px; font-size: 9px; }
+    .heatmap-table tbody td, .heatmap-table tfoot td { padding: 8px 4px; font-size: 11px; min-width: 36px; }
+    .heatmap-table .row-label { font-size: 11px; min-width: 40px; }
+    .heatmap-table .year-cell { font-size: 12px; }
+
+    /* Fee structure mobile */
+    #slide-fees .slide-heading { font-size: 28px; }
+    #slide-fees [style*="grid-template-columns: 1fr 1fr;"] { grid-template-columns: 1fr !important; }
+    #slide-fees [style*="grid-template-columns: 1fr 1fr 1fr;"] { grid-template-columns: 1fr !important; }
+  }
+
+  @media (max-width: 420px) {
+    .slide { padding: 50px 16px 70px 16px; }
+    .main-title { font-size: 28px; letter-spacing: 2px; }
+    .subtitle { font-size: 15px; }
+    .slide-heading { font-size: 26px; }
+    .opportunity-statement { font-size: 19px; }
+    .stats-grid { grid-template-columns: 1fr; }
+    .stat-value { font-size: 28px; }
+    .hero-stat-value { font-size: 42px; }
+    .about-avatar { width: 100px; height: 100px; font-size: 28px; }
+    .metric-label { width: 70px; font-size: 11px; }
+    .vami-chart { gap: 10px; height: 150px; }
+    .vami-bar { width: 48px; font-size: 10px; }
+  }
+
+  /* ============ Print ============ */
+  @media print {
+    .nav-bar { display: none; }
+    .slide { page-break-after: always; min-height: 100vh; }
+    body { background: white; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav-bar">
+  <div class="hamburger" onclick="toggleMobileMenu()">
+    <span></span><span></span><span></span>
+  </div>
+  <div class="nav-logo">Porticus Capital</div>
+  <div class="nav-links">
+    <button class="active" onclick="scrollToSlide(0)">Overview</button>
+    <button onclick="scrollToSlide(2)">Strategy</button>
+    <button onclick="scrollToSlide(4)">Performance</button>
+    <button onclick="scrollToSlide(6)">Risk</button>
+    <button onclick="scrollToSlide(9)">About</button>
+    <button onclick="scrollToId('slide-contact')">Contact</button>
+    <button onclick="scrollToId('slide-disclaimer')">Disclaimer</button>
+  </div>
+  <div class="slide-counter">CONFIDENTIAL</div>
+</nav>
+
+<!-- Mobile Menu Overlay -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#" onclick="mobileNav('slide-0')">Overview</a>
+  <a href="#" onclick="mobileNav('slide-1')">The Opportunity</a>
+  <a href="#" onclick="mobileNav('slide-2')">How We Trade</a>
+  <div class="menu-divider"></div>
+  <a href="#" onclick="mobileNav('slide-3')">Performance</a>
+  <a href="#" onclick="mobileNav('slide-4')">Benchmarks</a>
+  <a href="#" onclick="mobileNav('slide-5')">Charts</a>
+  <div class="menu-divider"></div>
+  <a href="#" onclick="mobileNav('slide-6')">Risk Profile</a>
+  <a href="#" onclick="mobileNav('slide-7')">Sector Attribution</a>
+  <a href="#" onclick="mobileNav('slide-8')">Risk Management</a>
+  <div class="menu-divider"></div>
+  <a href="#" onclick="mobileNav('slide-9b')">Monthly Returns</a>
+  <a href="#" onclick="mobileNav('slide-fees')">Fee Structure</a>
+  <a href="#" onclick="mobileNav('slide-9')">About</a>
+  <div class="menu-divider"></div>
+  <a href="#" onclick="mobileNav('slide-10')">Key Takeaways</a>
+  <a href="#" onclick="mobileNav('slide-contact')">Contact</a>
+  <a href="#" onclick="mobileNav('slide-disclaimer')">Disclaimer</a>
+  <div class="menu-close-label" onclick="toggleMobileMenu()">Tap to close</div>
+</div>
+
+<div class="slides-wrapper">
+
+<!-- ===== SLIDE 1: Title ===== -->
+<section class="slide slide-title-page" id="slide-0">
+  <div class="greek-border"></div>
+  <div class="corner-ornament tl"></div><div class="corner-ornament tr"></div>
+  <div class="corner-ornament bl"></div><div class="corner-ornament br"></div>
+  <div class="title-laurel">⟡</div>
+  <h1 class="main-title">Porticus Capital</h1>
+  <div class="title-divider"></div>
+  <p class="subtitle">Active Tactical Investment Strategy</p>
+  <p class="title-tagline">Providing consistent returns through active management using momentum-based revenue and earnings growth strategies.</p>
+  <p class="title-period">September 18, 2024 to February 27 2026 Performance Review</p>
+</section>
+
+<!-- ===== SLIDE 2: The Opportunity ===== -->
+<section class="slide slide-accent" id="slide-1">
+  <div class="greek-border"></div>
+  <div class="corner-ornament tl"></div><div class="corner-ornament tr"></div>
+  <div class="corner-ornament bl"></div><div class="corner-ornament br"></div>
+  <div class="section-label">The Opportunity</div>
+  <h2 class="slide-heading">What to Own &<br>When to Own It</h2>
+  <div class="heading-underline"></div>
+  <div class="opportunity-statement">
+    Markets reward those who can identify <span class="opp-highlight">the right assets</span> at <span class="opp-highlight">the right time</span>. Porticus Capital's active tactical approach delivers consistent alpha through disciplined equity momentum-based strategies, sector rotation, and rigorous risk management.
+  </div>
+  <div class="stats-grid" style="max-width: 760px;">
+    <div class="stat-card" style="background: rgba(245,240,232,0.08); border-color: rgba(200,169,81,0.2);">
+      <div class="stat-value" style="color: var(--imperial-gold);">76.50%</div>
+      <div class="stat-label" style="color: rgba(245,240,232,0.5);">Total Return</div>
+    </div>
+    <div class="stat-card" style="background: rgba(245,240,232,0.08); border-color: rgba(200,169,81,0.2);">
+      <div class="stat-value" style="color: var(--imperial-gold);">2.09</div>
+      <div class="stat-label" style="color: rgba(245,240,232,0.5);">Sharpe Ratio</div>
+    </div>
+    <div class="stat-card" style="background: rgba(245,240,232,0.08); border-color: rgba(200,169,81,0.2);">
+      <div class="stat-value" style="color: var(--imperial-gold);">12.36%</div>
+      <div class="stat-label" style="color: rgba(245,240,232,0.5);">Max Drawdown</div>
+    </div>
+  </div>
+  <div class="explainer-box">
+    <div class="explainer-title">💡 In Plain English</div>
+    <div class="explainer-text">
+      <strong>Total Return</strong> is the total profit earned since Sep 2024. <strong>Sharpe Ratio</strong> measures how much return we earn for each unit of risk taken — above 1.0 is considered good, and we're at 2.09 which is excellent. <strong>Max Drawdown</strong> is the biggest peak-to-trough drop — ours is much smaller than the major indices, meaning less pain during tough markets.
+    </div>
+  </div>
+  <div class="slide-footer"><span>Porticus Capital</span><span>Confidential</span></div>
+</section>
+
+<!-- ===== SLIDE 3: How We Trade ===== -->
+<section class="slide slide-dark" id="slide-2">
+  <div class="greek-border"></div>
+  <div class="corner-ornament tl"></div><div class="corner-ornament tr"></div>
+  <div class="corner-ornament bl"></div><div class="corner-ornament br"></div>
+  <div class="section-label">Strategy</div>
+  <h2 class="slide-heading">How We Trade</h2>
+  <div class="heading-underline"></div>
+  <p class="slide-text" style="margin-bottom: 32px;">A high-conviction, active tactical trading approach. Our strategy adapts dynamically to market conditions with clear rules for each regime.</p>
+
+  <div class="strategy-grid">
+    <div class="strategy-card bullish">
+      <div class="env-badge">Bullish</div>
+      <div class="strategy-title">Structurally Bullish Markets</div>
+      <div class="strategy-text">
+        Short-term momentum bursts (3–5 day holds) combined with longer-term swings (1–4 months) in select, relatively strong equity names with high momentum earnings and revenue growth rates of change. Dynamic sector allocation shifts into outperforming sectors with clear fundamental support. We exit when rates of change slow and technicals suggest we pivot to other opportunities.
+      </div>
+    </div>
+    <div class="strategy-card neutral">
+      <div class="env-badge">Uncertain / Mean Reverting</div>
+      <div class="strategy-title">Cautious Tactical</div>
+      <div class="strategy-text">
+        Short-term momentum bursts (3-5 day holds) in favorable equity setups only. Quicker to take profits and quicker to manage risk. Stricter sector selection criteria with increased cash for protection and short-term yield generation.
+      </div>
+    </div>
+    <div class="strategy-card bearish">
+      <div class="env-badge">Bearish / High Volatility</div>
+      <div class="strategy-title">Capital Preservation</div>
+      <div class="strategy-text">
+        Focus on strong conviction short-term momentum bursts (3-5 day holds) equity setups only with a bias towards capital preservation. Run significantly higher cash levels to generate interest yield and reduce portfolio risk exposure during adverse conditions. Running higher levels of cash also puts us in a position of strength when markets adjust to more favorable regimes.
+      </div>
+    </div>
+  </div>
+
+  <div class="explainer-box">
+    <div class="explainer-title">💡 In Plain English</div>
+    <div class="explainer-text">
+      We don't use a one-size-fits-all approach. When markets are rising, we invest more aggressively in strong companies. When markets are uncertain, we tighten up and hold more cash. When markets are falling, we focus primarily on protecting your capital. This flexibility is what helps us limit losses while capturing gains.
+    </div>
+  </div>
+
+  <div class="slide-footer"><span>Porticus Capital</span><span>Confidential</span></div>
+</section>
+
+<!-- ===== SLIDE 4: Performance Highlights ===== -->
+<section class="slide slide-content" id="slide-3">
+  <div class="greek-border"></div>
+  <div class="corner-ornament tl"></div><div class="corner-ornament tr"></div>
+  <div class="corner-ornament bl"></div><div class="corner-ornament br"></div>
+  <div class="section-label">Performance</div>
+  <h2 class="slide-heading">Performance Highlights</h2>
+  <div class="heading-underline"></div>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-value">76.50%</div>
+      <div class="stat-label">Cumulative Return (TWR)</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">32.71%</div>
+      <div class="stat-label">1-Year Return</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">27.51%</div>
+      <div class="stat-label">6-Month Annualized</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">48.26%</div>
+      <div class="stat-label">18-Month Annualized</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">4.14%</div>
+      <div class="stat-label">Year-to-Date</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">1.07%</div>
+      <div class="stat-label">Month-to-Date</div>
+    </div>
+  </div>
+
+  <div style="display: flex; gap: 30px; margin-top: 30px; max-width: 1060px;">
+    <div style="flex: 1; padding: 22px; background: rgba(200,169,81,0.06); border-radius: 8px; text-align: center; border: 1px solid rgba(200,169,81,0.15);">
+      <div style="font-family: 'Cinzel'; font-size: 30px; font-weight: 700; color: var(--imperial-gold-dark);">+0.16%</div>
+      <div style="font-family: 'Inter'; font-size: 13px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 6px;">Daily Mean Return</div>
+    </div>
+    <div style="flex: 1; padding: 22px; background: rgba(200,169,81,0.06); border-radius: 8px; text-align: center; border: 1px solid rgba(200,169,81,0.15);">
+      <div style="font-family: 'Cinzel'; font-size: 30px; font-weight: 700; color: var(--imperial-gold-dark);">56.08%</div>
+      <div style="font-family: 'Inter'; font-size: 13px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 6px;">Winning Days (212 of 378)</div>
+    </div>
+  </div>
+
+  <div class="explainer-box">
+    <div class="explainer-title">💡 In Plain English</div>
+    <div class="explainer-text">
+      <strong>Cumulative Return (TWR)</strong> = Total profit since inception, adjusted so that deposits and withdrawals don't distort the numbers. This is the true measure of investment skill.
+      <strong>Annualized</strong> = What the return would be per year if the same pace continued. For example, our 18-month annualized return of 48.26% means the fund is growing at a pace equivalent to ~48% per year over that period.
+      <strong>Daily Mean Return</strong> = On an average day, the fund gains 0.16%. That compounds significantly over time.
+      <strong>Winning Days</strong> = More than half of all trading days are profitable — consistency matters.
+    </div>
+  </div>
+
+  <div class="slide-footer"><span>Porticus Capital</span><span>Confidential</span></div>
+</section>
+
+<!-- ===== SLIDE 5: Benchmark Outperformance ===== -->
+<section class="slide slide-dark" id="slide-4">
+  <div class="greek-border"></div>
+  <div class="corner-ornament tl"></div><div class="corner-ornament tr"></div>
+  <div class="corner-ornament bl"></div><div class="corner-ornament br"></div>
+  <div class="section-label">Alpha Generation</div>
+  <h2 class="slide-heading">Benchmark Outperformance</h2>
+  <div class="heading-underline"></div>
+
+  <div class="two-col">
+    <div>
+      <div class="chart-container" style="background: rgba(245,240,232,0.04); border-color: rgba(200,169,81,0.15);">
+        <div class="chart-title" style="color: rgba(245,240,232,0.5);">Ending VAMI — Growth of $1,000</div>
+        <div class="vami-chart">
+          <div class="vami-bar-group">
+            <div class="vami-bar bar-porticus" style="height: 210px;">$1,765</div>
+            <div class="vami-label" style="color: rgba(245,240,232,0.5);">Porticus</div>
+          </div>
+          <div class="vami-bar-group">
+            <div class="vami-bar bar-qqq" style="height: 154px;">$1,293</div>
+            <div class="vami-label" style="color: rgba(245,240,232,0.5);">QQQ</div>
+          </div>
+          <div class="vami-bar-group">
+            <div class="vami-bar bar-spy" style="height: 146px;">$1,240</div>
+            <div class="vami-label" style="color: rgba(245,240,232,0.5);">SPY</div>
+          </div>
+          <div class="vami-bar-group">
+            <div class="vami-bar bar-ewa" style="height: 142px;">$1,206</div>
+            <div class="vami-label" style="color: rgba(245,240,232,0.5);">EWA</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <table class="data-table">
+        <thead><tr><th>Metric</th><th>Porticus</th><th>QQQ</th><th>SPY</th><th>EWA</th></tr></thead>
+        <tbody>
+          <tr><td>Ending VAMI</td><td>1,765</td><td>1,293</td><td>1,240</td><td>1,206</td></tr>
+          <tr><td>1-Year Return</td><td>32.71%</td><td>18.61%</td><td>16.73%</td><td>~21.7%</td></tr>
+          <tr><td>Max Drawdown</td><td>12.36%</td><td>22.77%</td><td>18.76%</td><td>21.91%</td></tr>
+          <tr><td>Recovery Days</td><td>25</td><td>55</td><td>57</td><td>45</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="explainer-box">
+    <div class="explainer-title">💡 In Plain English</div>
+    <div class="explainer-text">
+      <strong>VAMI (Value Added Monthly Index)</strong> shows what $1,000 would have grown to. Porticus turned $1,000 into $1,765 — vs $1,293 for QQQ (the Nasdaq 100) and $1,240 for SPY (the S&P 500).
+      <strong>QQQ</strong> = Nasdaq 100 ETF (big US tech stocks). <strong>SPY</strong> = S&P 500 ETF (broad US market). <strong>EWA</strong> = Australian market ETF.
+      <strong>Max Drawdown</strong> = The worst peak-to-valley decline. Ours was only 12.36% compared to 22.77% for QQQ.
+      <strong>Recovery Days</strong> = How quickly we bounced back from that worst drop — just 25 days vs months for benchmarks.
+    </div>
+  </div>
+
+  <div class="slide-footer"><span>Porticus Capital</span><span>Confidential</span></div>
+</section>
+
+<!-- ===== SLIDE 6: Performance Line Charts ===== -->
+<section class="slide slide-content" id="slide-5">
+  <div class="greek-border"></div>
+  <div class="corner-ornament tl"></div><div class="corner-ornament tr"></div>
+  <div class="corner-ornament bl"></div><div class="corner-ornament br"></div>
+  <div class="section-label">Visual Comparison</div>
+  <h2 class="slide-heading">Performance vs Benchmarks</h2>
+  <div class="heading-underline"></div>
+
+  <div class="two-col">
+    <div>
+      <div class="chart-container">
+        <div class="chart-title">Cumulative Growth — Porticus vs Benchmarks</div>
+        <!-- SVG Line Chart: Cumulative Returns -->
+        <svg viewBox="0 0 500 300" class="line-chart-svg" xmlns="http://www.w3.org/2000/svg">
+          <!-- Grid lines -->
+          <line x1="60" y1="30" x2="60" y2="260" stroke="#E8E0D0" stroke-width="1"/>
+          <line x1="60" y1="260" x2="480" y2="260" stroke="#E8E0D0" stroke-width="1"/>
+          <line x1="60" y1="202" x2="480" y2="202" stroke="#E8E0D0" stroke-width="0.5" stroke-dasharray="4"/>
+          <line x1="60" y1="144" x2="480" y2="144" stroke="#E8E0D0" stroke-width="0.5" stroke-dasharray="4"/>
+          <line x1="60" y1="86" x2="480" y2="86" stroke="#E8E0D0" stroke-width="0.5" stroke-dasharray="4"/>
+          <line x1="60" y1="30" x2="480" y2="30" stroke="#E8E0D0" stroke-width="0.5" stroke-dasharray="4"/>
+
+          <!-- Y-axis labels -->
+          <text x="52" y="264" font-family="Inter" font-size="11" fill="#8A8A9E" text-anchor="end">$1,000</text>
+          <text x="52" y="206" font-family="Inter" font-size="11" fill="#8A8A9E" text-anchor="end">$1,200</text>
+          <text x="52" y="148" font-family="Inter" font-size="11" fill="#8A8A9E" text-anchor="end">$1,400</text>
+          <text x="52" y="90" font-family="Inter" font-size="11" fill="#8A8A9E" text-anchor="end">$1,600</text>
+          <text x="52" y="34" font-family="Inter" font-size="11" fill="#8A8A9E" text-anchor="end">$1,800</text>
+
+          <!-- X-axis labels -->
+          <text x="60" y="278" font-family="Inter" font-size="10" fill="#8A8A9E" text-anchor="middle">Sep 24</text>
+          <text x="165" y="278" font-family="Inter" font-size="10" fill="#8A8A9E" text-anchor="middle">Dec 24</text>
+          <text x="270" y="278" font-family="Inter" font-size="10" fill="#8A8A9E" text-anchor="middle">Jun 25</text>
+          <text x="375" y="278" font-family="Inter" font-size="10" fill="#8A8A9E" text-anchor="middle">Sep 25</text>
+          <text x="480" y="278" font-family="Inter" font-size="10" fill="#8A8A9E" text-anchor="middle">Feb 26</text>
+
+          <!-- Area fill for Porticus -->
+          <path d="M60,260 L165,220 L270,150 L375,95 L480,42 L480,260 Z" fill="url(#goldGradient)" opacity="0.15"/>
+          <defs>
+            <linearGradient id="goldGradient" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#C8A951" stop-opacity="0.6"/>
+              <stop offset="100%" stop-color="#C8A951" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+
+          <!-- EWA line -->
+          <polyline points="60,260 165,245 270,225 375,210 480,187" fill="none" stroke="#5B8A9A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/>
+          <!-- SPY line -->
+          <polyline points="60,260 165,242 270,220 375,205 480,180" fill="none" stroke="#718096" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/>
+          <!-- QQQ line -->
+          <polyline points="60,260 165,238 270,212 375,195 480,168" fill="none" stroke="#5C8350" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/>
+          <!-- Porticus line (dominant) -->
+          <polyline points="60,260 165,220 270,150 375,95 480,42" fill="none" stroke="#C8A951" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+          <!-- End dots -->
+          <circle cx="480" cy="42" r="5" fill="#C8A951"/>
+          <circle cx="480" cy="168" r="4" fill="#5C8350"/>
+          <circle cx="480" cy="180" r="4" fill="#718096"/>
+          <circle cx="480" cy="187" r="4" fill="#5B8A9A"/>
+
+          <!-- End labels -->
+          <text x="475" y="36" font-family="Inter" font-size="11" font-weight="700" fill="#C8A951" text-anchor="end">Porticus $1,765</text>
+          <text x="475" y="162" font-family="Inter" font-size="10" fill="#5C8350" text-anchor="end">QQQ $1,293</text>
+          <text x="475" y="196" font-family="Inter" font-size="10" fill="#718096" text-anchor="end">SPY $1,240</text>
+          <text x="475" y="210" font-family="Inter" font-size="10" fill="#5B8A9A" text-anchor="end">EWA $1,206</text>
+        </svg>
+      </div>
+    </div>
+    <div>
+      <div class="chart-container">
+        <div class="chart-title">Annualized Returns Comparison</div>
+        <!-- SVG Grouped Bar/Line hybrid for annualized returns -->
+        <svg viewBox="0 0 500 300" class="line-chart-svg" xmlns="http://www.w3.org/2000/svg">
+          <!-- Grid -->
+          <line x1="60" y1="30" x2="60" y2="260" stroke="#E8E0D0" stroke-width="1"/>
+          <line x1="60" y1="260" x2="480" y2="260" stroke="#E8E0D0" stroke-width="1"/>
+          <line x1="60" y1="206" x2="480" y2="206" stroke="#E8E0D0" stroke-width="0.5" stroke-dasharray="4"/>
+          <line x1="60" y1="152" x2="480" y2="152" stroke="#E8E0D0" stroke-width="0.5" stroke-dasharray="4"/>
+          <line x1="60" y1="98" x2="480" y2="98" stroke="#E8E0D0" stroke-width="0.5" stroke-dasharray="4"/>
+
+          <!-- Y-axis -->
+          <text x="52" y="264" font-family="Inter" font-size="11" fill="#8A8A9E" text-anchor="end">0%</text>
+          <text x="52" y="210" font-family="Inter" font-size="11" fill="#8A8A9E" text-anchor="end">15%</text>
+          <text x="52" y="156" font-family="Inter" font-size="11" fill="#8A8A9E" text-anchor="end">30%</text>
+          <text x="52" y="102" font-family="Inter" font-size="11" fill="#8A8A9E" text-anchor="end">50%</text>
+
+          <!-- X-axis labels -->
+          <text x="145" y="278" font-family="Inter" font-size="11" fill="#8A8A9E" text-anchor="middle">1-Year</text>
+          <text x="270" y="278" font-family="Inter" font-size="11" fill="#8A8A9E" text-anchor="middle">6-Mo Ann.</text>
+          <text x="395" y="278" font-family="Inter" font-size="11" fill="#8A8A9E" text-anchor="middle">18-Mo Ann.</text>
+
+          <!-- Porticus bars -->
+          <rect x="110" y="110" width="30" height="150" rx="3" fill="#C8A951" opacity="0.9"/>
+          <rect x="235" y="133" width="30" height="127" rx="3" fill="#C8A951" opacity="0.9"/>
+          <rect x="360" y="38" width="30" height="222" rx="3" fill="#C8A951" opacity="0.9"/>
+
+          <!-- QQQ bars -->
+          <rect x="145" y="187" width="24" height="73" rx="3" fill="#5C8350" opacity="0.8"/>
+          <rect x="270" y="205" width="24" height="55" rx="3" fill="#5C8350" opacity="0.8"/>
+          <rect x="395" y="177" width="24" height="83" rx="3" fill="#5C8350" opacity="0.8"/>
+
+          <!-- SPY bars -->
+          <rect x="173" y="196" width="24" height="64" rx="3" fill="#718096" opacity="0.7"/>
+          <rect x="298" y="214" width="24" height="46" rx="3" fill="#718096" opacity="0.7"/>
+          <rect x="423" y="191" width="24" height="69" rx="3" fill="#718096" opacity="0.7"/>
+
+          <!-- EWA bars -->
+          <rect x="201" y="200" width="24" height="60" rx="3" fill="#5B8A9A" opacity="0.7"/>
+          <rect x="326" y="242" width="24" height="18" rx="3" fill="#5B8A9A" opacity="0.7"/>
+          <rect x="451" y="205" width="24" height="55" rx="3" fill="#5B8A9A" opacity="0.7"/>
+
+          <!-- Value labels -->
+          <text x="125" y="104" font-family="Inter" font-size="12" font-weight="700" fill="#C8A951" text-anchor="middle">32.7%</text>
+          <text x="250" y="127" font-family="Inter" font-size="12" font-weight="700" fill="#C8A951" text-anchor="middle">27.5%</text>
+          <text x="375" y="32" font-family="Inter" font-size="12" font-weight="700" fill="#C8A951" text-anchor="middle">48.3%</text>
+
+          <text x="157" y="182" font-family="Inter" font-size="10" fill="#5C8350" text-anchor="middle">18.6%</text>
+          <text x="282" y="200" font-family="Inter" font-size="10" fill="#5C8350" text-anchor="middle">~12%</text>
+          <text x="407" y="172" font-family="Inter" font-size="10" fill="#5C8350" text-anchor="middle">~18%</text>
+
+          <text x="185" y="191" font-family="Inter" font-size="10" fill="#718096" text-anchor="middle">16.7%</text>
+          <text x="310" y="209" font-family="Inter" font-size="10" fill="#718096" text-anchor="middle">~10%</text>
+          <text x="435" y="186" font-family="Inter" font-size="10" fill="#718096" text-anchor="middle">~15%</text>
+
+          <text x="213" y="195" font-family="Inter" font-size="10" fill="#5B8A9A" text-anchor="middle">~21.7%</text>
+          <text x="338" y="237" font-family="Inter" font-size="10" fill="#5B8A9A" text-anchor="middle">~4%</text>
+          <text x="463" y="200" font-family="Inter" font-size="10" fill="#5B8A9A" text-anchor="middle">~12%</text>
+
+          <!-- Legend -->
+          <rect x="80" y="290" width="12" height="8" rx="2" fill="#C8A951"/>
+          <text x="97" y="297" font-family="Inter" font-size="10" fill="#8A8A9E">Porticus</text>
+          <rect x="160" y="290" width="12" height="8" rx="2" fill="#5C8350"/>
+          <text x="177" y="297" font-family="Inter" font-size="10" fill="#8A8A9E">QQQ</text>
+          <rect x="220" y="290" width="12" height="8" rx="2" fill="#718096"/>
+          <text x="237" y="297" font-family="Inter" font-size="10" fill="#8A8A9E">SPY</text>
+          <rect x="275" y="290" width="12" height="8" rx="2" fill="#5B8A9A"/>
+          <text x="292" y="297" font-family="Inter" font-size="10" fill="#8A8A9E">EWA</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- Additional horizontal bar comparisons -->
+  <div class="two-col" style="margin-top: 28px;">
+    <div>
+      <div class="chart-container">
+        <div class="chart-title">1-Year Returns</div>
+        <div class="metric-row"><div class="metric-label">Porticus</div><div class="metric-bar-bg"><div class="metric-bar bar-porticus" style="width: 100%;">32.71%</div></div></div>
+        <div class="metric-row"><div class="metric-label">QQQ</div><div class="metric-bar-bg"><div class="metric-bar bar-qqq" style="width: 56.9%;">18.61%</div></div></div>
+        <div class="metric-row"><div class="metric-label">SPY</div><div class="metric-bar-bg"><div class="metric-bar bar-spy" style="width: 51.1%;">16.73%</div></div></div>
+        <div class="metric-row"><div class="metric-label">EWA</div><div class="metric-bar-bg"><div class="metric-bar bar-ewa" style="width: 66.3%;">~21.7%</div></div></div>
+      </div>
+    </div>
+    <div>
+      <div class="chart-container">
+        <div class="chart-title">Max Drawdown (Lower = Better)</div>
+        <div class="metric-row"><div class="metric-label">Porticus</div><div class="metric-bar-bg"><div class="metric-bar bar-porticus" style="width: 54.3%;">12.36%</div></div></div>
+        <div class="metric-row"><div class="metric-label">QQQ</div><div class="metric-bar-bg"><div class="metric-bar" style="width: 100%; background: linear-gradient(90deg, #8B2332, #A63D4D);">22.77%</div></div></div>
+        <div class="metric-row"><div class="metric-label">SPY</div><div class="metric-bar-bg"><div class="metric-bar" style="width: 82.4%; background: linear-gradient(90deg, #8B2332, #A63D4D);">18.76%</div></div></div>
+        <div class="metric-row"><div class="metric-label">EWA</div><div class="metric-bar-bg"><div class="metric-bar" style="width: 96.2%; background: linear-gradient(90deg, #8B2332, #A63D4D);">21.91%</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-footer"><span>Porticus Capital</span><span>Confidential</span></div>
+</section>
+
+<!-- ===== SLIDE 7: Risk-Adjusted Excellence ===== -->
+<section class="slide slide-dark" id="slide-6">
+  <div class="greek-border"></div>
+  <div class="corner-ornament tl"></div><div class="corner-ornament tr"></div>
+  <div class="corner-ornament bl"></div><div class="corner-ornament br"></div>
+  <div class="section-label">Risk Profile</div>
+  <h2 class="slide-heading">Risk-Adjusted Excellence</h2>
+  <div class="heading-underline"></div>
+
+  <div class="two-col">
+    <div>
+      <div class="hero-stat">
+        <div class="hero-stat-value">2.09</div>
+      </div>
+      <div class="hero-stat-label" style="margin-bottom: 34px;">Sharpe Ratio</div>
+
+      <div class="hero-stat">
+        <div class="hero-stat-value">3.51</div>
+      </div>
+      <div class="hero-stat-label" style="margin-bottom: 34px;">Sortino Ratio</div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 12px;">
+        <div style="padding: 20px; background: rgba(245,240,232,0.06); border-radius: 8px; text-align: center; border: 1px solid rgba(200,169,81,0.15);">
+          <div style="font-family: 'Cinzel'; font-size: 26px; font-weight: 700; color: var(--imperial-gold);">1.09%</div>
+          <div style="font-family: 'Inter'; font-size: 12px; color: rgba(245,240,232,0.4); text-transform: uppercase; letter-spacing: 1px; margin-top: 6px;">Std Deviation</div>
+        </div>
+        <div style="padding: 20px; background: rgba(245,240,232,0.06); border-radius: 8px; text-align: center; border: 1px solid rgba(200,169,81,0.15);">
+          <div style="font-family: 'Cinzel'; font-size: 26px; font-weight: 700; color: var(--imperial-gold);">0.65%</div>
+          <div style="font-family: 'Inter'; font-size: 12px; color: rgba(245,240,232,0.4); text-transform: uppercase; letter-spacing: 1px; margin-top: 6px;">Downside Dev</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="chart-container" style="background: rgba(245,240,232,0.04); border-color: rgba(200,169,81,0.15);">
+        <div class="chart-title" style="color: rgba(245,240,232,0.5);">Sharpe Ratio Comparison</div>
+        <div class="metric-row"><div class="metric-label" style="color: rgba(245,240,232,0.5);">Porticus</div><div class="metric-bar-bg"><div class="metric-bar bar-porticus" style="width: 100%;">2.09</div></div></div>
+        <div class="metric-row"><div class="metric-label" style="color: rgba(245,240,232,0.5);">QQQ</div><div class="metric-bar-bg"><div class="metric-bar bar-qqq" style="width: 35.4%;">0.74</div></div></div>
+        <div class="metric-row"><div class="metric-label" style="color: rgba(245,240,232,0.5);">SPY</div><div class="metric-bar-bg"><div class="metric-bar bar-spy" style="width: 34%;">0.71</div></div></div>
+        <div class="metric-row"><div class="metric-label" style="color: rgba(245,240,232,0.5);">EWA</div><div class="metric-bar-bg"><div class="metric-bar bar-ewa" style="width: 26.8%;">0.56</div></div></div>
+      </div>
+      <div class="chart-container" style="background: rgba(245,240,232,0.04); border-color: rgba(200,169,81,0.15); margin-top: 18px;">
+        <div class="chart-title" style="color: rgba(245,240,232,0.5);">Sortino Ratio Comparison</div>
+        <div class="metric-row"><div class="metric-label" style="color: rgba(245,240,232,0.5);">Porticus</div><div class="metric-bar-bg"><div class="metric-bar bar-porticus" style="width: 100%;">3.51</div></div></div>
+        <div class="metric-row"><div class="metric-label" style="color: rgba(245,240,232,0.5);">QQQ</div><div class="metric-bar-bg"><div class="metric-bar bar-qqq" style="width: 30.8%;">1.08</div></div></div>
+        <div class="metric-row"><div class="metric-label" style="color: rgba(245,240,232,0.5);">SPY</div><div class="metric-bar-bg"><div class="metric-bar bar-spy" style="width: 29.6%;">1.04</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="explainer-box">
+    <div class="explainer-title">💡 In Plain English</div>
+    <div class="explainer-text">
+      <strong>Sharpe Ratio</strong> = Return earned per unit of total risk. Think of it as "bang for your buck." Above 1.0 is good, above 2.0 is exceptional. Porticus is at 2.09 — nearly 3x better than the major indices.<br>
+      <strong>Sortino Ratio</strong> = Like Sharpe, but only counts downside risk (the bad kind). At 3.51, Porticus earns outstanding returns relative to how little it falls.<br>
+      <strong>Standard Deviation (Std Dev)</strong> = How much the fund's daily returns bounce around. Lower = smoother ride. At 1.09%, Porticus is less volatile than all benchmarks.<br>
+      <strong>Downside Deviation</strong> = Only measures the "bad" volatility — how much the fund drops on down days. At 0.65%, losses are very well contained.<br><br>
+      <em style="color: var(--imperial-gold);">Bottom line: Porticus delivers significantly higher returns with significantly less risk than the major market indices.</em>
+    </div>
+  </div>
+
+  <div class="slide-footer"><span>Porticus Capital</span><span>Confidential</span></div>
+</section>
+
+<!-- ===== SLIDE 8: Sector Attribution ===== -->
+<section class="slide slide-content" id="slide-7">
+  <div class="greek-border"></div>
+  <div class="corner-ornament tl"></div><div class="corner-ornament tr"></div>
+  <div class="corner-ornament bl"></div><div class="corner-ornament br"></div>
+  <div class="section-label">Attribution</div>
+  <h2 class="slide-heading">Sector Performance & Attribution</h2>
+  <div class="heading-underline"></div>
+
+  <div class="two-col">
+    <div>
+      <p class="slide-text" style="margin-bottom: 26px;">Strong outperformance across Technology, Industrials, Energy, and Basic Materials. Total attribution effect of <strong style="color: var(--roman-red); font-size: 28px;">+42.23%</strong> versus QQQ.</p>
+
+      <div class="chart-container">
+        <div class="chart-title">Attribution Breakdown vs QQQ</div>
+        <div class="waterfall">
+          <div class="waterfall-bar-group">
+            <div class="waterfall-bar bar-porticus" style="height: 130px;">+42.23%</div>
+            <div class="waterfall-label">Total Alpha</div>
+          </div>
+          <div class="waterfall-bar-group">
+            <div class="waterfall-bar" style="height: 88px; background: linear-gradient(180deg, var(--laurel-green), #5C8350);">Selection</div>
+            <div class="waterfall-label">Stock Selection</div>
+          </div>
+          <div class="waterfall-bar-group">
+            <div class="waterfall-bar" style="height: 55px; background: linear-gradient(180deg, var(--bronze), var(--imperial-gold-dark));">Allocation</div>
+            <div class="waterfall-label">Sector Allocation</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="chart-container">
+        <div class="chart-title">Top Alpha-Generating Sectors</div>
+        <div class="metric-row"><div class="metric-label">Technology</div><div class="metric-bar-bg"><div class="metric-bar bar-porticus" style="width: 90%;">Primary Driver</div></div></div>
+        <div class="metric-row"><div class="metric-label">Industrials</div><div class="metric-bar-bg"><div class="metric-bar bar-qqq" style="width: 65%;">Strong Alpha</div></div></div>
+        <div class="metric-row"><div class="metric-label">Energy</div><div class="metric-bar-bg"><div class="metric-bar bar-ewa" style="width: 55%;">Strong Alpha</div></div></div>
+        <div class="metric-row"><div class="metric-label">Basic Materials</div><div class="metric-bar-bg"><div class="metric-bar bar-spy" style="width: 50%;">Strong Alpha</div></div></div>
+      </div>
+
+      <div style="margin-top: 26px; padding: 24px; border: 1px solid rgba(200,169,81,0.2); border-radius: 10px; background: rgba(200,169,81,0.04);">
+        <div style="font-family: 'Inter'; font-size: 13px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px;">Key Drivers</div>
+        <div style="font-family: 'Inter'; font-size: 16px; line-height: 1.8; color: var(--text-dark);">
+          Superior <strong style="color: var(--roman-red);">Stock Selection</strong> — especially in Technology & Basic Materials<br>
+          Tactical <strong style="color: var(--roman-red);">Sector Allocation</strong> — dynamic rotation capturing sector momentum
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="explainer-box">
+    <div class="explainer-title">💡 In Plain English</div>
+    <div class="explainer-text">
+      <strong>Sector Attribution</strong> breaks down where our outperformance came from. Think of it in two parts: <strong>Stock Selection</strong> means we picked better individual companies within each sector. <strong>Sector Allocation</strong> means we put more money into the sectors that performed best. Together, these decisions added +42.23% more return than simply holding the QQQ (Nasdaq 100). In short — we owned the right stocks in the right sectors at the right time.
+    </div>
+  </div>
+
+  <div class="slide-footer"><span>Porticus Capital</span><span>Confidential</span></div>
+</section>
+
+<!-- ===== SLIDE 9: Risk Management ===== -->
+<section class="slide slide-dark" id="slide-8">
+  <div class="greek-border"></div>
+  <div class="corner-ornament tl"></div><div class="corner-ornament tr"></div>
+  <div class="corner-ornament bl"></div><div class="corner-ornament br"></div>
+  <div class="section-label">Risk Management</div>
+  <h2 class="slide-heading">VaR, Recovery & Beta</h2>
+  <div class="heading-underline"></div>
+
+  <div class="stats-grid" style="grid-template-columns: repeat(4, 1fr);">
+    <div class="stat-card" style="background: rgba(245,240,232,0.06); border-color: rgba(200,169,81,0.2);">
+      <div class="stat-value" style="color: var(--imperial-gold);">0.59%</div>
+      <div class="stat-label" style="color: rgba(245,240,232,0.5);">VaR (Parametric)</div>
+    </div>
+    <div class="stat-card" style="background: rgba(245,240,232,0.06); border-color: rgba(200,169,81,0.2);">
+      <div class="stat-value" style="color: var(--imperial-gold);">0.98%</div>
+      <div class="stat-label" style="color: rgba(245,240,232,0.5);">VaR (Historical)</div>
+    </div>
+    <div class="stat-card" style="background: rgba(245,240,232,0.06); border-color: rgba(200,169,81,0.2);">
+      <div class="stat-value" style="color: var(--imperial-gold);">25</div>
+      <div class="stat-label" style="color: rgba(245,240,232,0.5);">Recovery Days</div>
+    </div>
+    <div class="stat-card" style="background: rgba(245,240,232,0.06); border-color: rgba(200,169,81,0.2);">
+      <div class="stat-value" style="color: var(--imperial-gold);">~0.65</div>
+      <div class="stat-label" style="color: rgba(245,240,232,0.5);">Beta (vs QQQ)</div>
+    </div>
+  </div>
+
+  <div style="margin-top: 32px; max-width: 1060px;">
+    <div class="chart-container" style="background: rgba(245,240,232,0.04); border-color: rgba(200,169,81,0.15);">
+      <div class="chart-title" style="color: rgba(245,240,232,0.5);">Drawdown Recovery Speed (Days) — Lower = Better</div>
+      <div class="metric-row"><div class="metric-label" style="color: rgba(245,240,232,0.5);">Porticus</div><div class="metric-bar-bg"><div class="metric-bar bar-porticus" style="width: 43.9%;">25 days</div></div></div>
+      <div class="metric-row"><div class="metric-label" style="color: rgba(245,240,232,0.5);">EWA</div><div class="metric-bar-bg"><div class="metric-bar bar-ewa" style="width: 78.9%;">45 days</div></div></div>
+      <div class="metric-row"><div class="metric-label" style="color: rgba(245,240,232,0.5);">QQQ</div><div class="metric-bar-bg"><div class="metric-bar bar-qqq" style="width: 96.5%;">55 days</div></div></div>
+      <div class="metric-row"><div class="metric-label" style="color: rgba(245,240,232,0.5);">SPY</div><div class="metric-bar-bg"><div class="metric-bar bar-spy" style="width: 100%;">57 days</div></div></div>
+    </div>
+  </div>
+
+  <div style="margin-top: 26px; max-width: 1060px; padding: 22px 28px; border: 1px solid rgba(200,169,81,0.2); border-radius: 10px; background: rgba(245,240,232,0.04);">
+    <div style="font-family: 'Inter'; font-size: 16px; line-height: 1.8; color: rgba(245,240,232,0.7);">
+      <strong style="color: var(--imperial-gold);">Portfolio Turnover:</strong> 9,500.30% — Reflecting a highly active strategy with disciplined position management and dynamic risk allocation. All performance figures are net of trading costs and commissions but gross of management and performance fees.
+    </div>
+  </div>
+
+  <div class="explainer-box">
+    <div class="explainer-title">💡 In Plain English</div>
+    <div class="explainer-text">
+      <strong>VaR (Value at Risk)</strong> = The most we'd expect to lose on a typical bad day. At 0.59%, a $100,000 portfolio would expect to lose no more than ~$590 on 95% of days. Very conservative.<br>
+      <strong>Beta</strong> = How much the fund moves relative to the market. A beta of 0.65 means if the QQQ drops 10%, Porticus would historically only drop about 6.5%. We capture more of the upside and less of the downside.<br>
+      <strong>Recovery Days</strong> = After the worst decline, we recovered in just 25 days — more than twice as fast as the major indices.<br>
+      <strong>Turnover</strong> = How actively we trade. High turnover reflects our tactical approach — we don't sit and hope, we actively manage positions to protect and grow capital.<br><br>
+      <em style="color: var(--imperial-gold);">Bottom line: Your money is actively protected. Losses are small, recoveries are fast, and we don't just ride the market — we actively manage risk every single day.</em>
+    </div>
+  </div>
+
+  <div class="slide-footer"><span>Porticus Capital</span><span>Confidential</span></div>
+</section>
+
+<!-- ===== SLIDE 9b: Monthly Returns Heatmap ===== -->
+<section class="slide slide-content" id="slide-9b">
+  <div class="greek-border"></div>
+  <div class="corner-ornament tl"></div><div class="corner-ornament tr"></div>
+  <div class="corner-ornament bl"></div><div class="corner-ornament br"></div>
+  <div class="section-label">Track Record</div>
+  <h2 class="slide-heading">Monthly Returns (%)</h2>
+  <div class="heading-underline"></div>
+
+  <div style="overflow-x: auto; max-width: 1060px;">
+    <table class="heatmap-table">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Jan</th><th>Feb</th><th>Mar</th><th>Apr</th><th>May</th><th>Jun</th>
+          <th>Jul</th><th>Aug</th><th>Sep</th><th>Oct</th><th>Nov</th><th>Dec</th>
+          <th class="year-col">Year</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="row-label">2024</td>
+          <td class="neutral-cell">—</td>
+          <td class="neutral-cell">—</td>
+          <td class="neutral-cell">—</td>
+          <td class="neutral-cell">—</td>
+          <td class="neutral-cell">—</td>
+          <td class="neutral-cell">—</td>
+          <td class="neutral-cell">—</td>
+          <td class="neutral-cell">—</td>
+          <td class="pos-3">3.98</td>
+          <td class="pos-1">2.38</td>
+          <td class="pos-5">18.77</td>
+          <td class="pos-1">0.72</td>
+          <td class="year-cell pos-5">54.55</td>
+        </tr>
+        <tr>
+          <td class="row-label">2025</td>
+          <td class="pos-3">4.22</td>
+          <td class="neg-1">-1.65</td>
+          <td class="neg-1">-2.15</td>
+          <td class="pos-1">0.58</td>
+          <td class="pos-4">9.98</td>
+          <td class="pos-4">8.15</td>
+          <td class="pos-1">0.52</td>
+          <td class="pos-1">1.22</td>
+          <td class="pos-3">6.13</td>
+          <td class="pos-3">5.06</td>
+          <td class="neg-1">-0.87</td>
+          <td class="neg-1">-1.89</td>
+          <td class="year-cell pos-5">32.41</td>
+        </tr>
+        <tr>
+          <td class="row-label">2026</td>
+          <td class="pos-2">3.03</td>
+          <td class="pos-1">1.07</td>
+          <td class="neutral-cell">—</td>
+          <td class="neutral-cell">—</td>
+          <td class="neutral-cell">—</td>
+          <td class="neutral-cell">—</td>
+          <td class="neutral-cell">—</td>
+          <td class="neutral-cell">—</td>
+          <td class="neutral-cell">—</td>
+          <td class="neutral-cell">—</td>
+          <td class="neutral-cell">—</td>
+          <td class="neutral-cell">—</td>
+          <td class="year-cell pos-2">4.14</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td class="row-label" style="font-weight:700;">Quarter</td>
+          <td colspan="3" class="qtr-cell" style="text-align:center;"></td>
+          <td colspan="3" class="qtr-cell" style="text-align:center;"></td>
+          <td colspan="3" class="qtr-cell" style="text-align:center;"></td>
+          <td colspan="3" class="qtr-cell" style="text-align:center;"></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="row-label">2024</td>
+          <td colspan="3" class="qtr-cell neutral-cell" style="text-align:center;">—</td>
+          <td colspan="3" class="qtr-cell neutral-cell" style="text-align:center;">—</td>
+          <td colspan="3" class="qtr-cell neutral-cell" style="text-align:center;">—</td>
+          <td colspan="3" class="qtr-cell pos-4" style="text-align:center;">22.46</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="row-label">2025</td>
+          <td colspan="3" class="qtr-cell pos-1" style="text-align:center;">0.30</td>
+          <td colspan="3" class="qtr-cell pos-5" style="text-align:center;">19.63</td>
+          <td colspan="3" class="qtr-cell pos-4" style="text-align:center;">7.99</td>
+          <td colspan="3" class="qtr-cell pos-1" style="text-align:center;">2.19</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="row-label">2026</td>
+          <td colspan="3" class="qtr-cell pos-3" style="text-align:center;">4.14</td>
+          <td colspan="3" class="qtr-cell neutral-cell" style="text-align:center;">—</td>
+          <td colspan="3" class="qtr-cell neutral-cell" style="text-align:center;">—</td>
+          <td colspan="3" class="qtr-cell neutral-cell" style="text-align:center;">—</td>
+          <td></td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <div class="explainer-box">
+    <div class="explainer-title">💡 In Plain English</div>
+    <div class="explainer-text">
+      This table shows the actual monthly return for every month since inception. Green cells are positive months, red cells are negative months — the deeper the colour, the stronger the move. Notice how the negative months are shallow (mostly -1% to -2%) while the positive months can be very strong (up to +18.77%). This is the asymmetry our risk management creates — we cut losses quickly and let winners run.
+    </div>
+  </div>
+
+  <div class="slide-footer"><span>Porticus Capital</span><span>Confidential</span></div>
+</section>
+
+<!-- ===== SLIDE: Fee Structure ===== -->
+<section class="slide slide-dark" id="slide-fees">
+  <div class="greek-border"></div>
+  <div class="corner-ornament tl"></div><div class="corner-ornament tr"></div>
+  <div class="corner-ornament bl"></div><div class="corner-ornament br"></div>
+  <div class="section-label">Fee Structure</div>
+  <h2 class="slide-heading">Alignment of Interests</h2>
+  <div class="heading-underline"></div>
+
+  <p class="slide-text" style="margin-bottom: 36px;">Our fee structure is designed to align our incentives directly with yours. We earn the majority of our compensation only when we deliver strong performance.</p>
+
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; max-width: 800px;">
+    <!-- Management Fee -->
+    <div style="padding: 40px 32px; background: rgba(245,240,232,0.06); border: 1px solid rgba(200,169,81,0.25); border-radius: 10px; text-align: center; position: relative; overflow: hidden;">
+      <div style="position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--imperial-gold), var(--imperial-gold-light));"></div>
+      <div style="font-family: 'Cinzel', serif; font-size: 64px; font-weight: 900; color: var(--imperial-gold); line-height: 1;">2%</div>
+      <div style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600; color: rgba(245,240,232,0.5); letter-spacing: 2px; text-transform: uppercase; margin-top: 10px;">Management Fee</div>
+      <div style="margin-top: 18px; font-family: 'Inter', sans-serif; font-size: 14px; color: rgba(245,240,232,0.5); line-height: 1.7;">
+        Annual fee on assets under management, charged to cover operational, research, and administrative costs.
+      </div>
+    </div>
+    <!-- Performance Fee -->
+    <div style="padding: 40px 32px; background: rgba(245,240,232,0.06); border: 1px solid rgba(200,169,81,0.25); border-radius: 10px; text-align: center; position: relative; overflow: hidden;">
+      <div style="position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--imperial-gold), var(--imperial-gold-light));"></div>
+      <div style="font-family: 'Cinzel', serif; font-size: 64px; font-weight: 900; color: var(--imperial-gold); line-height: 1;">20%</div>
+      <div style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600; color: rgba(245,240,232,0.5); letter-spacing: 2px; text-transform: uppercase; margin-top: 10px;">Performance Fee</div>
+      <div style="margin-top: 18px; font-family: 'Inter', sans-serif; font-size: 14px; color: rgba(245,240,232,0.5); line-height: 1.7;">
+        Charged only on new profits above the high-water mark. We only earn this fee when your investment grows.
+      </div>
+    </div>
+  </div>
+
+  <!-- Key Terms -->
+  <div style="margin-top: 36px; max-width: 800px;">
+    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px;">
+      <div style="padding: 22px; background: rgba(245,240,232,0.04); border: 1px solid rgba(200,169,81,0.12); border-radius: 8px; text-align: center;">
+        <div style="font-family: 'Cinzel', serif; font-size: 22px; font-weight: 700; color: var(--imperial-gold); margin-bottom: 6px;">High-Water Mark</div>
+        <div style="font-family: 'Inter', sans-serif; font-size: 13px; color: rgba(245,240,232,0.45); line-height: 1.6;">Performance fees only apply to new all-time highs</div>
+      </div>
+      <div style="padding: 22px; background: rgba(245,240,232,0.04); border: 1px solid rgba(200,169,81,0.12); border-radius: 8px; text-align: center;">
+        <div style="font-family: 'Cinzel', serif; font-size: 22px; font-weight: 700; color: var(--imperial-gold); margin-bottom: 6px;">Annual</div>
+        <div style="font-family: 'Inter', sans-serif; font-size: 13px; color: rgba(245,240,232,0.45); line-height: 1.6;">Performance fees calculated and crystallised annually</div>
+      </div>
+      <div style="padding: 22px; background: rgba(245,240,232,0.04); border: 1px solid rgba(200,169,81,0.12); border-radius: 8px; text-align: center;">
+        <div style="font-family: 'Cinzel', serif; font-size: 22px; font-weight: 700; color: var(--imperial-gold); margin-bottom: 6px;">Transparent</div>
+        <div style="font-family: 'Inter', sans-serif; font-size: 13px; color: rgba(245,240,232,0.45); line-height: 1.6;">Clear reporting with full visibility into all fees charged</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="explainer-box">
+    <div class="explainer-title">💡 In Plain English</div>
+    <div class="explainer-text">
+      <strong>Management Fee (2%)</strong> is a flat annual charge on your invested amount — for example, $2,000 per year on a $100,000 investment. This covers the costs of running the fund day-to-day.<br><br>
+      <strong>Performance Fee (20%)</strong> is our share of the profits — but only on new profits. If your account grows by $10,000, we earn $2,000 of that. Crucially, if the fund drops and then recovers, we don't charge again on the recovery — we only earn when you hit new highs. This is called a <strong>high-water mark</strong> and it means our interests are directly aligned with yours: we do well only when you do well.
+    </div>
+  </div>
+
+  <div class="slide-footer"><span>Porticus Capital</span><span>Confidential</span></div>
+</section>
+
+<!-- ===== SLIDE 10: About ===== -->
+<section class="slide slide-accent" id="slide-9">
+  <div class="greek-border"></div>
+  <div class="corner-ornament tl"></div><div class="corner-ornament tr"></div>
+  <div class="corner-ornament bl"></div><div class="corner-ornament br"></div>
+  <div class="section-label">Leadership</div>
+  <h2 class="slide-heading">Portfolio Manager</h2>
+  <div class="heading-underline"></div>
+
+  <div class="about-content">
+    <div class="about-avatar">MBS</div>
+    <div class="about-text-block">
+      <div class="about-name">Mark Bardsley-Smith</div>
+      <div class="about-role">Founder & Portfolio Manager</div>
+      <div class="about-bio">
+        Active in markets since 2008, with experience spanning personal trading accounts to executing billions of dollars in notional value across 50+ Futures and FX markets for Boronia Capital, a large hedge fund and family office. Managing risk across diverse global markets taught me that capital preservation is the foundation of long-term outperformance.
+        <br><br>
+        Having navigated every market environment type many times — and made every mistake possible along the way — this depth of experience enables consistent, sound decisions with risk management at the forefront.
+        <br><br>
+        Trading is one of the most demanding pursuits — it has tested every part of me. This journey has built the confidence, experience, and knowledge I need to navigate increasingly complex markets going forward.
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer"><span>Porticus Capital</span><span>Confidential</span></div>
+</section>
+
+<!-- ===== SLIDE 11: Key Takeaways ===== -->
+<section class="slide slide-dark" id="slide-10">
+  <div class="greek-border"></div>
+  <div class="corner-ornament tl"></div><div class="corner-ornament tr"></div>
+  <div class="corner-ornament bl"></div><div class="corner-ornament br"></div>
+  <div class="section-label">Summary</div>
+  <h2 class="slide-heading">Key Investor Takeaways</h2>
+  <div class="heading-underline"></div>
+
+  <div class="takeaway-grid">
+    <div class="takeaway-card">
+      <div class="takeaway-icon">⟡</div>
+      <div>
+        <div class="takeaway-title">Top-Tier Risk-Adjusted Returns</div>
+        <div class="takeaway-desc">Sharpe Ratio of 2.09 and Sortino Ratio of 3.51 — far exceeding all major benchmark indices. More return for less risk.</div>
+      </div>
+    </div>
+    <div class="takeaway-card">
+      <div class="takeaway-icon">⟡</div>
+      <div>
+        <div class="takeaway-title">Consistent Outperformance</div>
+        <div class="takeaway-desc">Beating the market with significantly lower volatility (1.09% std dev) and smaller declines (12.36% max drawdown) versus QQQ, SPY, and EWA.</div>
+      </div>
+    </div>
+    <div class="takeaway-card">
+      <div class="takeaway-icon">⟡</div>
+      <div>
+        <div class="takeaway-title">Proven Active Management</div>
+        <div class="takeaway-desc">Tactical style with excellent downside protection and +42.23% outperformance vs QQQ through superior stock selection and timing.</div>
+      </div>
+    </div>
+    <div class="takeaway-card">
+      <div class="takeaway-icon">⟡</div>
+      <div>
+        <div class="takeaway-title">Rapid Recovery & Alpha</div>
+        <div class="takeaway-desc">Fastest drawdown recovery among peers at just 25 days (vs 55–57 for benchmarks). Strong alpha from disciplined security selection.</div>
+      </div>
+    </div>
+    <div class="takeaway-card" style="grid-column: span 2;">
+      <div class="takeaway-icon">⟡</div>
+      <div>
+        <div class="takeaway-title">Portfolio Diversification Enhancement</div>
+        <div class="takeaway-desc">An excellent addition to buy-and-hold portfolios — smoothens overall returns by limiting drawdowns, with a Beta of ~0.65 vs QQQ, providing a powerful complement to passive strategies.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="explainer-box">
+    <div class="explainer-title">💡 In Plain English</div>
+    <div class="explainer-text">
+      Porticus Capital has turned $1,000 into $1,765 while the best-performing benchmark (QQQ) only reached $1,293. We did this with <strong>less risk</strong>, <strong>smaller losses</strong>, and <strong>faster recoveries</strong>. Our strategy adapts to market conditions — we invest aggressively when conditions are right and protect capital when they're not. If you're already investing in broad market funds, adding Porticus helps smooth out the bumps and boost your overall returns.
+    </div>
+  </div>
+
+  <div style="text-align: center; margin-top: 50px;">
+    <div style="font-family: 'Cinzel'; font-size: 28px; color: var(--imperial-gold); letter-spacing: 4px;">PORTICUS CAPITAL</div>
+    <div style="width: 90px; height: 2px; background: linear-gradient(90deg, transparent, var(--imperial-gold), transparent); margin: 18px auto;"></div>
+    <div style="font-family: 'Cormorant Garamond'; font-size: 21px; font-style: italic; color: rgba(245,240,232,0.5);">What to own, and when to own it.</div>
+  </div>
+  <div class="slide-footer"><span>Porticus Capital</span><span>Confidential</span></div>
+</section>
+
+<!-- ===== SLIDE: Contact / Next Steps ===== -->
+<section class="slide slide-accent" id="slide-contact" style="text-align: center; align-items: center;">
+  <div class="greek-border"></div>
+  <div class="corner-ornament tl"></div><div class="corner-ornament tr"></div>
+  <div class="corner-ornament bl"></div><div class="corner-ornament br"></div>
+
+  <div style="font-size: 52px; opacity: 0.3; margin-bottom: 20px; color: var(--imperial-gold);">⟡</div>
+  <div class="section-label">Next Steps</div>
+  <h2 class="slide-heading" style="text-align: center;">Get in Touch</h2>
+  <div class="heading-underline" style="margin-left: auto; margin-right: auto;"></div>
+
+  <p style="font-family: 'Cormorant Garamond', serif; font-size: 26px; font-style: italic; color: rgba(245,240,232,0.7); max-width: 700px; margin: 0 auto 40px; line-height: 1.6;">
+    Interested in learning more about how Porticus Capital can enhance your portfolio? We'd love to hear from you.
+  </p>
+
+  <div style="max-width: 500px; margin: 0 auto;">
+    <div style="padding: 28px; background: rgba(245,240,232,0.08); border: 1px solid rgba(200,169,81,0.25); border-radius: 10px;">
+      <div style="font-family: 'Cinzel', serif; font-size: 24px; font-weight: 700; color: var(--imperial-gold); margin-bottom: 6px;">Mark Bardsley-Smith</div>
+      <div style="font-family: 'Inter', sans-serif; font-size: 13px; color: rgba(245,240,232,0.5); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px;">Founder & Portfolio Manager</div>
+      <div style="font-family: 'Inter', sans-serif; font-size: 16px; color: rgba(245,240,232,0.75); line-height: 2.2;">
+        ✉ &nbsp; <span style="color: var(--imperial-gold);">[email address]</span><br>
+        📞 &nbsp; <span style="color: var(--imperial-gold);">[phone number]</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top: 50px;">
+    <div style="font-family: 'Cinzel'; font-size: 22px; color: var(--imperial-gold); letter-spacing: 4px;">PORTICUS CAPITAL</div>
+    <div style="width: 80px; height: 2px; background: linear-gradient(90deg, transparent, var(--imperial-gold), transparent); margin: 14px auto;"></div>
+    <div style="font-family: 'Cormorant Garamond'; font-size: 18px; font-style: italic; color: rgba(245,240,232,0.4);">What to own, and when to own it.</div>
+  </div>
+
+  <div class="slide-footer"><span>Porticus Capital</span><span>Confidential</span></div>
+</section>
+
+<!-- ===== SLIDE: Disclaimer ===== -->
+<section class="slide slide-dark" id="slide-disclaimer">
+  <div class="greek-border"></div>
+  <div class="corner-ornament tl"></div><div class="corner-ornament tr"></div>
+  <div class="corner-ornament bl"></div><div class="corner-ornament br"></div>
+  <div class="section-label">Important Information</div>
+  <h2 class="slide-heading">Disclaimer</h2>
+  <div class="heading-underline"></div>
+
+  <div style="max-width: 960px; font-family: 'Inter', sans-serif; font-size: 14px; line-height: 2; color: rgba(245,240,232,0.55);">
+    <p style="margin-bottom: 18px;">
+      <strong style="color: var(--imperial-gold);">Past Performance:</strong> Past performance is not indicative of future results. The performance data presented reflects historical results and should not be interpreted as a guarantee or prediction of future returns. All investments carry risk, including the potential loss of principal.
+    </p>
+    <p style="margin-bottom: 18px;">
+      <strong style="color: var(--imperial-gold);">Not Financial Advice:</strong> This presentation is for informational purposes only and does not constitute financial advice, an offer to sell, or a solicitation of an offer to buy any securities. Investors should conduct their own due diligence and consult with a qualified financial advisor before making any investment decisions.
+    </p>
+    <p style="margin-bottom: 18px;">
+      <strong style="color: var(--imperial-gold);">Risk Factors:</strong> Investing involves significant risk. The strategy employs active trading which may result in higher transaction costs. Concentrated positions and sector allocation decisions may increase volatility. Market conditions can change rapidly and unexpectedly.
+    </p>
+    <p style="margin-bottom: 18px;">
+      <strong style="color: var(--imperial-gold);">Performance Reporting:</strong> All returns are calculated using Time-Weighted Return (TWR) methodology and are presented net of trading costs and commissions but gross of management and performance fees. Actual investor returns will be lower after the application of management fees (2% per annum) and performance fees (20% of new profits above the high-water mark). Benchmark comparisons are provided for illustrative purposes only and do not imply that the portfolio's risk profile is identical to any benchmark.
+    </p>
+    <p>
+      <strong style="color: var(--imperial-gold);">Confidentiality:</strong> This document is confidential and intended solely for the recipient. It may not be reproduced, distributed, or disclosed to any other person without the prior written consent of Porticus Capital.
+    </p>
+  </div>
+
+  <div class="slide-footer"><span>Porticus Capital</span><span>Confidential</span></div>
+</section>
+
+</div>
+
+<script>
+  function scrollToSlide(index) {
+    const slide = document.getElementById('slide-' + index);
+    if (slide) slide.scrollIntoView({ behavior: 'smooth' });
+    document.querySelectorAll('.nav-links button').forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+  }
+  function scrollToId(id) {
+    const slide = document.getElementById(id);
+    if (slide) slide.scrollIntoView({ behavior: 'smooth' });
+    document.querySelectorAll('.nav-links button').forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+  }
+  function toggleMobileMenu() {
+    const menu = document.getElementById('mobileMenu');
+    const burger = document.querySelector('.hamburger');
+    menu.classList.toggle('open');
+    burger.classList.toggle('open');
+    document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
+  }
+  function mobileNav(id) {
+    const el = document.getElementById(id);
+    if (el) {
+      toggleMobileMenu();
+      setTimeout(function() { el.scrollIntoView({ behavior: 'smooth' }); }, 150);
+    }
+    return false;
+  }
+</script>
+
+</body>
+</html>
