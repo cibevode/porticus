@@ -25,6 +25,8 @@
     --text-dark: #1C1C28;
     --text-muted: #5A5A6E;
     --laurel-green: #4A6741;
+    --spy-grey: #718096;
+    --ewa-teal: #5B8A9A;
     --green-bright: #5C8350;
     --column-shadow: rgba(26, 26, 46, 0.08);
   }
@@ -807,8 +809,35 @@
     font-size: 15px;
     border-left: 2px solid var(--imperial-gold);
   }
+  .heatmap-table .benchmark-row td {
+    font-size: 12px;
+    padding: 5px 8px;
+    opacity: 0.7;
+    background: rgba(90,90,110,0.04);
+  }
+  .heatmap-table .benchmark-row .bench-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-muted);
+    letter-spacing: 0.5px;
+    padding-left: 12px;
+  }
+  .heatmap-table .benchmark-row .pos-1,
+  .heatmap-table .benchmark-row .pos-2,
+  .heatmap-table .benchmark-row .pos-3,
+  .heatmap-table .benchmark-row .pos-4,
+  .heatmap-table .benchmark-row .pos-5 { opacity: 0.6; }
+  .heatmap-table .benchmark-row .neg-1,
+  .heatmap-table .benchmark-row .neg-2,
+  .heatmap-table .benchmark-row .neg-3 { opacity: 0.6; }
+  .heatmap-table .benchmark-row .year-cell { font-weight: 600; font-size: 12px; }
   .heatmap-table tfoot td { border-top: 2px solid rgba(200,169,81,0.25); }
   .heatmap-table .qtr-cell { font-weight: 600; }
+
+  /* Benchmark matrix */
+  .benchmark-matrix { font-size: 13px; }
+  .benchmark-matrix td, .benchmark-matrix th { padding: 7px 10px; }
+  .benchmark-matrix .row-label { min-width: 40px; }
 
   /* Heatmap colour scale */
   .neutral-cell { color: #999; background: rgba(200,169,81,0.03); }
@@ -1633,6 +1662,7 @@ function scrollToId(id){var s=document.getElementById(id);if(s)s.scrollIntoView(
   <h2 class="slide-heading">Monthly Returns (%)</h2>
   <div class="heading-underline"></div>
 
+  <!-- Porticus Returns Table -->
   <div style="overflow-x: auto; max-width: 1060px;">
     <table class="heatmap-table">
       <thead>
@@ -1640,100 +1670,168 @@ function scrollToId(id){var s=document.getElementById(id);if(s)s.scrollIntoView(
           <th></th>
           <th>Jan</th><th>Feb</th><th>Mar</th><th>Apr</th><th>May</th><th>Jun</th>
           <th>Jul</th><th>Aug</th><th>Sep</th><th>Oct</th><th>Nov</th><th>Dec</th>
-          <th class="year-col">Year</th>
+          <th class="year-cell">Year</th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td class="row-label">2024</td>
-          <td class="neutral-cell">—</td>
-          <td class="neutral-cell">—</td>
-          <td class="neutral-cell">—</td>
-          <td class="neutral-cell">—</td>
-          <td class="neutral-cell">—</td>
-          <td class="neutral-cell">—</td>
-          <td class="neutral-cell">—</td>
-          <td class="neutral-cell">—</td>
-          <td class="pos-3">3.98</td>
-          <td class="pos-1">2.38</td>
-          <td class="pos-5">18.77</td>
-          <td class="pos-1">0.72</td>
-          <td class="year-cell pos-5">54.55</td>
+          <td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td>
+          <td>—</td><td>—</td>
+          <td class="pos-2">3.98</td><td class="pos-1">2.38</td><td class="pos-5">18.77</td><td class="pos-1">0.72</td>
+          <td class="year-cell pos-5">27.31</td>
         </tr>
         <tr>
           <td class="row-label">2025</td>
-          <td class="pos-3">4.22</td>
-          <td class="neg-1">-1.65</td>
-          <td class="neg-1">-2.15</td>
-          <td class="pos-1">0.58</td>
-          <td class="pos-4">9.98</td>
-          <td class="pos-4">8.15</td>
-          <td class="pos-1">0.52</td>
-          <td class="pos-1">1.22</td>
-          <td class="pos-3">6.13</td>
-          <td class="pos-3">5.06</td>
-          <td class="neg-1">-0.87</td>
-          <td class="neg-1">-1.89</td>
+          <td class="pos-2">4.22</td><td class="neg-1">-1.65</td><td class="neg-1">-2.15</td>
+          <td class="pos-1">0.58</td><td class="pos-4">9.98</td><td class="pos-3">8.15</td>
+          <td class="pos-1">0.52</td><td class="pos-1">1.22</td><td class="pos-3">6.13</td>
+          <td class="pos-2">5.06</td><td class="neg-1">-0.87</td><td class="neg-1">-1.89</td>
           <td class="year-cell pos-5">32.41</td>
         </tr>
         <tr>
           <td class="row-label">2026</td>
-          <td class="pos-2">3.03</td>
-          <td class="pos-1">1.07</td>
-          <td class="neutral-cell">—</td>
-          <td class="neutral-cell">—</td>
-          <td class="neutral-cell">—</td>
-          <td class="neutral-cell">—</td>
-          <td class="neutral-cell">—</td>
-          <td class="neutral-cell">—</td>
-          <td class="neutral-cell">—</td>
-          <td class="neutral-cell">—</td>
-          <td class="neutral-cell">—</td>
-          <td class="neutral-cell">—</td>
+          <td class="pos-2">3.03</td><td class="pos-1">1.07</td>
+          <td>—</td><td>—</td><td>—</td><td>—</td>
+          <td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td>
           <td class="year-cell pos-2">4.14</td>
         </tr>
       </tbody>
       <tfoot>
-        <tr>
-          <td class="row-label" style="font-weight:700;">Quarter</td>
-          <td colspan="3" class="qtr-cell" style="text-align:center;"></td>
-          <td colspan="3" class="qtr-cell" style="text-align:center;"></td>
-          <td colspan="3" class="qtr-cell" style="text-align:center;"></td>
-          <td colspan="3" class="qtr-cell" style="text-align:center;"></td>
-          <td></td>
-        </tr>
+        <tr><td colspan="14" style="height:4px; border:none; background:transparent;"></td></tr>
+        <tr><td class="row-label" style="font-weight:700; letter-spacing:1px;">Quarter</td><td colspan="13"></td></tr>
         <tr>
           <td class="row-label">2024</td>
-          <td colspan="3" class="qtr-cell neutral-cell" style="text-align:center;">—</td>
-          <td colspan="3" class="qtr-cell neutral-cell" style="text-align:center;">—</td>
-          <td colspan="3" class="qtr-cell neutral-cell" style="text-align:center;">—</td>
-          <td colspan="3" class="qtr-cell pos-4" style="text-align:center;">22.46</td>
+          <td colspan="3" style="text-align:center;">—</td>
+          <td colspan="3" style="text-align:center;">—</td>
+          <td colspan="3" style="text-align:center; background: rgba(74,103,65,0.12);">3.98</td>
+          <td colspan="3" style="text-align:center; background: rgba(74,103,65,0.25); font-weight:600;">22.46</td>
           <td></td>
         </tr>
         <tr>
           <td class="row-label">2025</td>
-          <td colspan="3" class="qtr-cell pos-1" style="text-align:center;">0.30</td>
-          <td colspan="3" class="qtr-cell pos-5" style="text-align:center;">19.63</td>
-          <td colspan="3" class="qtr-cell pos-4" style="text-align:center;">7.99</td>
-          <td colspan="3" class="qtr-cell pos-1" style="text-align:center;">2.19</td>
+          <td colspan="3" style="text-align:center; background: rgba(74,103,65,0.06);">0.30</td>
+          <td colspan="3" style="text-align:center; background: rgba(74,103,65,0.25); font-weight:600;">19.63</td>
+          <td colspan="3" style="text-align:center; background: rgba(74,103,65,0.15);">7.99</td>
+          <td colspan="3" style="text-align:center; background: rgba(74,103,65,0.08);">2.19</td>
           <td></td>
         </tr>
         <tr>
           <td class="row-label">2026</td>
-          <td colspan="3" class="qtr-cell pos-3" style="text-align:center;">4.14</td>
-          <td colspan="3" class="qtr-cell neutral-cell" style="text-align:center;">—</td>
-          <td colspan="3" class="qtr-cell neutral-cell" style="text-align:center;">—</td>
-          <td colspan="3" class="qtr-cell neutral-cell" style="text-align:center;">—</td>
+          <td colspan="3" style="text-align:center; background: rgba(74,103,65,0.12);">4.14</td>
+          <td colspan="3" style="text-align:center;">—</td>
+          <td colspan="3" style="text-align:center;">—</td>
+          <td colspan="3" style="text-align:center;">—</td>
           <td></td>
         </tr>
       </tfoot>
     </table>
   </div>
 
+  <!-- Benchmark Comparison Matrix -->
+  <div style="margin-top: 36px; max-width: 1060px;">
+    <h3 style="font-family: 'Cinzel', serif; font-size: 18px; color: var(--text-dark); margin-bottom: 14px; letter-spacing: 1px;">Benchmark Comparison</h3>
+    <div style="overflow-x: auto;">
+      <table class="heatmap-table benchmark-matrix">
+        <thead>
+          <tr>
+            <th></th><th></th>
+            <th>Jan</th><th>Feb</th><th>Mar</th><th>Apr</th><th>May</th><th>Jun</th>
+            <th>Jul</th><th>Aug</th><th>Sep</th><th>Oct</th><th>Nov</th><th>Dec</th>
+            <th class="year-cell">Year</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- 2024 -->
+          <tr>
+            <td class="row-label" rowspan="3" style="font-weight:700; vertical-align:middle;">2024</td>
+            <td class="row-label" style="font-weight:600; color: var(--laurel-green);">QQQ</td>
+            <td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td>
+            <td>—</td><td>—</td>
+            <td class="pos-1">2.62</td><td class="neg-1">-0.86</td><td class="neg-1">-1.56</td><td class="neg-1">-0.67</td>
+            <td class="year-cell" style="color: #3D6B35;">1.46</td>
+          </tr>
+          <tr>
+            <td class="row-label" style="font-weight:600; color: var(--spy-grey);">SPY</td>
+            <td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td>
+            <td>—</td><td>—</td>
+            <td class="pos-1">2.10</td><td class="neg-1">-0.89</td><td class="pos-1">0.19</td><td class="neg-1">-0.08</td>
+            <td class="year-cell" style="color: #3D6B35;">1.30</td>
+          </tr>
+          <tr>
+            <td class="row-label" style="font-weight:600; color: var(--ewa-teal);">EWA</td>
+            <td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td>
+            <td>—</td><td>—</td>
+            <td class="pos-2">4.79</td><td class="neg-3">-6.49</td><td class="neg-2">-3.44</td><td class="neg-2">-3.06</td>
+            <td class="year-cell neg-3">-8.51</td>
+          </tr>
+
+          <!-- Spacer -->
+          <tr><td colspan="15" style="height:6px; border:none; background:transparent;"></td></tr>
+
+          <!-- 2025 -->
+          <tr>
+            <td class="row-label" rowspan="3" style="font-weight:700; vertical-align:middle;">2025</td>
+            <td class="row-label" style="font-weight:600; color: var(--laurel-green);">QQQ</td>
+            <td class="pos-1">2.16</td><td class="neg-1">-2.70</td><td class="neg-3">-7.59</td>
+            <td class="pos-1">1.40</td><td class="pos-4">9.18</td><td class="pos-3">6.38</td>
+            <td class="pos-1">2.42</td><td class="pos-1">0.95</td><td class="pos-2">5.38</td>
+            <td class="pos-2">4.78</td><td class="neg-1">-1.56</td><td class="neg-1">-0.67</td>
+            <td class="year-cell pos-4">20.77</td>
+          </tr>
+          <tr>
+            <td class="row-label" style="font-weight:600; color: var(--spy-grey);">SPY</td>
+            <td class="pos-1">2.69</td><td class="neg-1">-1.27</td><td class="neg-2">-5.57</td>
+            <td class="neg-1">-0.87</td><td class="neg-3">-6.28</td><td class="pos-2">5.14</td>
+            <td class="pos-1">2.30</td><td class="pos-1">2.05</td><td class="pos-2">3.56</td>
+            <td class="pos-1">2.38</td><td class="neg-2">-3.44</td><td class="neg-2">-3.06</td>
+            <td class="year-cell pos-3">17.72</td>
+          </tr>
+          <tr>
+            <td class="row-label" style="font-weight:600; color: var(--ewa-teal);">EWA</td>
+            <td class="pos-1">3.14</td><td class="neg-1">-2.52</td><td class="neg-1">-2.29</td>
+            <td class="pos-2">5.25</td><td class="neg-2">-4.62</td><td class="pos-2">3.53</td>
+            <td class="neg-1">-1.14</td><td class="pos-2">4.07</td><td class="neg-1">-0.30</td>
+            <td class="neg-1">-0.85</td><td class="neg-1">-0.87</td><td class="neg-1">-1.89</td>
+            <td class="year-cell pos-3">13.35</td>
+          </tr>
+
+          <!-- Spacer -->
+          <tr><td colspan="15" style="height:6px; border:none; background:transparent;"></td></tr>
+
+          <!-- 2026 -->
+          <tr>
+            <td class="row-label" rowspan="3" style="font-weight:700; vertical-align:middle;">2026</td>
+            <td class="row-label" style="font-weight:600; color: var(--laurel-green);">QQQ</td>
+            <td class="pos-1">1.23</td><td class="neg-1">-2.34</td>
+            <td>—</td><td>—</td><td>—</td><td>—</td>
+            <td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td>
+            <td class="year-cell neg-1">-1.14</td>
+          </tr>
+          <tr>
+            <td class="row-label" style="font-weight:600; color: var(--spy-grey);">SPY</td>
+            <td class="pos-1">1.47</td><td class="neg-1">-0.86</td>
+            <td>—</td><td>—</td><td>—</td><td>—</td>
+            <td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td>
+            <td class="year-cell pos-1">0.60</td>
+          </tr>
+          <tr>
+            <td class="row-label" style="font-weight:600; color: var(--ewa-teal);">EWA</td>
+            <td class="pos-2">5.96</td><td class="pos-3">8.43</td>
+            <td>—</td><td>—</td><td>—</td><td>—</td>
+            <td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td>
+            <td class="year-cell pos-4">14.89</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
   <div class="explainer-box">
     <div class="explainer-title">💡 In Plain English</div>
     <div class="explainer-text">
-      This table shows the actual monthly return for every month since inception. Green cells are positive months, red cells are negative months — the deeper the colour, the stronger the move. Notice how the negative months are shallow (mostly -1% to -2%) while the positive months can be very strong (up to +18.77%). This is the asymmetry our risk management creates — we cut losses quickly and let winners run.
+      The top table shows Porticus monthly and quarterly returns. Green = positive, red = negative — the deeper the colour, the stronger the move. Notice the negative months are shallow (mostly -1% to -2%) while positive months can be very strong (up to +18.77%). This asymmetry is created by our risk management — we cut losses quickly and let winners run.<br><br>
+      The benchmark table below allows direct month-by-month comparison. Porticus's 2024 Sep-Dec return of 27.31% compares to QQQ's 1.46%, SPY's 1.30%, and EWA's -8.51% over the same period.
     </div>
   </div>
 
@@ -1994,7 +2092,7 @@ function scrollToId(id){var s=document.getElementById(id);if(s)s.scrollIntoView(
   <div class="about-content">
     <div class="about-avatar">MBS</div>
     <div class="about-text-block">
-      <div class="about-name">Mark B</div>
+      <div class="about-name">Mark Bardsley-Smith</div>
       <div class="about-role">Portfolio Manager</div>
       <div class="about-bio">
         Active in markets since 2008, with experience spanning personal trading accounts to executing billions of dollars in notional value across 50+ Futures and FX markets for Boronia Capital, a large hedge fund and family office. Managing risk across diverse global markets taught me that capital preservation is the foundation of long-term outperformance.
@@ -2087,10 +2185,10 @@ function scrollToId(id){var s=document.getElementById(id);if(s)s.scrollIntoView(
 
   <div style="max-width: 500px; margin: 0 auto;">
     <div style="padding: 28px; background: rgba(245,240,232,0.08); border: 1px solid rgba(200,169,81,0.25); border-radius: 10px;">
-      <div style="font-family: 'Cinzel', serif; font-size: 24px; font-weight: 700; color: var(--imperial-gold); margin-bottom: 6px;">Mark B</div>
-      <div style="font-family: 'Inter', sans-serif; font-size: 13px; color: rgba(245,240,232,0.5); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px;">Portfolio Manager</div>
+      <div style="font-family: 'Cinzel', serif; font-size: 24px; font-weight: 700; color: var(--imperial-gold); margin-bottom: 6px;">Mark Bardsley-Smith</div>
+      <div style="font-family: 'Inter', sans-serif; font-size: 13px; color: rgba(245,240,232,0.5); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px;">Founder & Portfolio Manager</div>
       <div style="font-family: 'Inter', sans-serif; font-size: 16px; color: rgba(245,240,232,0.75); line-height: 2.2;">
-        ✉ &nbsp; <span style="color: var(--imperial-gold);">contact@porticus.io</span><br>
+        ✉ &nbsp; <span style="color: var(--imperial-gold);">[email address]</span><br>
         📞 &nbsp; <span style="color: var(--imperial-gold);">[phone number]</span>
       </div>
     </div>
