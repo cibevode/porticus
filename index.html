@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>Porticus Capital – Investment Presentation</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,11 +31,17 @@
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
+  html {
+    overflow-x: hidden;
+    -webkit-text-size-adjust: 100%;
+  }
+
   body {
     font-family: 'Cormorant Garamond', Georgia, serif;
     background: #0D0D1A;
     color: var(--text-dark);
     overflow-x: hidden;
+    max-width: 100vw;
   }
 
   /* Navigation */
@@ -51,6 +58,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    max-width: 100vw;
+    overflow: hidden;
   }
 
   .nav-logo {
@@ -100,7 +109,7 @@
   .mobile-menu { display: none; }
 
   /* Slide Container */
-  .slides-wrapper { margin-top: 56px; }
+  .slides-wrapper { margin-top: 56px; max-width: 100vw; overflow-x: hidden; }
 
   .slide {
     min-height: 100vh;
@@ -110,6 +119,7 @@
     padding: 90px 90px;
     position: relative;
     overflow: hidden;
+    max-width: 100vw;
   }
 
   /* Decorative Elements */
@@ -2183,12 +2193,16 @@ window.addEventListener('resize',function(){d.textContent='Screen: '+window.inne
   })();
 
   // ===== JS Mobile Fallback =====
-  // If CSS media queries aren't working for some reason, force mobile styles via JS
   (function() {
+    function isMobileDevice() {
+      // Check user agent for mobile devices
+      var ua = navigator.userAgent || navigator.vendor || window.opera;
+      return /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini|mobile|tablet/i.test(ua);
+    }
     function checkMobile() {
       var w = window.innerWidth || document.documentElement.clientWidth;
       var body = document.body;
-      if (w <= 768) {
+      if (w <= 980 || isMobileDevice()) {
         body.classList.add('is-mobile');
       } else {
         body.classList.remove('is-mobile');
@@ -2196,6 +2210,11 @@ window.addEventListener('resize',function(){d.textContent='Screen: '+window.inne
     }
     checkMobile();
     window.addEventListener('resize', checkMobile);
+    // Recheck after page fully loads (some browsers report wrong width initially)
+    window.addEventListener('load', function() {
+      setTimeout(checkMobile, 100);
+      setTimeout(checkMobile, 500);
+    });
   })();
 </script>
 
