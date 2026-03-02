@@ -1134,6 +1134,57 @@
     border-top: 1px solid rgba(200,169,81,0.15); font-size: 9px;
   }
   body.is-mobile .mobile-menu.open { display: flex !important; }
+  body.is-mobile .mobile-menu {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(26,26,46,0.97);
+    backdrop-filter: blur(16px);
+    z-index: 200;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 20px;
+  }
+  body.is-mobile .mobile-menu a {
+    font-family: 'Cinzel', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: rgba(245,240,232,0.6);
+    text-decoration: none;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    padding: 14px 30px;
+    border-radius: 8px;
+    transition: all 0.3s;
+    text-align: center;
+    width: 100%;
+    max-width: 320px;
+  }
+  body.is-mobile .mobile-menu a:hover, body.is-mobile .mobile-menu a:active {
+    color: var(--imperial-gold);
+    background: rgba(200,169,81,0.1);
+  }
+  body.is-mobile .mobile-menu .menu-divider {
+    width: 60px;
+    height: 1px;
+    background: rgba(200,169,81,0.2);
+    margin: 8px 0;
+  }
+  body.is-mobile .menu-close-x {
+    position: absolute;
+    top: 14px;
+    right: 18px;
+    font-size: 28px;
+    color: rgba(245,240,232,0.5);
+    cursor: pointer;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+  }
 
   /* ============ Print ============ */
   @media print {
@@ -1144,6 +1195,12 @@
 </style>
 </head>
 <body>
+<script>
+function toggleMobileMenu(){var m=document.getElementById('mobileMenu');var b=document.querySelector('.hamburger');if(m&&b){m.classList.toggle('open');b.classList.toggle('open');document.body.style.overflow=m.classList.contains('open')?'hidden':'';}}
+function mobileNav(id){var el=document.getElementById(id);if(el){toggleMobileMenu();setTimeout(function(){el.scrollIntoView({behavior:'smooth'});},150);}return false;}
+function scrollToSlide(i){var s=document.getElementById('slide-'+i);if(s)s.scrollIntoView({behavior:'smooth'});}
+function scrollToId(id){var s=document.getElementById(id);if(s)s.scrollIntoView({behavior:'smooth'});}
+</script>
 
 <!-- Navigation -->
 <nav class="nav-bar">
