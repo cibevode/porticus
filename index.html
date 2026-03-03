@@ -1260,9 +1260,9 @@ function scrollToId(id){var s=document.getElementById(id);if(s)s.scrollIntoView(
   <a href="#" onclick="mobileNav('slide-4')">Benchmarks</a>
   <a href="#" onclick="mobileNav('slide-5')">Charts</a>
   <a href="#" onclick="mobileNav('slide-9b')">Monthly Returns</a>
+  <a href="#" onclick="mobileNav('slide-7')">Sector Attribution</a>
   <div class="menu-divider"></div>
   <a href="#" onclick="mobileNav('slide-6')">Risk Profile</a>
-  <a href="#" onclick="mobileNav('slide-7')">Sector Attribution</a>
   <a href="#" onclick="mobileNav('slide-8')">Risk Management</a>
   <div class="menu-divider"></div>
   <a href="#" onclick="mobileNav('slide-fees')">Fee Structure</a>
@@ -1838,6 +1838,66 @@ function scrollToId(id){var s=document.getElementById(id);if(s)s.scrollIntoView(
   <div class="slide-footer"><span>Porticus Capital</span><span>Confidential</span></div>
 </section>
 
+<!-- ===== SLIDE 8: Sector Attribution ===== -->
+<section class="slide slide-content" id="slide-7">
+  <div class="greek-border"></div>
+  <div class="corner-ornament tl"></div><div class="corner-ornament tr"></div>
+  <div class="corner-ornament bl"></div><div class="corner-ornament br"></div>
+  <div class="section-label">Attribution</div>
+  <h2 class="slide-heading">Sector Performance & Attribution</h2>
+  <div class="heading-underline"></div>
+
+  <div class="two-col">
+    <div>
+      <p class="slide-text" style="margin-bottom: 26px;">Strong outperformance across Technology, Industrials, Energy, and Basic Materials. Total attribution effect of <strong style="color: var(--roman-red); font-size: 28px;">+42.23%</strong> versus QQQ.</p>
+
+      <div class="chart-container">
+        <div class="chart-title">Attribution Breakdown vs QQQ</div>
+        <div class="waterfall">
+          <div class="waterfall-bar-group">
+            <div class="waterfall-bar bar-porticus" style="height: 130px;">+42.23%</div>
+            <div class="waterfall-label">Total Alpha</div>
+          </div>
+          <div class="waterfall-bar-group">
+            <div class="waterfall-bar" style="height: 88px; background: linear-gradient(180deg, var(--laurel-green), #5C8350);">Selection</div>
+            <div class="waterfall-label">Stock Selection</div>
+          </div>
+          <div class="waterfall-bar-group">
+            <div class="waterfall-bar" style="height: 55px; background: linear-gradient(180deg, var(--bronze), var(--imperial-gold-dark));">Allocation</div>
+            <div class="waterfall-label">Sector Allocation</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="chart-container">
+        <div class="chart-title">Top Alpha-Generating Sectors</div>
+        <div class="metric-row"><div class="metric-label">Technology</div><div class="metric-bar-bg"><div class="metric-bar bar-porticus" style="width: 90%;">Primary Driver</div></div></div>
+        <div class="metric-row"><div class="metric-label">Industrials</div><div class="metric-bar-bg"><div class="metric-bar bar-qqq" style="width: 65%;">Strong Alpha</div></div></div>
+        <div class="metric-row"><div class="metric-label">Energy</div><div class="metric-bar-bg"><div class="metric-bar bar-ewa" style="width: 55%;">Strong Alpha</div></div></div>
+        <div class="metric-row"><div class="metric-label">Basic Materials</div><div class="metric-bar-bg"><div class="metric-bar bar-spy" style="width: 50%;">Strong Alpha</div></div></div>
+      </div>
+
+      <div style="margin-top: 26px; padding: 24px; border: 1px solid rgba(200,169,81,0.2); border-radius: 10px; background: rgba(200,169,81,0.04);">
+        <div style="font-family: 'Inter'; font-size: 13px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px;">Key Drivers</div>
+        <div style="font-family: 'Inter'; font-size: 16px; line-height: 1.8; color: var(--text-dark);">
+          Superior <strong style="color: var(--roman-red);">Stock Selection</strong> — especially in Technology & Basic Materials<br>
+          Tactical <strong style="color: var(--roman-red);">Sector Allocation</strong> — dynamic rotation capturing sector momentum
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="explainer-box">
+    <div class="explainer-title">💡 In Plain English</div>
+    <div class="explainer-text">
+      <strong>Sector Attribution</strong> breaks down where our outperformance came from. Think of it in two parts: <strong>Stock Selection</strong> means we picked better individual companies within each sector. <strong>Sector Allocation</strong> means we put more money into the sectors that performed best. Together, these decisions added +42.23% more return than simply holding the QQQ (Nasdaq 100). In short — we owned the right stocks in the right sectors at the right time.
+    </div>
+  </div>
+
+  <div class="slide-footer"><span>Porticus Capital</span><span>Confidential</span></div>
+</section>
+
 <!-- ===== SLIDE 7: Risk-Adjusted Excellence ===== -->
 <section class="slide slide-dark" id="slide-6">
   <div class="greek-border"></div>
@@ -1895,66 +1955,6 @@ function scrollToId(id){var s=document.getElementById(id);if(s)s.scrollIntoView(
       <strong>Standard Deviation (Std Dev)</strong> = How much the fund's daily returns bounce around. Lower = smoother ride. At 1.09%, Porticus is less volatile than all benchmarks.<br>
       <strong>Downside Deviation</strong> = Only measures the "bad" volatility — how much the fund drops on down days. At 0.65%, losses are very well contained.<br><br>
       <em style="color: var(--imperial-gold);">Bottom line: Porticus delivers significantly higher returns with significantly less risk than the major market indices.</em>
-    </div>
-  </div>
-
-  <div class="slide-footer"><span>Porticus Capital</span><span>Confidential</span></div>
-</section>
-
-<!-- ===== SLIDE 8: Sector Attribution ===== -->
-<section class="slide slide-content" id="slide-7">
-  <div class="greek-border"></div>
-  <div class="corner-ornament tl"></div><div class="corner-ornament tr"></div>
-  <div class="corner-ornament bl"></div><div class="corner-ornament br"></div>
-  <div class="section-label">Attribution</div>
-  <h2 class="slide-heading">Sector Performance & Attribution</h2>
-  <div class="heading-underline"></div>
-
-  <div class="two-col">
-    <div>
-      <p class="slide-text" style="margin-bottom: 26px;">Strong outperformance across Technology, Industrials, Energy, and Basic Materials. Total attribution effect of <strong style="color: var(--roman-red); font-size: 28px;">+42.23%</strong> versus QQQ.</p>
-
-      <div class="chart-container">
-        <div class="chart-title">Attribution Breakdown vs QQQ</div>
-        <div class="waterfall">
-          <div class="waterfall-bar-group">
-            <div class="waterfall-bar bar-porticus" style="height: 130px;">+42.23%</div>
-            <div class="waterfall-label">Total Alpha</div>
-          </div>
-          <div class="waterfall-bar-group">
-            <div class="waterfall-bar" style="height: 88px; background: linear-gradient(180deg, var(--laurel-green), #5C8350);">Selection</div>
-            <div class="waterfall-label">Stock Selection</div>
-          </div>
-          <div class="waterfall-bar-group">
-            <div class="waterfall-bar" style="height: 55px; background: linear-gradient(180deg, var(--bronze), var(--imperial-gold-dark));">Allocation</div>
-            <div class="waterfall-label">Sector Allocation</div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div>
-      <div class="chart-container">
-        <div class="chart-title">Top Alpha-Generating Sectors</div>
-        <div class="metric-row"><div class="metric-label">Technology</div><div class="metric-bar-bg"><div class="metric-bar bar-porticus" style="width: 90%;">Primary Driver</div></div></div>
-        <div class="metric-row"><div class="metric-label">Industrials</div><div class="metric-bar-bg"><div class="metric-bar bar-qqq" style="width: 65%;">Strong Alpha</div></div></div>
-        <div class="metric-row"><div class="metric-label">Energy</div><div class="metric-bar-bg"><div class="metric-bar bar-ewa" style="width: 55%;">Strong Alpha</div></div></div>
-        <div class="metric-row"><div class="metric-label">Basic Materials</div><div class="metric-bar-bg"><div class="metric-bar bar-spy" style="width: 50%;">Strong Alpha</div></div></div>
-      </div>
-
-      <div style="margin-top: 26px; padding: 24px; border: 1px solid rgba(200,169,81,0.2); border-radius: 10px; background: rgba(200,169,81,0.04);">
-        <div style="font-family: 'Inter'; font-size: 13px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px;">Key Drivers</div>
-        <div style="font-family: 'Inter'; font-size: 16px; line-height: 1.8; color: var(--text-dark);">
-          Superior <strong style="color: var(--roman-red);">Stock Selection</strong> — especially in Technology & Basic Materials<br>
-          Tactical <strong style="color: var(--roman-red);">Sector Allocation</strong> — dynamic rotation capturing sector momentum
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="explainer-box">
-    <div class="explainer-title">💡 In Plain English</div>
-    <div class="explainer-text">
-      <strong>Sector Attribution</strong> breaks down where our outperformance came from. Think of it in two parts: <strong>Stock Selection</strong> means we picked better individual companies within each sector. <strong>Sector Allocation</strong> means we put more money into the sectors that performed best. Together, these decisions added +42.23% more return than simply holding the QQQ (Nasdaq 100). In short — we owned the right stocks in the right sectors at the right time.
     </div>
   </div>
 
@@ -2052,18 +2052,22 @@ function scrollToId(id){var s=document.getElementById(id);if(s)s.scrollIntoView(
   </div>
 
   <!-- Key Terms -->
-  <div style="margin-top: 36px; max-width: 800px;">
-    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px;">
+  <div style="margin-top: 36px; max-width: 900px;">
+    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 20px;">
       <div style="padding: 22px; background: rgba(245,240,232,0.04); border: 1px solid rgba(200,169,81,0.12); border-radius: 8px; text-align: center;">
-        <div style="font-family: 'Cinzel', serif; font-size: 22px; font-weight: 700; color: var(--imperial-gold); margin-bottom: 6px;">High-Water Mark</div>
+        <div style="font-family: 'Cinzel', serif; font-size: 20px; font-weight: 700; color: var(--imperial-gold); margin-bottom: 6px;">High-Water Mark</div>
         <div style="font-family: 'Inter', sans-serif; font-size: 13px; color: rgba(245,240,232,0.45); line-height: 1.6;">Performance fees only apply to new all-time highs</div>
       </div>
       <div style="padding: 22px; background: rgba(245,240,232,0.04); border: 1px solid rgba(200,169,81,0.12); border-radius: 8px; text-align: center;">
-        <div style="font-family: 'Cinzel', serif; font-size: 22px; font-weight: 700; color: var(--imperial-gold); margin-bottom: 6px;">Annual</div>
+        <div style="font-family: 'Cinzel', serif; font-size: 20px; font-weight: 700; color: var(--imperial-gold); margin-bottom: 6px;">Annual</div>
         <div style="font-family: 'Inter', sans-serif; font-size: 13px; color: rgba(245,240,232,0.45); line-height: 1.6;">Performance fees calculated and crystallised annually</div>
       </div>
       <div style="padding: 22px; background: rgba(245,240,232,0.04); border: 1px solid rgba(200,169,81,0.12); border-radius: 8px; text-align: center;">
-        <div style="font-family: 'Cinzel', serif; font-size: 22px; font-weight: 700; color: var(--imperial-gold); margin-bottom: 6px;">Transparent</div>
+        <div style="font-family: 'Cinzel', serif; font-size: 20px; font-weight: 700; color: var(--imperial-gold); margin-bottom: 6px;">Monthly Liquidity</div>
+        <div style="font-family: 'Inter', sans-serif; font-size: 13px; color: rgba(245,240,232,0.45); line-height: 1.6;">Investors may redeem on a monthly basis with 30 days prior written notice</div>
+      </div>
+      <div style="padding: 22px; background: rgba(245,240,232,0.04); border: 1px solid rgba(200,169,81,0.12); border-radius: 8px; text-align: center;">
+        <div style="font-family: 'Cinzel', serif; font-size: 20px; font-weight: 700; color: var(--imperial-gold); margin-bottom: 6px;">Transparent</div>
         <div style="font-family: 'Inter', sans-serif; font-size: 13px; color: rgba(245,240,232,0.45); line-height: 1.6;">Clear reporting with full visibility into all fees charged</div>
       </div>
     </div>
@@ -2073,7 +2077,8 @@ function scrollToId(id){var s=document.getElementById(id);if(s)s.scrollIntoView(
     <div class="explainer-title">💡 In Plain English</div>
     <div class="explainer-text">
       <strong>Management Fee (2%)</strong> is a flat annual charge on your invested amount — for example, $2,000 per year on a $100,000 investment. This covers the costs of running the fund day-to-day.<br><br>
-      <strong>Performance Fee (20%)</strong> is our share of the profits — but only on new profits. If your account grows by $10,000, we earn $2,000 of that. Crucially, if the fund drops and then recovers, we don't charge again on the recovery — we only earn when you hit new highs. This is called a <strong>high-water mark</strong> and it means our interests are directly aligned with yours: we do well only when you do well.
+      <strong>Performance Fee (20%)</strong> is our share of the profits — but only on new profits. If your account grows by $10,000, we earn $2,000 of that. Crucially, if the fund drops and then recovers, we don't charge again on the recovery — we only earn when you hit new highs. This is called a <strong>high-water mark</strong> and it means our interests are directly aligned with yours: we do well only when you do well.<br><br>
+      <strong>Monthly Liquidity</strong> means you're not locked in for years — you can redeem your investment at the end of any month with 30 days notice. This gives you flexibility while allowing us to manage the portfolio effectively.
     </div>
   </div>
 
@@ -2093,7 +2098,7 @@ function scrollToId(id){var s=document.getElementById(id);if(s)s.scrollIntoView(
     <div class="about-avatar">MBS</div>
     <div class="about-text-block">
       <div class="about-name">Mark B</div>
-      <div class="about-role">Portfolio Manager</div>
+      <div class="about-role">Founder & Portfolio Manager</div>
       <div class="about-bio">
         Active in markets since 2008, with experience spanning personal trading accounts to executing billions of dollars in notional value across 50+ Futures and FX markets for Boronia Capital, a large hedge fund and family office. Managing risk across diverse global markets taught me that capital preservation is the foundation of long-term outperformance.
         <br><br>
@@ -2267,8 +2272,8 @@ function scrollToId(id){var s=document.getElementById(id);if(s)s.scrollIntoView(
     var navMap = [
       { btn: 0, ids: ['slide-0', 'slide-1'] },           // Overview
       { btn: 1, ids: ['slide-2'] },                        // Strategy
-      { btn: 2, ids: ['slide-3', 'slide-4', 'slide-5', 'slide-9b'] }, // Performance
-      { btn: 3, ids: ['slide-6', 'slide-7', 'slide-8'] }, // Risk
+      { btn: 2, ids: ['slide-3', 'slide-4', 'slide-5', 'slide-9b', 'slide-7'] }, // Performance
+      { btn: 3, ids: ['slide-6', 'slide-8'] }, // Risk
       { btn: 4, ids: ['slide-9', 'slide-10', 'slide-fees'] },           // About
       { btn: 5, ids: ['slide-contact'] },                  // Contact
       { btn: 6, ids: ['slide-disclaimer'] },               // Disclaimer
