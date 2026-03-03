@@ -1086,8 +1086,8 @@
 
     /* Fee structure mobile */
     #slide-fees .slide-heading { font-size: 28px; }
-    #slide-fees [style*="grid-template-columns: 1fr 1fr;"] { grid-template-columns: 1fr !important; }
-    #slide-fees [style*="grid-template-columns: 1fr 1fr 1fr;"] { grid-template-columns: 1fr !important; }
+    #slide-fees [style*="grid-template-columns: 1fr 1fr 1fr 1fr"] { grid-template-columns: 1fr !important; }
+    #slide-fees [style*="grid-column: span 2"] { grid-column: span 1 !important; }
   }
 
   @media (max-width: 420px) {
@@ -2030,29 +2030,29 @@ function scrollToId(id){var s=document.getElementById(id);if(s)s.scrollIntoView(
 
   <p class="slide-text" style="margin-bottom: 36px;">Our fee structure is designed to align our incentives directly with yours. We earn the majority of our compensation only when we deliver strong performance.</p>
 
-  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; max-width: 800px;">
+  <div style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 20px; max-width: 900px;">
     <!-- Management Fee -->
-    <div style="padding: 40px 32px; background: rgba(245,240,232,0.06); border: 1px solid rgba(200,169,81,0.25); border-radius: 10px; text-align: center; position: relative; overflow: hidden;">
+    <div style="padding: 28px 20px; background: rgba(245,240,232,0.06); border: 1px solid rgba(200,169,81,0.25); border-radius: 8px; text-align: center; position: relative; overflow: hidden; grid-column: span 2;">
       <div style="position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--imperial-gold), var(--imperial-gold-light));"></div>
-      <div style="font-family: 'Cinzel', serif; font-size: 64px; font-weight: 900; color: var(--imperial-gold); line-height: 1;">2%</div>
-      <div style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600; color: rgba(245,240,232,0.5); letter-spacing: 2px; text-transform: uppercase; margin-top: 10px;">Management Fee</div>
-      <div style="margin-top: 18px; font-family: 'Inter', sans-serif; font-size: 14px; color: rgba(245,240,232,0.5); line-height: 1.7;">
+      <div style="font-family: 'Cinzel', serif; font-size: 52px; font-weight: 900; color: var(--imperial-gold); line-height: 1;">2%</div>
+      <div style="font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600; color: rgba(245,240,232,0.5); letter-spacing: 2px; text-transform: uppercase; margin-top: 8px;">Management Fee</div>
+      <div style="margin-top: 14px; font-family: 'Inter', sans-serif; font-size: 13px; color: rgba(245,240,232,0.45); line-height: 1.6;">
         Annual fee on assets under management, charged to cover operational, research, and administrative costs.
       </div>
     </div>
     <!-- Performance Fee -->
-    <div style="padding: 40px 32px; background: rgba(245,240,232,0.06); border: 1px solid rgba(200,169,81,0.25); border-radius: 10px; text-align: center; position: relative; overflow: hidden;">
+    <div style="padding: 28px 20px; background: rgba(245,240,232,0.06); border: 1px solid rgba(200,169,81,0.25); border-radius: 8px; text-align: center; position: relative; overflow: hidden; grid-column: span 2;">
       <div style="position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--imperial-gold), var(--imperial-gold-light));"></div>
-      <div style="font-family: 'Cinzel', serif; font-size: 64px; font-weight: 900; color: var(--imperial-gold); line-height: 1;">20%</div>
-      <div style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600; color: rgba(245,240,232,0.5); letter-spacing: 2px; text-transform: uppercase; margin-top: 10px;">Performance Fee</div>
-      <div style="margin-top: 18px; font-family: 'Inter', sans-serif; font-size: 14px; color: rgba(245,240,232,0.5); line-height: 1.7;">
+      <div style="font-family: 'Cinzel', serif; font-size: 52px; font-weight: 900; color: var(--imperial-gold); line-height: 1;">20%</div>
+      <div style="font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600; color: rgba(245,240,232,0.5); letter-spacing: 2px; text-transform: uppercase; margin-top: 8px;">Performance Fee</div>
+      <div style="margin-top: 14px; font-family: 'Inter', sans-serif; font-size: 13px; color: rgba(245,240,232,0.45); line-height: 1.6;">
         Charged only on new profits above the high-water mark. We only earn this fee when your investment grows.
       </div>
     </div>
   </div>
 
   <!-- Key Terms -->
-  <div style="margin-top: 36px; max-width: 900px;">
+  <div style="margin-top: 20px; max-width: 900px;">
     <div style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 20px;">
       <div style="padding: 22px; background: rgba(245,240,232,0.04); border: 1px solid rgba(200,169,81,0.12); border-radius: 8px; text-align: center;">
         <div style="font-family: 'Cinzel', serif; font-size: 20px; font-weight: 700; color: var(--imperial-gold); margin-bottom: 6px;">High-Water Mark</div>
@@ -2098,7 +2098,7 @@ function scrollToId(id){var s=document.getElementById(id);if(s)s.scrollIntoView(
     <div class="about-avatar">MBS</div>
     <div class="about-text-block">
       <div class="about-name">Mark B</div>
-      <div class="about-role">Founder & Portfolio Manager</div>
+      <div class="about-role">Portfolio Manager</div>
       <div class="about-bio">
         Active in markets since 2008, with experience spanning personal trading accounts to executing billions of dollars in notional value across 50+ Futures and FX markets for Boronia Capital, a large hedge fund and family office. Managing risk across diverse global markets taught me that capital preservation is the foundation of long-term outperformance.
         <br><br>
@@ -2191,7 +2191,7 @@ function scrollToId(id){var s=document.getElementById(id);if(s)s.scrollIntoView(
   <div style="max-width: 500px; margin: 0 auto;">
     <div style="padding: 28px; background: rgba(245,240,232,0.08); border: 1px solid rgba(200,169,81,0.25); border-radius: 10px;">
       <div style="font-family: 'Cinzel', serif; font-size: 24px; font-weight: 700; color: var(--imperial-gold); margin-bottom: 6px;">Mark B</div>
-      <div style="font-family: 'Inter', sans-serif; font-size: 13px; color: rgba(245,240,232,0.5); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px;">Portfolio Manager</div>
+      <div style="font-family: 'Inter', sans-serif; font-size: 13px; color: rgba(245,240,232,0.5); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px;">Founder & Portfolio Manager</div>
       <div style="font-family: 'Inter', sans-serif; font-size: 16px; color: rgba(245,240,232,0.75); line-height: 2.2;">
         ✉ &nbsp; <span style="color: var(--imperial-gold);">contact@porticus.io</span><br>
         📞 &nbsp; <span style="color: var(--imperial-gold);">[phone number]</span>
