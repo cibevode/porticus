@@ -1151,7 +1151,12 @@
   body.is-mobile .stat-label { font-size: 11px; }
   body.is-mobile .strategy-grid { grid-template-columns: 1fr; gap: 16px; }
   body.is-mobile .two-col { grid-template-columns: 1fr; gap: 20px; }
-  body.is-mobile .takeaway-grid { grid-template-columns: 1fr; }
+  body.is-mobile .takeaway-grid { grid-template-columns: 1fr; gap: 14px; margin-top: 20px; }
+  body.is-mobile .takeaway-card { padding: 18px; flex-direction: column; gap: 12px; min-height: auto; }
+  body.is-mobile .takeaway-card[style*="grid-column: span 2"] { grid-column: span 1 !important; }
+  body.is-mobile .takeaway-icon { width: 36px; height: 36px; font-size: 16px; }
+  body.is-mobile .takeaway-title { font-size: 15px; margin-bottom: 4px; }
+  body.is-mobile .takeaway-desc { font-size: 13px; line-height: 1.5; }
   body.is-mobile .about-content { flex-direction: column; align-items: center; gap: 24px; text-align: center; }
   body.is-mobile .about-bio { text-align: left; }
   body.is-mobile .hero-stat-value { font-size: 52px; }
@@ -1301,8 +1306,9 @@ function scrollToId(id){var s=document.getElementById(id);if(s)s.scrollIntoView(
   </div>
   <div class="stats-grid" style="max-width: 760px;">
     <div class="stat-card" style="background: rgba(245,240,232,0.08); border-color: rgba(200,169,81,0.2);">
-      <div class="stat-value" style="color: var(--imperial-gold);">76.50%</div>
+      <div class="stat-value" style="color: var(--imperial-gold);">75.56%</div>
       <div class="stat-label" style="color: rgba(245,240,232,0.5);">Total Return</div>
+      <div style="font-family: 'Inter', sans-serif; font-size: 10px; color: rgba(245,240,232,0.35); margin-top: 4px;">Sep 18, 2024 – Feb 27, 2026</div>
     </div>
     <div class="stat-card" style="background: rgba(245,240,232,0.08); border-color: rgba(200,169,81,0.2);">
       <div class="stat-value" style="color: var(--imperial-gold);">2.09</div>
@@ -1377,8 +1383,9 @@ function scrollToId(id){var s=document.getElementById(id);if(s)s.scrollIntoView(
 
   <div class="stats-grid">
     <div class="stat-card">
-      <div class="stat-value">76.50%</div>
+      <div class="stat-value">75.56%</div>
       <div class="stat-label">Cumulative Return (TWR)</div>
+      <div style="font-family: 'Inter', sans-serif; font-size: 10px; color: var(--text-muted); opacity: 0.6; margin-top: 4px;">Sep 18, 2024 – Feb 27, 2026</div>
     </div>
     <div class="stat-card">
       <div class="stat-value">32.71%</div>
