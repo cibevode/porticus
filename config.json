@@ -1,0 +1,45 @@
+{
+  "accounts": [
+    {
+      "id": 1,
+      "name": "Account 1",
+      "host": "127.0.0.1",
+      "port": 7496,
+      "client_id": 1,
+      "enabled": true,
+      "equity_source": "api",
+      "manual_equity": 0
+    },
+    {
+      "id": 2,
+      "name": "Account 2",
+      "host": "127.0.0.1",
+      "port": 7497,
+      "client_id": 2,
+      "enabled": true,
+      "equity_source": "api",
+      "manual_equity": 0
+    },
+    {
+      "id": 3,
+      "name": "Account 3",
+      "host": "127.0.0.1",
+      "port": 7498,
+      "client_id": 3,
+      "enabled": true,
+      "equity_source": "api",
+      "manual_equity": 0
+    }
+  ],
+  "settings": {
+    "market_data": {
+      "enabled": false,
+      "source_account_id": null
+    },
+    "risk": {
+      "max_leverage": 3.0,
+      "max_position_pct": 25.0,
+      "max_order_notional": 100000
+    }
+  }
+}
