@@ -1573,72 +1573,90 @@ function scrollToId(id){var s=document.getElementById(id);if(s)s.scrollIntoView(
     <div>
       <div class="chart-container">
         <div class="chart-title">Annualized Returns Comparison</div>
-        <!-- SVG Grouped Bar/Line hybrid for annualized returns -->
+        <!-- SVG Grouped Bar Chart - labels positioned above bars for legibility -->
         <svg viewBox="0 0 500 300" class="line-chart-svg" xmlns="http://www.w3.org/2000/svg">
           <!-- Grid -->
-          <line x1="60" y1="30" x2="60" y2="260" stroke="#E8E0D0" stroke-width="1"/>
+          <line x1="60" y1="40" x2="60" y2="260" stroke="#E8E0D0" stroke-width="1"/>
           <line x1="60" y1="260" x2="480" y2="260" stroke="#E8E0D0" stroke-width="1"/>
-          <line x1="60" y1="206" x2="480" y2="206" stroke="#E8E0D0" stroke-width="0.5" stroke-dasharray="4"/>
-          <line x1="60" y1="152" x2="480" y2="152" stroke="#E8E0D0" stroke-width="0.5" stroke-dasharray="4"/>
-          <line x1="60" y1="98" x2="480" y2="98" stroke="#E8E0D0" stroke-width="0.5" stroke-dasharray="4"/>
+          <line x1="60" y1="216" x2="480" y2="216" stroke="#E8E0D0" stroke-width="0.5" stroke-dasharray="4"/>
+          <line x1="60" y1="172" x2="480" y2="172" stroke="#E8E0D0" stroke-width="0.5" stroke-dasharray="4"/>
+          <line x1="60" y1="128" x2="480" y2="128" stroke="#E8E0D0" stroke-width="0.5" stroke-dasharray="4"/>
+          <line x1="60" y1="84" x2="480" y2="84" stroke="#E8E0D0" stroke-width="0.5" stroke-dasharray="4"/>
 
-          <!-- Y-axis -->
+          <!-- Y-axis labels (0%, 15%, 30%, 45%, 60%) -->
           <text x="52" y="264" font-family="Inter" font-size="11" fill="#8A8A9E" text-anchor="end">0%</text>
-          <text x="52" y="210" font-family="Inter" font-size="11" fill="#8A8A9E" text-anchor="end">15%</text>
-          <text x="52" y="156" font-family="Inter" font-size="11" fill="#8A8A9E" text-anchor="end">30%</text>
-          <text x="52" y="102" font-family="Inter" font-size="11" fill="#8A8A9E" text-anchor="end">50%</text>
+          <text x="52" y="220" font-family="Inter" font-size="11" fill="#8A8A9E" text-anchor="end">15%</text>
+          <text x="52" y="176" font-family="Inter" font-size="11" fill="#8A8A9E" text-anchor="end">30%</text>
+          <text x="52" y="132" font-family="Inter" font-size="11" fill="#8A8A9E" text-anchor="end">45%</text>
+          <text x="52" y="88" font-family="Inter" font-size="11" fill="#8A8A9E" text-anchor="end">60%</text>
 
           <!-- X-axis labels -->
-          <text x="145" y="278" font-family="Inter" font-size="11" fill="#8A8A9E" text-anchor="middle">1-Year</text>
-          <text x="270" y="278" font-family="Inter" font-size="11" fill="#8A8A9E" text-anchor="middle">Incep. Ann.</text>
-          <text x="395" y="278" font-family="Inter" font-size="11" fill="#8A8A9E" text-anchor="middle">3-Yr Ann.</text>
+          <text x="145" y="278" font-family="Inter" font-size="12" font-weight="600" fill="#1C1C28" text-anchor="middle">1-Year</text>
+          <text x="270" y="278" font-family="Inter" font-size="12" font-weight="600" fill="#1C1C28" text-anchor="middle">Incep. Ann.</text>
+          <text x="395" y="278" font-family="Inter" font-size="12" font-weight="600" fill="#1C1C28" text-anchor="middle">3-Yr Ann.</text>
 
-          <!-- Porticus bars -->
-          <rect x="110" y="76" width="30" height="184" rx="3" fill="#C8A951" opacity="0.9"/>
-          <rect x="235" y="78" width="30" height="182" rx="3" fill="#C8A951" opacity="0.9"/>
-          <rect x="360" y="123" width="30" height="137" rx="3" fill="#C8A951" opacity="0.9"/>
+          <!-- Porticus bars (50%=110px so 1px ≈ 0.45%) -->
+          <!-- 1Y 51.0% → 110px tall, top y=110 -->
+          <rect x="110" y="110" width="30" height="150" rx="3" fill="#C8A951"/>
+          <!-- Incep 50.7% → 149px tall -->
+          <rect x="235" y="111" width="30" height="149" rx="3" fill="#C8A951"/>
+          <!-- 3Y 38.1% → 112px tall -->
+          <rect x="360" y="148" width="30" height="112" rx="3" fill="#C8A951"/>
 
           <!-- QQQ bars -->
-          <rect x="145" y="160" width="24" height="100" rx="3" fill="#5C8350" opacity="0.8"/>
-          <rect x="270" y="174" width="24" height="86" rx="3" fill="#5C8350" opacity="0.8"/>
-          <rect x="395" y="178" width="24" height="82" rx="3" fill="#5C8350" opacity="0.8"/>
+          <!-- 1Y 27.9% → 82px -->
+          <rect x="145" y="178" width="24" height="82" rx="3" fill="#5C8350" opacity="0.85"/>
+          <!-- Incep 24% → 70px -->
+          <rect x="270" y="190" width="24" height="70" rx="3" fill="#5C8350" opacity="0.85"/>
+          <!-- 3Y 23% → 67px -->
+          <rect x="395" y="193" width="24" height="67" rx="3" fill="#5C8350" opacity="0.85"/>
 
           <!-- SPY bars -->
-          <rect x="173" y="184" width="24" height="76" rx="3" fill="#718096" opacity="0.7"/>
-          <rect x="298" y="194" width="24" height="66" rx="3" fill="#718096" opacity="0.7"/>
-          <rect x="423" y="193" width="24" height="67" rx="3" fill="#718096" opacity="0.7"/>
+          <!-- 1Y 21.0% → 62px -->
+          <rect x="173" y="198" width="24" height="62" rx="3" fill="#718096" opacity="0.85"/>
+          <!-- Incep 17% → 50px -->
+          <rect x="298" y="210" width="24" height="50" rx="3" fill="#718096" opacity="0.85"/>
+          <!-- 3Y 19% → 56px -->
+          <rect x="423" y="204" width="24" height="56" rx="3" fill="#718096" opacity="0.85"/>
 
           <!-- EWA bars -->
-          <rect x="201" y="207" width="24" height="53" rx="3" fill="#5B8A9A" opacity="0.7"/>
-          <rect x="326" y="219" width="24" height="41" rx="3" fill="#5B8A9A" opacity="0.7"/>
-          <rect x="451" y="221" width="24" height="39" rx="3" fill="#5B8A9A" opacity="0.7"/>
+          <!-- 1Y 14.9% → 44px -->
+          <rect x="201" y="216" width="24" height="44" rx="3" fill="#5B8A9A" opacity="0.85"/>
+          <!-- Incep 11% → 32px -->
+          <rect x="326" y="228" width="24" height="32" rx="3" fill="#5B8A9A" opacity="0.85"/>
+          <!-- 3Y 11% → 32px -->
+          <rect x="451" y="228" width="24" height="32" rx="3" fill="#5B8A9A" opacity="0.85"/>
 
-          <!-- Value labels -->
-          <text x="125" y="88" font-family="Inter" font-size="12" font-weight="700" fill="#C8A951" text-anchor="middle">51.0%</text>
-          <text x="250" y="90" font-family="Inter" font-size="12" font-weight="700" fill="#C8A951" text-anchor="middle">50.7%</text>
-          <text x="375" y="131" font-family="Inter" font-size="12" font-weight="700" fill="#C8A951" text-anchor="middle">38.1%</text>
+          <!-- Value labels - all positioned ABOVE bars in high-contrast dark text -->
+          <!-- Porticus: bold + larger to lead visual hierarchy -->
+          <text x="125" y="102" font-family="Inter" font-size="12" font-weight="700" fill="#1C1C28" text-anchor="middle">51.0%</text>
+          <text x="250" y="103" font-family="Inter" font-size="12" font-weight="700" fill="#1C1C28" text-anchor="middle">50.7%</text>
+          <text x="375" y="140" font-family="Inter" font-size="12" font-weight="700" fill="#1C1C28" text-anchor="middle">38.1%</text>
 
-          <text x="157" y="172" font-family="Inter" font-size="10" fill="#5C8350" text-anchor="middle">27.9%</text>
-          <text x="282" y="186" font-family="Inter" font-size="10" fill="#5C8350" text-anchor="middle">~24%</text>
-          <text x="407" y="172" font-family="Inter" font-size="10" fill="#5C8350" text-anchor="middle">~23%</text>
+          <!-- QQQ -->
+          <text x="157" y="170" font-family="Inter" font-size="10" font-weight="600" fill="#1C1C28" text-anchor="middle">27.9%</text>
+          <text x="282" y="182" font-family="Inter" font-size="10" font-weight="600" fill="#1C1C28" text-anchor="middle">~24%</text>
+          <text x="407" y="185" font-family="Inter" font-size="10" font-weight="600" fill="#1C1C28" text-anchor="middle">~23%</text>
 
-          <text x="185" y="196" font-family="Inter" font-size="10" fill="#718096" text-anchor="middle">21.0%</text>
-          <text x="310" y="206" font-family="Inter" font-size="10" fill="#718096" text-anchor="middle">~17%</text>
-          <text x="435" y="186" font-family="Inter" font-size="10" fill="#718096" text-anchor="middle">~19%</text>
+          <!-- SPY -->
+          <text x="185" y="190" font-family="Inter" font-size="10" font-weight="600" fill="#1C1C28" text-anchor="middle">21.0%</text>
+          <text x="310" y="202" font-family="Inter" font-size="10" font-weight="600" fill="#1C1C28" text-anchor="middle">~17%</text>
+          <text x="435" y="196" font-family="Inter" font-size="10" font-weight="600" fill="#1C1C28" text-anchor="middle">~19%</text>
 
-          <text x="213" y="219" font-family="Inter" font-size="10" fill="#5B8A9A" text-anchor="middle">14.9%</text>
-          <text x="338" y="231" font-family="Inter" font-size="10" fill="#5B8A9A" text-anchor="middle">~11%</text>
-          <text x="463" y="200" font-family="Inter" font-size="10" fill="#5B8A9A" text-anchor="middle">~11%</text>
+          <!-- EWA -->
+          <text x="213" y="208" font-family="Inter" font-size="10" font-weight="600" fill="#1C1C28" text-anchor="middle">14.9%</text>
+          <text x="338" y="220" font-family="Inter" font-size="10" font-weight="600" fill="#1C1C28" text-anchor="middle">~11%</text>
+          <text x="463" y="220" font-family="Inter" font-size="10" font-weight="600" fill="#1C1C28" text-anchor="middle">~11%</text>
 
           <!-- Legend -->
           <rect x="80" y="290" width="12" height="8" rx="2" fill="#C8A951"/>
-          <text x="97" y="297" font-family="Inter" font-size="10" fill="#8A8A9E">Porticus</text>
+          <text x="97" y="297" font-family="Inter" font-size="10" fill="#5A5A6E">Porticus</text>
           <rect x="160" y="290" width="12" height="8" rx="2" fill="#5C8350"/>
-          <text x="177" y="297" font-family="Inter" font-size="10" fill="#8A8A9E">QQQ</text>
+          <text x="177" y="297" font-family="Inter" font-size="10" fill="#5A5A6E">QQQ</text>
           <rect x="220" y="290" width="12" height="8" rx="2" fill="#718096"/>
-          <text x="237" y="297" font-family="Inter" font-size="10" fill="#8A8A9E">SPY</text>
+          <text x="237" y="297" font-family="Inter" font-size="10" fill="#5A5A6E">SPY</text>
           <rect x="275" y="290" width="12" height="8" rx="2" fill="#5B8A9A"/>
-          <text x="292" y="297" font-family="Inter" font-size="10" fill="#8A8A9E">EWA</text>
+          <text x="292" y="297" font-family="Inter" font-size="10" fill="#5A5A6E">EWA</text>
         </svg>
       </div>
     </div>
@@ -2312,7 +2330,7 @@ function scrollToId(id){var s=document.getElementById(id);if(s)s.scrollIntoView(
       <strong style="color: var(--imperial-gold);">Performance Reporting:</strong> All returns are calculated using Time-Weighted Return (TWR) methodology and are presented net of trading costs and commissions but gross of management and performance fees. Actual investor returns will be lower after the application of management fees (2% per annum) and performance fees (20% of new profits above the high-water mark). Benchmark comparisons are provided for illustrative purposes only and do not imply that the portfolio's risk profile is identical to any benchmark.
     </p>
     <p style="margin-bottom: 18px;">
-      <strong style="color: var(--imperial-gold);">Account Continuity:</strong> On April 8, 2026, the strategy migrated from its original Interactive Brokers cash account to a new portfolio-margin-enabled account to expand strategy capacity. All performance figures since inception are presented as a continuous linked time-weighted return, chained at the natural transition date. Underlying portfolio analytics, daily return series, and benchmark comparisons remain sourced from Interactive Brokers PortfolioAnalyst.
+      <strong style="color: var(--imperial-gold);">Account Continuity:</strong> On April 8, 2026, the strategy migrated to a new portfolio-margin-enabled brokerage account to expand strategy capacity. All performance figures since inception are presented as a continuous linked time-weighted return, chained at the natural transition date. Underlying portfolio analytics, daily return series, and benchmark comparisons remain sourced from Interactive Brokers PortfolioAnalyst.
     </p>
     <p>
       <strong style="color: var(--imperial-gold);">Confidentiality:</strong> This document is confidential and intended solely for the recipient. It may not be reproduced, distributed, or disclosed to any other person without the prior written consent of Porticus Capital.
