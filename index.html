@@ -1398,8 +1398,8 @@ function scrollToId(id){var s=document.getElementById(id);if(s)s.scrollIntoView(
       <div class="stat-label">Since Inception Ann.</div>
     </div>
     <div class="stat-card">
-      <div class="stat-value">38.06%</div>
-      <div class="stat-label">3-Year Annualized</div>
+      <div class="stat-value">1.91 / 3.21</div>
+      <div class="stat-label">Sharpe / Sortino</div>
     </div>
     <div class="stat-card">
       <div class="stat-value">14.38%</div>
@@ -1426,8 +1426,8 @@ function scrollToId(id){var s=document.getElementById(id);if(s)s.scrollIntoView(
     <div class="explainer-title">💡 In Plain English</div>
     <div class="explainer-text">
       <strong>Cumulative Return (TWR)</strong> = Total profit since inception, adjusted so that deposits and withdrawals don't distort the numbers. This is the true measure of investment skill.
-      <strong>Annualized</strong> = What the return would be per year if the same pace continued. For example, our 3-year annualized return of 38.06% shows consistent long-term growth well above market averages.
-      <strong>Daily Mean Return</strong> = On an average day, the fund gains 0.14%. That compounds significantly over time.
+      <strong>Annualized</strong> = What the return would be per year if the same pace continued. Our since-inception annualized return of 50.66% shows consistent long-term growth well above market averages.
+      <strong>Daily Mean Return</strong> = On an average day, the fund gains 0.16%. That compounds significantly over time.
       <strong>Winning Days</strong> = More than half of all trading days are profitable — consistency matters.<br><br>
       <em style="color: var(--text-muted); opacity: 0.6; font-style: normal; font-size: 13px;">Note: Daily mean return has ranged from 0.14% to 0.16% and win rate from 55% to 56% across measurement periods. These naturally shift as new market data is added — the key is that both remain firmly positive and consistent over time.</em>
     </div>
@@ -1572,7 +1572,7 @@ function scrollToId(id){var s=document.getElementById(id);if(s)s.scrollIntoView(
     </div>
     <div>
       <div class="chart-container">
-        <div class="chart-title">Annualized Returns Comparison</div>
+        <div class="chart-title">Returns Comparison</div>
         <!-- SVG Grouped Bar Chart - labels positioned above bars for legibility -->
         <svg viewBox="0 0 500 300" class="line-chart-svg" xmlns="http://www.w3.org/2000/svg">
           <!-- Grid -->
@@ -1593,60 +1593,60 @@ function scrollToId(id){var s=document.getElementById(id);if(s)s.scrollIntoView(
           <!-- X-axis labels -->
           <text x="145" y="278" font-family="Inter" font-size="12" font-weight="600" fill="#1C1C28" text-anchor="middle">1-Year</text>
           <text x="270" y="278" font-family="Inter" font-size="12" font-weight="600" fill="#1C1C28" text-anchor="middle">Incep. Ann.</text>
-          <text x="395" y="278" font-family="Inter" font-size="12" font-weight="600" fill="#1C1C28" text-anchor="middle">3-Yr Ann.</text>
+          <text x="395" y="278" font-family="Inter" font-size="12" font-weight="600" fill="#1C1C28" text-anchor="middle">YTD 2026</text>
 
           <!-- Porticus bars (50%=110px so 1px ≈ 0.45%) -->
           <!-- 1Y 51.0% → 110px tall, top y=110 -->
           <rect x="110" y="110" width="30" height="150" rx="3" fill="#C8A951"/>
           <!-- Incep 50.7% → 149px tall -->
           <rect x="235" y="111" width="30" height="149" rx="3" fill="#C8A951"/>
-          <!-- 3Y 38.1% → 112px tall -->
-          <rect x="360" y="148" width="30" height="112" rx="3" fill="#C8A951"/>
+          <!-- YTD 14.38% → 42px tall -->
+          <rect x="360" y="218" width="30" height="42" rx="3" fill="#C8A951"/>
 
           <!-- QQQ bars -->
           <!-- 1Y 27.9% → 82px -->
           <rect x="145" y="178" width="24" height="82" rx="3" fill="#5C8350" opacity="0.85"/>
           <!-- Incep 24% → 70px -->
           <rect x="270" y="190" width="24" height="70" rx="3" fill="#5C8350" opacity="0.85"/>
-          <!-- 3Y 23% → 67px -->
-          <rect x="395" y="193" width="24" height="67" rx="3" fill="#5C8350" opacity="0.85"/>
+          <!-- YTD 8.84% → 26px -->
+          <rect x="395" y="234" width="24" height="26" rx="3" fill="#5C8350" opacity="0.85"/>
 
           <!-- SPY bars -->
           <!-- 1Y 21.0% → 62px -->
           <rect x="173" y="198" width="24" height="62" rx="3" fill="#718096" opacity="0.85"/>
           <!-- Incep 17% → 50px -->
           <rect x="298" y="210" width="24" height="50" rx="3" fill="#718096" opacity="0.85"/>
-          <!-- 3Y 19% → 56px -->
-          <rect x="423" y="204" width="24" height="56" rx="3" fill="#718096" opacity="0.85"/>
+          <!-- YTD 5.66% → 17px -->
+          <rect x="423" y="243" width="24" height="17" rx="3" fill="#718096" opacity="0.85"/>
 
           <!-- EWA bars -->
           <!-- 1Y 14.9% → 44px -->
           <rect x="201" y="216" width="24" height="44" rx="3" fill="#5B8A9A" opacity="0.85"/>
           <!-- Incep 11% → 32px -->
           <rect x="326" y="228" width="24" height="32" rx="3" fill="#5B8A9A" opacity="0.85"/>
-          <!-- 3Y 11% → 32px -->
-          <rect x="451" y="228" width="24" height="32" rx="3" fill="#5B8A9A" opacity="0.85"/>
+          <!-- YTD 12.68% → 37px -->
+          <rect x="451" y="223" width="24" height="37" rx="3" fill="#5B8A9A" opacity="0.85"/>
 
           <!-- Value labels - all positioned ABOVE bars in high-contrast dark text -->
           <!-- Porticus: bold + larger to lead visual hierarchy -->
           <text x="125" y="102" font-family="Inter" font-size="12" font-weight="700" fill="#1C1C28" text-anchor="middle">51.0%</text>
           <text x="250" y="103" font-family="Inter" font-size="12" font-weight="700" fill="#1C1C28" text-anchor="middle">50.7%</text>
-          <text x="375" y="140" font-family="Inter" font-size="12" font-weight="700" fill="#1C1C28" text-anchor="middle">38.1%</text>
+          <text x="375" y="210" font-family="Inter" font-size="12" font-weight="700" fill="#1C1C28" text-anchor="middle">14.4%</text>
 
           <!-- QQQ -->
           <text x="157" y="170" font-family="Inter" font-size="10" font-weight="600" fill="#1C1C28" text-anchor="middle">27.9%</text>
-          <text x="282" y="182" font-family="Inter" font-size="10" font-weight="600" fill="#1C1C28" text-anchor="middle">~24%</text>
-          <text x="407" y="185" font-family="Inter" font-size="10" font-weight="600" fill="#1C1C28" text-anchor="middle">~23%</text>
+          <text x="282" y="182" font-family="Inter" font-size="10" font-weight="600" fill="#1C1C28" text-anchor="middle">24.0%</text>
+          <text x="407" y="226" font-family="Inter" font-size="10" font-weight="600" fill="#1C1C28" text-anchor="middle">8.8%</text>
 
           <!-- SPY -->
           <text x="185" y="190" font-family="Inter" font-size="10" font-weight="600" fill="#1C1C28" text-anchor="middle">21.0%</text>
-          <text x="310" y="202" font-family="Inter" font-size="10" font-weight="600" fill="#1C1C28" text-anchor="middle">~17%</text>
-          <text x="435" y="196" font-family="Inter" font-size="10" font-weight="600" fill="#1C1C28" text-anchor="middle">~19%</text>
+          <text x="310" y="202" font-family="Inter" font-size="10" font-weight="600" fill="#1C1C28" text-anchor="middle">17.0%</text>
+          <text x="435" y="235" font-family="Inter" font-size="10" font-weight="600" fill="#1C1C28" text-anchor="middle">5.7%</text>
 
           <!-- EWA -->
           <text x="213" y="208" font-family="Inter" font-size="10" font-weight="600" fill="#1C1C28" text-anchor="middle">14.9%</text>
-          <text x="338" y="220" font-family="Inter" font-size="10" font-weight="600" fill="#1C1C28" text-anchor="middle">~11%</text>
-          <text x="463" y="220" font-family="Inter" font-size="10" font-weight="600" fill="#1C1C28" text-anchor="middle">~11%</text>
+          <text x="338" y="220" font-family="Inter" font-size="10" font-weight="600" fill="#1C1C28" text-anchor="middle">11.0%</text>
+          <text x="463" y="215" font-family="Inter" font-size="10" font-weight="600" fill="#1C1C28" text-anchor="middle">12.7%</text>
 
           <!-- Legend -->
           <rect x="80" y="290" width="12" height="8" rx="2" fill="#C8A951"/>
