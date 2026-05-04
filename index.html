@@ -837,7 +837,7 @@
   /* Benchmark matrix */
   .benchmark-matrix { font-size: 13px; }
   .benchmark-matrix td, .benchmark-matrix th { padding: 7px 10px; }
-  .benchmark-matrix .row-label { min-width: 40px; }
+  .benchmark-matrix .row-label { width: 50px; min-width: 50px; max-width: 50px; }
 
   /* Heatmap colour scale */
   .neutral-cell { color: #999; background: rgba(200,169,81,0.03); }
@@ -1698,10 +1698,10 @@ function scrollToId(id){var s=document.getElementById(id);if(s)s.scrollIntoView(
 
   <!-- Porticus Returns Table -->
   <div style="overflow-x: auto; max-width: 1060px;">
-    <table class="heatmap-table">
+    <table class="heatmap-table benchmark-matrix">
       <thead>
         <tr>
-          <th></th>
+          <th></th><th></th>
           <th>Jan</th><th>Feb</th><th>Mar</th><th>Apr</th><th>May</th><th>Jun</th>
           <th>Jul</th><th>Aug</th><th>Sep</th><th>Oct</th><th>Nov</th><th>Dec</th>
           <th class="year-cell">Year</th>
@@ -1709,14 +1709,16 @@ function scrollToId(id){var s=document.getElementById(id);if(s)s.scrollIntoView(
       </thead>
       <tbody>
         <tr>
-          <td class="row-label">2024</td>
+          <td class="row-label" style="font-weight:700;">2024</td>
+          <td class="row-label">&nbsp;</td>
           <td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td>
           <td>—</td><td>—</td>
           <td class="pos-2">3.98</td><td class="pos-1">2.38</td><td class="pos-5">18.77</td><td class="pos-1">0.72</td>
           <td class="year-cell pos-5">27.31</td>
         </tr>
         <tr>
-          <td class="row-label">2025</td>
+          <td class="row-label" style="font-weight:700;">2025</td>
+          <td class="row-label">&nbsp;</td>
           <td class="pos-2">4.22</td><td class="neg-1">-1.65</td><td class="neg-1">-2.15</td>
           <td class="pos-1">0.58</td><td class="pos-4">9.98</td><td class="pos-3">8.15</td>
           <td class="pos-1">0.52</td><td class="pos-1">1.22</td><td class="pos-3">6.13</td>
@@ -1724,7 +1726,8 @@ function scrollToId(id){var s=document.getElementById(id);if(s)s.scrollIntoView(
           <td class="year-cell pos-5">32.41</td>
         </tr>
         <tr>
-          <td class="row-label">2026</td>
+          <td class="row-label" style="font-weight:700;">2026</td>
+          <td class="row-label">&nbsp;</td>
           <td class="pos-2">3.03</td><td class="pos-1">1.07</td><td class="neg-2">-3.03</td>
           <td class="pos-5">12.43</td><td>—</td><td>—</td>
           <td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td>
@@ -1732,10 +1735,11 @@ function scrollToId(id){var s=document.getElementById(id);if(s)s.scrollIntoView(
         </tr>
       </tbody>
       <tfoot>
-        <tr><td colspan="14" style="height:4px; border:none; background:transparent;"></td></tr>
-        <tr><td class="row-label" style="font-weight:700; letter-spacing:1px;">Quarter</td><td colspan="13"></td></tr>
+        <tr><td colspan="15" style="height:4px; border:none; background:transparent;"></td></tr>
+        <tr><td class="row-label" style="font-weight:700; letter-spacing:1px;">Quarter</td><td colspan="14"></td></tr>
         <tr>
           <td class="row-label">2024</td>
+          <td class="row-label">&nbsp;</td>
           <td colspan="3" style="text-align:center;">—</td>
           <td colspan="3" style="text-align:center;">—</td>
           <td colspan="3" style="text-align:center; background: rgba(74,103,65,0.12);">3.98</td>
@@ -1744,6 +1748,7 @@ function scrollToId(id){var s=document.getElementById(id);if(s)s.scrollIntoView(
         </tr>
         <tr>
           <td class="row-label">2025</td>
+          <td class="row-label">&nbsp;</td>
           <td colspan="3" style="text-align:center; background: rgba(74,103,65,0.06);">0.30</td>
           <td colspan="3" style="text-align:center; background: rgba(74,103,65,0.25); font-weight:600;">19.63</td>
           <td colspan="3" style="text-align:center; background: rgba(74,103,65,0.15);">7.99</td>
@@ -1752,6 +1757,7 @@ function scrollToId(id){var s=document.getElementById(id);if(s)s.scrollIntoView(
         </tr>
         <tr>
           <td class="row-label">2026</td>
+          <td class="row-label">&nbsp;</td>
           <td colspan="3" style="text-align:center; background: rgba(74,103,65,0.12);">0.99</td>
           <td colspan="3" style="text-align:center; background: rgba(74,103,65,0.30); font-weight:600;">12.43</td>
           <td colspan="3" style="text-align:center;">—</td>
