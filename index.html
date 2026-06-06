@@ -753,6 +753,65 @@
     text-transform: uppercase;
   }
 
+  /* ============ Risk-Adjusted Excellence (symmetric) ============ */
+  .risk-col {
+    display: flex;
+    flex-direction: column;
+  }
+  .risk-hero {
+    background: rgba(245, 240, 232, 0.04);
+    border: 1px solid rgba(200, 169, 81, 0.15);
+    border-radius: 10px;
+    padding: 30px 32px;
+  }
+  .risk-hero .hero-stat { margin-bottom: 0; }
+  .risk-hero-sub {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    color: rgba(245, 240, 232, 0.45);
+    margin-top: 14px;
+  }
+  .risk-hero-sub em { color: rgba(245, 240, 232, 0.7); font-style: normal; }
+  .risk-hero-divider {
+    height: 1px;
+    background: rgba(200, 169, 81, 0.16);
+    margin: 22px 0 18px;
+  }
+  .risk-substat {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+  }
+  .risk-substat-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: rgba(245, 240, 232, 0.45);
+  }
+  .risk-substat-value {
+    font-family: 'Cinzel', serif;
+    font-size: 30px;
+    font-weight: 700;
+    color: var(--imperial-gold);
+    line-height: 1;
+  }
+  .risk-col .chart-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin-top: 22px;
+  }
+  .risk-col .metric-label { color: rgba(245, 240, 232, 0.5); width: 95px; }
+  .risk-col .metric-row:last-child { margin-bottom: 0; }
+  .risk-explainer-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 40px;
+  }
+  .risk-explainer-foot { margin-top: 18px; }
+
   /* ============ Footer ============ */
   .slide-footer {
     position: absolute;
@@ -1072,6 +1131,13 @@
     .explainer-title { font-size: 12px; }
     .explainer-text { font-size: 14px; line-height: 1.7; }
 
+    .risk-hero { padding: 22px 20px; }
+    .risk-hero-sub { font-size: 13px; }
+    .risk-substat-value { font-size: 24px; }
+    .risk-col .chart-container { margin-top: 16px; }
+    .risk-col .metric-label { width: 80px; }
+    .risk-explainer-grid { grid-template-columns: 1fr; gap: 8px; }
+
     .slide-footer {
       position: relative;
       bottom: auto; left: auto; right: auto;
@@ -1165,6 +1231,12 @@
   body.is-mobile .about-content { flex-direction: column; align-items: center; gap: 24px; text-align: center; }
   body.is-mobile .about-bio { text-align: left; }
   body.is-mobile .hero-stat-value { font-size: 52px; }
+  body.is-mobile .risk-hero { padding: 22px 20px; }
+  body.is-mobile .risk-hero-sub { font-size: 13px; }
+  body.is-mobile .risk-substat-value { font-size: 24px; }
+  body.is-mobile .risk-col .chart-container { margin-top: 16px; }
+  body.is-mobile .risk-col .metric-label { width: 80px; }
+  body.is-mobile .risk-explainer-grid { grid-template-columns: 1fr; gap: 8px; }
   body.is-mobile .explainer-box { padding: 20px; margin-top: 20px; }
   body.is-mobile .explainer-text { font-size: 14px; line-height: 1.7; }
   body.is-mobile .slide-footer {
@@ -2043,41 +2115,43 @@ function scrollToId(id){smoothScrollTo(document.getElementById(id));}
   <div class="heading-underline"></div>
 
   <div class="two-col">
-    <div>
-      <div class="hero-stat">
-        <div class="hero-stat-value">2.30</div>
-      </div>
-      <div class="hero-stat-label" style="margin-bottom: 34px;">Sharpe Ratio</div>
-
-      <div class="hero-stat">
-        <div class="hero-stat-value">3.97</div>
-      </div>
-      <div class="hero-stat-label" style="margin-bottom: 34px;">Sortino Ratio</div>
-
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 12px;">
-        <div style="padding: 20px; background: rgba(245,240,232,0.06); border-radius: 8px; text-align: center; border: 1px solid rgba(200,169,81,0.15);">
-          <div style="font-family: 'Cinzel'; font-size: 26px; font-weight: 700; color: var(--imperial-gold);">1.06%</div>
-          <div style="font-family: 'Inter'; font-size: 12px; color: rgba(245,240,232,0.4); text-transform: uppercase; letter-spacing: 1px; margin-top: 6px;">Std Deviation</div>
+    <!-- LEFT: total-risk story -->
+    <div class="risk-col">
+      <div class="risk-hero">
+        <div class="hero-stat"><div class="hero-stat-value">2.30</div></div>
+        <div class="hero-stat-label">Sharpe Ratio</div>
+        <div class="risk-hero-sub">Return per unit of <em>total</em> risk — "bang for your buck."</div>
+        <div class="risk-hero-divider"></div>
+        <div class="risk-substat">
+          <span class="risk-substat-label">Std Deviation</span>
+          <span class="risk-substat-value">1.06%</span>
         </div>
-        <div style="padding: 20px; background: rgba(245,240,232,0.06); border-radius: 8px; text-align: center; border: 1px solid rgba(200,169,81,0.15);">
-          <div style="font-family: 'Cinzel'; font-size: 26px; font-weight: 700; color: var(--imperial-gold);">0.63%</div>
-          <div style="font-family: 'Inter'; font-size: 12px; color: rgba(245,240,232,0.4); text-transform: uppercase; letter-spacing: 1px; margin-top: 6px;">Downside Dev</div>
-        </div>
+      </div>
+      <div class="chart-container">
+        <div class="chart-title">Sharpe Ratio Comparison</div>
+        <div class="metric-row"><div class="metric-label">Porticus</div><div class="metric-bar-bg"><div class="metric-bar bar-porticus" style="width: 100%;">2.30</div></div></div>
+        <div class="metric-row"><div class="metric-label">QQQ</div><div class="metric-bar-bg"><div class="metric-bar bar-qqq" style="width: 49.6%;">1.14</div></div></div>
+        <div class="metric-row"><div class="metric-label">SPY</div><div class="metric-bar-bg"><div class="metric-bar bar-spy" style="width: 39.1%;">0.90</div></div></div>
+        <div class="metric-row"><div class="metric-label">EWA</div><div class="metric-bar-bg"><div class="metric-bar bar-ewa" style="width: 14.8%;">0.34</div></div></div>
       </div>
     </div>
-    <div>
-      <div class="chart-container" style="background: rgba(245,240,232,0.04); border-color: rgba(200,169,81,0.15);">
-        <div class="chart-title" style="color: rgba(245,240,232,0.5);">Sharpe Ratio Comparison</div>
-        <div class="metric-row"><div class="metric-label" style="color: rgba(245,240,232,0.5);">Porticus</div><div class="metric-bar-bg"><div class="metric-bar bar-porticus" style="width: 100%;">2.30</div></div></div>
-        <div class="metric-row"><div class="metric-label" style="color: rgba(245,240,232,0.5);">QQQ</div><div class="metric-bar-bg"><div class="metric-bar bar-qqq" style="width: 49.6%;">1.14</div></div></div>
-        <div class="metric-row"><div class="metric-label" style="color: rgba(245,240,232,0.5);">SPY</div><div class="metric-bar-bg"><div class="metric-bar bar-spy" style="width: 39.1%;">0.90</div></div></div>
-        <div class="metric-row"><div class="metric-label" style="color: rgba(245,240,232,0.5);">EWA</div><div class="metric-bar-bg"><div class="metric-bar bar-ewa" style="width: 14.8%;">0.34</div></div></div>
+    <!-- RIGHT: downside-risk story -->
+    <div class="risk-col">
+      <div class="risk-hero">
+        <div class="hero-stat"><div class="hero-stat-value">3.97</div></div>
+        <div class="hero-stat-label">Sortino Ratio</div>
+        <div class="risk-hero-sub">Return per unit of <em>downside</em> risk — the bad kind only.</div>
+        <div class="risk-hero-divider"></div>
+        <div class="risk-substat">
+          <span class="risk-substat-label">Downside Dev</span>
+          <span class="risk-substat-value">0.63%</span>
+        </div>
       </div>
-      <div class="chart-container" style="background: rgba(245,240,232,0.04); border-color: rgba(200,169,81,0.15); margin-top: 18px;">
-        <div class="chart-title" style="color: rgba(245,240,232,0.5);">Sortino Ratio Comparison</div>
-        <div class="metric-row"><div class="metric-label" style="color: rgba(245,240,232,0.5);">Porticus</div><div class="metric-bar-bg"><div class="metric-bar bar-porticus" style="width: 100%;">3.97</div></div></div>
-        <div class="metric-row"><div class="metric-label" style="color: rgba(245,240,232,0.5);">QQQ</div><div class="metric-bar-bg"><div class="metric-bar bar-qqq" style="width: 42.8%;">1.70</div></div></div>
-        <div class="metric-row"><div class="metric-label" style="color: rgba(245,240,232,0.5);">SPY</div><div class="metric-bar-bg"><div class="metric-bar bar-spy" style="width: 34.0%;">1.35</div></div></div>
+      <div class="chart-container">
+        <div class="chart-title">Sortino Ratio Comparison</div>
+        <div class="metric-row"><div class="metric-label">Porticus</div><div class="metric-bar-bg"><div class="metric-bar bar-porticus" style="width: 100%;">3.97</div></div></div>
+        <div class="metric-row"><div class="metric-label">QQQ</div><div class="metric-bar-bg"><div class="metric-bar bar-qqq" style="width: 42.8%;">1.70</div></div></div>
+        <div class="metric-row"><div class="metric-label">SPY</div><div class="metric-bar-bg"><div class="metric-bar bar-spy" style="width: 34.0%;">1.35</div></div></div>
       </div>
     </div>
   </div>
@@ -2085,12 +2159,16 @@ function scrollToId(id){smoothScrollTo(document.getElementById(id));}
   <div class="explainer-box">
     <div class="explainer-title">💡 In Plain English</div>
     <div class="explainer-text">
-      <strong>Sharpe Ratio</strong> = Return earned per unit of total risk. Think of it as "bang for your buck." Above 1.0 is good, above 1.5 is excellent. Porticus is at 2.30 — roughly 2x the Nasdaq 100 and far above the broad market.<br>
-      <strong>Sortino Ratio</strong> = Like Sharpe, but only counts downside risk (the bad kind). At 3.97, Porticus earns outstanding returns relative to how little it falls.<br>
-      <strong>Standard Deviation (Std Dev)</strong> = How much the fund's daily returns bounce around. Lower = smoother ride. At 1.06%, Porticus is less volatile than all benchmarks.<br>
-      <strong>Downside Deviation</strong> = Only measures the "bad" volatility — how much the fund drops on down days. At 0.63%, losses are very well contained.<br><br>
-      <em style="color: rgba(245,240,232,0.5); font-style: normal; font-size: 13px;">For context: a Sharpe of 2.30 puts Porticus at roughly 2.0× QQQ (1.14), 2.6× SPY (0.90), and 6.8× EWA (0.34). Risk-adjusted returns of this magnitude are uncommon at any time horizon.</em><br><br>
-      <em style="color: var(--imperial-gold);">Bottom line: Porticus delivers significantly higher returns with significantly less risk than the major market indices.</em>
+      <div class="risk-explainer-grid">
+        <div><strong>Sharpe Ratio</strong> = return per unit of total risk. Above 1.0 is good, above 1.5 excellent. Porticus sits at 2.30 — roughly 2× the Nasdaq 100 and far above the broad market.</div>
+        <div><strong>Sortino Ratio</strong> = like Sharpe, but only counts downside risk (the bad kind). At 3.97, Porticus earns outstanding returns relative to how little it falls.</div>
+        <div><strong>Standard Deviation</strong> = how much daily returns bounce around. Lower = smoother ride. At 1.06%, Porticus is less volatile than all benchmarks.</div>
+        <div><strong>Downside Deviation</strong> = only the "bad" volatility — drops on down days. At 0.63%, losses are very well contained.</div>
+      </div>
+      <div class="risk-explainer-foot">
+        <em style="color: rgba(245,240,232,0.5); font-style: normal; font-size: 13px;">For context: a Sharpe of 2.30 puts Porticus at roughly 2.0× QQQ (1.14), 2.6× SPY (0.90), and 6.8× EWA (0.34). Risk-adjusted returns of this magnitude are uncommon at any time horizon.</em><br><br>
+        <em style="color: var(--imperial-gold);">Bottom line: Porticus delivers significantly higher returns with significantly less risk than the major market indices.</em>
+      </div>
     </div>
   </div>
 
