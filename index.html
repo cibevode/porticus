@@ -909,6 +909,15 @@
   .benchmark-matrix td, .benchmark-matrix th { padding: 7px 10px; }
   .benchmark-matrix .row-label { width: 50px; min-width: 50px; max-width: 50px; }
 
+  /* Combined matrix: only the PORTICUS row label is gold — return cells use the same heat scale as benchmarks */
+  .benchmark-matrix .porc {
+    width: auto; min-width: 84px; max-width: none; white-space: nowrap;
+    text-align: left; padding-left: 8px; letter-spacing: 0.5px;
+    color: var(--imperial-gold-dark); font-weight: 700;
+    background: rgba(200,169,81,0.16);
+    border-left: 3px solid var(--imperial-gold);
+  }
+
   /* Heatmap colour scale */
   .neutral-cell { color: #999; background: rgba(200,169,81,0.03); }
   .pos-1 { background: rgba(74,103,65,0.12); color: #3D6B35; }
@@ -1809,86 +1818,10 @@ function scrollToId(id){smoothScrollTo(document.getElementById(id));}
   <h2 class="slide-heading">Monthly Returns (%)</h2>
   <div class="heading-underline"></div>
 
-  <!-- Porticus Returns Table -->
+  <!-- Combined Porticus + Benchmark Matrix -->
   <div style="max-width: 1060px;">
-    <h3 style="font-family: 'Cinzel', serif; font-size: 18px; color: var(--text-dark); margin-bottom: 14px; letter-spacing: 1px;">Porticus Performance</h3>
-    <div style="overflow-x: auto;">
-    <table class="heatmap-table benchmark-matrix">
-      <thead>
-        <tr>
-          <th></th><th></th>
-          <th>Jan</th><th>Feb</th><th>Mar</th><th>Apr</th><th>May</th><th>Jun</th>
-          <th>Jul</th><th>Aug</th><th>Sep</th><th>Oct</th><th>Nov</th><th>Dec</th>
-          <th class="year-cell">Year</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="row-label" style="font-weight:700;">2024</td>
-          <td class="row-label">&nbsp;</td>
-          <td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td>
-          <td>—</td><td>—</td>
-          <td class="pos-2">3.98</td><td class="pos-1">2.38</td><td class="pos-5">18.77</td><td class="pos-1">0.72</td>
-          <td class="year-cell pos-5">27.31</td>
-        </tr>
-        <tr>
-          <td class="row-label" style="font-weight:700;">2025</td>
-          <td class="row-label">&nbsp;</td>
-          <td class="pos-2">4.22</td><td class="neg-1">-1.65</td><td class="neg-1">-2.15</td>
-          <td class="pos-1">0.58</td><td class="pos-4">9.98</td><td class="pos-3">8.15</td>
-          <td class="pos-1">0.52</td><td class="pos-1">1.22</td><td class="pos-3">6.13</td>
-          <td class="pos-2">5.06</td><td class="neg-1">-0.87</td><td class="neg-1">-1.89</td>
-          <td class="year-cell pos-5">32.41</td>
-        </tr>
-        <tr>
-          <td class="row-label" style="font-weight:700;">2026</td>
-          <td class="row-label">&nbsp;</td>
-          <td class="pos-2">3.03</td><td class="pos-1">1.07</td><td class="neg-2">-3.03</td>
-          <td class="pos-5">12.43</td><td class="pos-4">10.22</td><td>—</td>
-          <td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td>
-          <td class="year-cell pos-4">25.13<span style="font-size:9px; vertical-align:super; color:var(--text-muted);">*</span></td>
-        </tr>
-      </tbody>
-      <tfoot>
-        <tr><td colspan="15" style="height:4px; border:none; background:transparent;"></td></tr>
-        <tr><td class="row-label" style="font-weight:700; letter-spacing:1px;">Quarter</td><td colspan="14"></td></tr>
-        <tr>
-          <td class="row-label">2024</td>
-          <td class="row-label">&nbsp;</td>
-          <td colspan="3" style="text-align:center;">—</td>
-          <td colspan="3" style="text-align:center;">—</td>
-          <td colspan="3" style="text-align:center; background: rgba(74,103,65,0.12);">3.98</td>
-          <td colspan="3" style="text-align:center; background: rgba(74,103,65,0.25); font-weight:600;">22.46</td>
-          <td></td>
-        </tr>
-        <tr>
-          <td class="row-label">2025</td>
-          <td class="row-label">&nbsp;</td>
-          <td colspan="3" style="text-align:center; background: rgba(74,103,65,0.06);">0.30</td>
-          <td colspan="3" style="text-align:center; background: rgba(74,103,65,0.25); font-weight:600;">19.63</td>
-          <td colspan="3" style="text-align:center; background: rgba(74,103,65,0.15);">7.99</td>
-          <td colspan="3" style="text-align:center; background: rgba(74,103,65,0.08);">2.19</td>
-          <td></td>
-        </tr>
-        <tr>
-          <td class="row-label">2026</td>
-          <td class="row-label">&nbsp;</td>
-          <td colspan="3" style="text-align:center; background: rgba(74,103,65,0.12);">0.99</td>
-          <td colspan="3" style="text-align:center; background: rgba(74,103,65,0.40); font-weight:600;">23.92</td>
-          <td colspan="3" style="text-align:center;">—</td>
-          <td colspan="3" style="text-align:center;">—</td>
-          <td></td>
-        </tr>
-      </tfoot>
-    </table>
-    </div>
-  </div>
-
-  <p style="margin-top: 12px; max-width: 1060px; font-family: 'Inter', sans-serif; font-size: 12px; color: var(--text-muted); font-style: italic;">* YTD through May 29, 2026 (daily-chained TWR). Differs slightly from the compound of rounded monthly figures shown in the row.</p>
-
-  <!-- Benchmark Comparison Matrix -->
-  <div style="margin-top: 36px; max-width: 1060px;">
-    <h3 style="font-family: 'Cinzel', serif; font-size: 18px; color: var(--text-dark); margin-bottom: 14px; letter-spacing: 1px;">Benchmark Comparison</h3>
+    <h3 style="font-family: 'Cinzel', serif; font-size: 18px; color: var(--text-dark); margin-bottom: 4px; letter-spacing: 1px;">Porticus vs. Benchmarks</h3>
+    <p style="font-family:'Inter',sans-serif; font-size:12px; color:var(--text-muted); margin-bottom:14px;">Porticus is marked in <span style="color:var(--imperial-gold-dark); font-weight:700;">gold</span> each year — QQQ, SPY and EWA shown beneath for direct month-by-month comparison.</p>
     <div style="overflow-x: auto;">
       <table class="heatmap-table benchmark-matrix">
         <thead>
@@ -1901,34 +1834,43 @@ function scrollToId(id){smoothScrollTo(document.getElementById(id));}
         </thead>
         <tbody>
           <!-- 2024 -->
+          <tr class="porticus-row">
+            <td class="row-label" rowspan="4" style="font-weight:700; vertical-align:middle;">2024</td>
+            <td class="row-label porc">PORTICUS</td>
+            <td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td>
+            <td class="pos-2">3.98</td><td class="pos-1">2.38</td><td class="pos-5">18.77</td><td class="pos-1">0.72</td>
+            <td class="year-cell pos-5">27.31</td>
+          </tr>
           <tr>
-            <td class="row-label" rowspan="3" style="font-weight:700; vertical-align:middle;">2024</td>
-            <td class="row-label" style="font-weight:600; color: var(--laurel-green);">QQQ</td>
-            <td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td>
-            <td>—</td><td>—</td>
+            <td class="row-label" style="font-weight:600; color: var(--text-muted);">QQQ</td>
+            <td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td>
             <td class="pos-1">2.62</td><td class="neg-1">-0.86</td><td class="pos-2">5.35</td><td class="pos-1">0.45</td>
             <td class="year-cell pos-2">7.72</td>
           </tr>
           <tr>
-            <td class="row-label" style="font-weight:600; color: var(--spy-grey);">SPY</td>
-            <td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td>
-            <td>—</td><td>—</td>
+            <td class="row-label" style="font-weight:600; color: var(--text-muted);">SPY</td>
+            <td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td>
             <td class="pos-1">2.10</td><td class="neg-1">-0.89</td><td class="pos-2">5.96</td><td class="neg-1">-2.41</td>
             <td class="year-cell pos-2">4.68</td>
           </tr>
           <tr>
-            <td class="row-label" style="font-weight:600; color: var(--ewa-teal);">EWA</td>
-            <td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td>
-            <td>—</td><td>—</td>
+            <td class="row-label" style="font-weight:600; color: var(--text-muted);">EWA</td>
+            <td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td>
             <td class="pos-2">4.79</td><td class="neg-3">-6.49</td><td class="pos-2">4.26</td><td class="neg-3">-8.21</td>
             <td class="year-cell neg-2">-6.10</td>
           </tr>
           <!-- Spacer -->
-          <tr><td colspan="15" style="height:6px; border:none; background:transparent;"></td></tr>
+          <tr><td colspan="15" style="height:8px; border:none; background:transparent;"></td></tr>
           <!-- 2025 -->
+          <tr class="porticus-row">
+            <td class="row-label" rowspan="4" style="font-weight:700; vertical-align:middle;">2025</td>
+            <td class="row-label porc">PORTICUS</td>
+            <td class="pos-2">4.22</td><td class="neg-1">-1.65</td><td class="neg-1">-2.15</td><td class="pos-1">0.58</td><td class="pos-4">9.98</td><td class="pos-3">8.15</td>
+            <td class="pos-1">0.52</td><td class="pos-1">1.22</td><td class="pos-3">6.13</td><td class="pos-2">5.06</td><td class="neg-1">-0.87</td><td class="neg-1">-1.89</td>
+            <td class="year-cell pos-5">32.41</td>
+          </tr>
           <tr>
-            <td class="row-label" rowspan="3" style="font-weight:700; vertical-align:middle;">2025</td>
-            <td class="row-label" style="font-weight:600; color: var(--laurel-green);">QQQ</td>
+            <td class="row-label" style="font-weight:600; color: var(--text-muted);">QQQ</td>
             <td class="pos-1">2.16</td><td class="neg-1">-2.70</td><td class="neg-3">-7.59</td>
             <td class="pos-1">1.40</td><td class="pos-4">9.18</td><td class="pos-3">6.38</td>
             <td class="pos-1">2.42</td><td class="pos-1">0.95</td><td class="pos-2">5.38</td>
@@ -1936,7 +1878,7 @@ function scrollToId(id){smoothScrollTo(document.getElementById(id));}
             <td class="year-cell pos-4">20.77</td>
           </tr>
           <tr>
-            <td class="row-label" style="font-weight:600; color: var(--spy-grey);">SPY</td>
+            <td class="row-label" style="font-weight:600; color: var(--text-muted);">SPY</td>
             <td class="pos-1">2.69</td><td class="neg-1">-1.27</td><td class="neg-2">-5.57</td>
             <td class="neg-1">-0.87</td><td class="pos-3">6.28</td><td class="pos-2">5.14</td>
             <td class="pos-1">2.30</td><td class="pos-1">2.05</td><td class="pos-2">3.56</td>
@@ -1944,7 +1886,7 @@ function scrollToId(id){smoothScrollTo(document.getElementById(id));}
             <td class="year-cell pos-3">17.72</td>
           </tr>
           <tr>
-            <td class="row-label" style="font-weight:600; color: var(--ewa-teal);">EWA</td>
+            <td class="row-label" style="font-weight:600; color: var(--text-muted);">EWA</td>
             <td class="pos-1">3.14</td><td class="neg-1">-2.52</td><td class="neg-1">-2.29</td>
             <td class="pos-2">5.25</td><td class="pos-2">4.62</td><td class="pos-2">3.53</td>
             <td class="neg-1">-1.14</td><td class="pos-2">4.07</td><td class="neg-1">-0.30</td>
@@ -1952,25 +1894,31 @@ function scrollToId(id){smoothScrollTo(document.getElementById(id));}
             <td class="year-cell pos-3">13.35</td>
           </tr>
           <!-- Spacer -->
-          <tr><td colspan="15" style="height:6px; border:none; background:transparent;"></td></tr>
+          <tr><td colspan="15" style="height:8px; border:none; background:transparent;"></td></tr>
           <!-- 2026 -->
+          <tr class="porticus-row">
+            <td class="row-label" rowspan="4" style="font-weight:700; vertical-align:middle;">2026</td>
+            <td class="row-label porc">PORTICUS</td>
+            <td class="pos-2">3.03</td><td class="pos-1">1.07</td><td class="neg-2">-3.03</td><td class="pos-5">12.43</td><td class="pos-4">10.22</td><td>—</td>
+            <td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td>
+            <td class="year-cell pos-4">25.13<span style="font-size:9px; vertical-align:super;">*</span></td>
+          </tr>
           <tr>
-            <td class="row-label" rowspan="3" style="font-weight:700; vertical-align:middle;">2026</td>
-            <td class="row-label" style="font-weight:600; color: var(--laurel-green);">QQQ</td>
+            <td class="row-label" style="font-weight:600; color: var(--text-muted);">QQQ</td>
             <td class="pos-1">1.23</td><td class="neg-1">-2.34</td><td class="neg-2">-4.84</td>
             <td class="pos-5">15.67</td><td class="pos-4">10.57</td><td>—</td>
             <td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td>
             <td class="year-cell pos-4">20.32</td>
           </tr>
           <tr>
-            <td class="row-label" style="font-weight:600; color: var(--spy-grey);">SPY</td>
+            <td class="row-label" style="font-weight:600; color: var(--text-muted);">SPY</td>
             <td class="pos-1">1.47</td><td class="neg-1">-0.86</td><td class="neg-2">-4.93</td>
             <td class="pos-4">10.49</td><td class="pos-2">5.26</td><td>—</td>
             <td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td>
             <td class="year-cell pos-3">11.23</td>
           </tr>
           <tr>
-            <td class="row-label" style="font-weight:600; color: var(--ewa-teal);">EWA</td>
+            <td class="row-label" style="font-weight:600; color: var(--text-muted);">EWA</td>
             <td class="pos-2">5.96</td><td class="pos-3">8.43</td><td class="neg-3">-7.74</td>
             <td class="pos-3">6.26</td><td class="neg-1">-0.81</td><td>—</td>
             <td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td>
@@ -1980,10 +1928,13 @@ function scrollToId(id){smoothScrollTo(document.getElementById(id));}
       </table>
     </div>
   </div>
+
+  <p style="margin-top: 12px; max-width: 1060px; font-family: 'Inter', sans-serif; font-size: 12px; color: var(--text-muted); font-style: italic;">* YTD through May 29, 2026 (daily-chained TWR). Differs slightly from the compound of rounded monthly figures shown in the row.</p>
+
   <div class="explainer-box">
     <div class="explainer-title">💡 In Plain English</div>
     <div class="explainer-text">
-      The top table shows Porticus monthly and quarterly returns. Green cells are positive, red cells are negative — the deeper the colour, the stronger the move. Notice the negative months are shallow (mostly -1% to -2%) while positive months can be very strong (up to +18.77%). This asymmetry is created by our risk management — we cut losses quickly and let winners run. The benchmark table below allows direct month-by-month comparison against QQQ, SPY, and EWA.
+      Each row is a fund's month-by-month return, with the calendar-year total on the right. <strong>Porticus is the row marked in gold</strong> in each year; QQQ, SPY, and EWA sit beneath it for direct comparison. Green cells are positive, red negative — the deeper the colour, the stronger the move. Notice Porticus's negative months stay shallow (mostly -1% to -2%) while its winners run strong (up to +18.77%). That asymmetry — cutting losses quickly and letting winners run — is what compounds into the year totals, and why Porticus leads every benchmark in every year.
 
     </div>
   </div>
