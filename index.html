@@ -819,6 +819,8 @@
   #slide-6 .explainer-box { max-width: 1160px; }
   #slide-fees .explainer-box { max-width: 900px; }
   #slide-1 .explainer-box { max-width: 760px; }
+  /* VaR/Recovery/Beta: four stat cards across on desktop */
+  #slide-8 .stats-grid { grid-template-columns: repeat(4, 1fr); }
 
   /* ============ Footer ============ */
   .slide-footer {
@@ -1167,6 +1169,9 @@
     #slide-fees .slide-heading { font-size: 28px; }
     #slide-fees [style*="grid-template-columns: 1fr 1fr 1fr 1fr"] { grid-template-columns: 1fr !important; }
     #slide-fees [style*="grid-column: span 2"] { grid-column: span 1 !important; }
+
+    /* VaR/Recovery/Beta: 2x2 on small screens so values/labels aren't clipped */
+    #slide-8 .stats-grid { grid-template-columns: repeat(2, 1fr); }
   }
 
   @media (max-width: 420px) {
@@ -2192,7 +2197,7 @@ function scrollToId(id){smoothScrollTo(document.getElementById(id));}
   <h2 class="slide-heading">VaR, Recovery & Beta</h2>
   <div class="heading-underline"></div>
 
-  <div class="stats-grid" style="grid-template-columns: repeat(4, 1fr);">
+  <div class="stats-grid">
     <div class="stat-card" style="background: rgba(245,240,232,0.06); border-color: rgba(200,169,81,0.2);">
       <div class="stat-value" style="color: var(--imperial-gold);">0.92%</div>
       <div class="stat-label" style="color: rgba(245,240,232,0.5);">VaR (Parametric)</div>
