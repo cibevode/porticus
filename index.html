@@ -582,14 +582,21 @@
   }
 
   .vami-bar-group {
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
+  }
+
+  .vami-bar-track {
+    flex: 1;
+    width: 90px;
+    display: flex;
+    align-items: flex-end;
   }
 
   .vami-bar {
-    width: 90px;
+    width: 100%;
     border-radius: 5px 5px 0 0;
     display: flex;
     align-items: flex-start;
@@ -607,6 +614,7 @@
     font-weight: 600;
     color: var(--text-muted);
     letter-spacing: 1px;
+    margin-top: 10px;
   }
 
   .slide-dark .vami-label { color: rgba(245, 240, 232, 0.5); }
@@ -622,10 +630,18 @@
 
   .waterfall-bar-group {
     flex: 1;
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 8px;
+  }
+
+  .waterfall-bar-track {
+    flex: 1;
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
   }
 
   .waterfall-bar {
@@ -649,6 +665,7 @@
     letter-spacing: 1px;
     color: var(--text-muted);
     text-align: center;
+    margin-top: 8px;
   }
 
   /* ============ Plain English Explainers ============ */
@@ -1112,10 +1129,11 @@
     .chart-title { font-size: 12px; margin-bottom: 14px; }
 
     .vami-chart { gap: 16px; height: 180px; padding: 0 10px; }
-    .vami-bar { width: 60px; font-size: 12px; padding-top: 8px; }
+    .vami-bar-track { width: 60px; }
+    .vami-bar { font-size: 12px; padding-top: 8px; }
     .vami-label { font-size: 11px; }
 
-    .waterfall { height: 140px; gap: 12px; padding: 0 8px; }
+    .waterfall { height: 150px; gap: 12px; padding: 0 8px; }
     .waterfall-bar { font-size: 12px; }
     .waterfall-label { font-size: 10px; }
 
@@ -1193,7 +1211,8 @@
     .about-avatar { width: 100px; height: 100px; font-size: 28px; }
     .metric-label { width: 70px; font-size: 11px; }
     .vami-chart { gap: 10px; height: 150px; }
-    .vami-bar { width: 48px; font-size: 10px; }
+    .vami-bar-track { width: 48px; }
+    .vami-bar { font-size: 10px; }
   }
 
   /* ============ JS Mobile Fallback (if media queries fail) ============ */
@@ -1569,19 +1588,19 @@ function scrollToId(id){smoothScrollTo(document.getElementById(id));}
         <div class="chart-title" style="color: rgba(245,240,232,0.5);">Ending VAMI — Growth of $1,000</div>
         <div class="vami-chart">
           <div class="vami-bar-group">
-            <div class="vami-bar bar-porticus" style="height: 200px;">$2,121</div>
+            <div class="vami-bar-track"><div class="vami-bar bar-porticus" style="height: 100%;">$2,121</div></div>
             <div class="vami-label" style="color: rgba(245,240,232,0.5);">Porticus</div>
           </div>
           <div class="vami-bar-group">
-            <div class="vami-bar bar-qqq" style="height: 150px;">$1,574</div>
+            <div class="vami-bar-track"><div class="vami-bar bar-qqq" style="height: 75%;">$1,574</div></div>
             <div class="vami-label" style="color: rgba(245,240,232,0.5);">QQQ</div>
           </div>
           <div class="vami-bar-group">
-            <div class="vami-bar bar-spy" style="height: 131px;">$1,372</div>
+            <div class="vami-bar-track"><div class="vami-bar bar-spy" style="height: 65.5%;">$1,372</div></div>
             <div class="vami-label" style="color: rgba(245,240,232,0.5);">SPY</div>
           </div>
           <div class="vami-bar-group">
-            <div class="vami-bar bar-ewa" style="height: 112px;">$1,172</div>
+            <div class="vami-bar-track"><div class="vami-bar bar-ewa" style="height: 56%;">$1,172</div></div>
             <div class="vami-label" style="color: rgba(245,240,232,0.5);">EWA</div>
           </div>
         </div>
@@ -1992,15 +2011,15 @@ function scrollToId(id){smoothScrollTo(document.getElementById(id));}
         <div class="chart-title">Attribution Breakdown vs QQQ</div>
         <div class="waterfall">
           <div class="waterfall-bar-group">
-            <div class="waterfall-bar bar-porticus" style="height: 130px;">+54.74%</div>
+            <div class="waterfall-bar-track"><div class="waterfall-bar bar-porticus" style="height: 100%;">+54.74%</div></div>
             <div class="waterfall-label">Total Alpha</div>
           </div>
           <div class="waterfall-bar-group">
-            <div class="waterfall-bar" style="height: 88px; background: linear-gradient(180deg, var(--laurel-green), #5C8350);">Selection</div>
+            <div class="waterfall-bar-track"><div class="waterfall-bar" style="height: 68%; background: linear-gradient(180deg, var(--laurel-green), #5C8350);">Selection</div></div>
             <div class="waterfall-label">Stock Selection</div>
           </div>
           <div class="waterfall-bar-group">
-            <div class="waterfall-bar" style="height: 55px; background: linear-gradient(180deg, var(--bronze), var(--imperial-gold-dark));">Allocation</div>
+            <div class="waterfall-bar-track"><div class="waterfall-bar" style="height: 42%; background: linear-gradient(180deg, var(--bronze), var(--imperial-gold-dark));">Allocation</div></div>
             <div class="waterfall-label">Sector Allocation</div>
           </div>
         </div>
