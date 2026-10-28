@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Crush Research — Checkout &amp; Discount Security Assessment</title>
+<style>
+  :root {
+    --ink: #1a1a1a;
+    --muted: #5b6470;
+    --rule: #d8dde3;
+    --bg: #ffffff;
+    --panel: #f7f8fa;
+    --code-bg: #1e2229;
+    --code-ink: #e6e9ef;
+    --critical-bg: #fdecea; --critical-ink: #a3160d;
+    --high-bg:     #fef1dc; --high-ink:     #9a4b00;
+    --medium-bg:   #fdf8d9; --medium-ink:   #7a6100;
+    --low-bg:      #e6eefb; --low-ink:      #1d4ed8;
+    --ops-bg:      #f1e7fd; --ops-ink:      #6b21a8;
+    --accent: #2b3a4a;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { -webkit-text-size-adjust: 100%; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+                 "Helvetica Neue", Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  .doc {
+    max-width: 62rem;
+    margin: 0 auto;
+    padding: 3rem 2rem 5rem;
+  }
+
+  /* ---------- Cover ---------- */
+
+  .cover {
+    border-top: 6px solid var(--accent);
+    border-bottom: 1px solid var(--rule);
+    padding: 2rem 0 1.75rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .kicker {
+    margin: 0 0 .75rem;
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--critical-ink);
+  }
+
+  h1 {
+    margin: 0 0 .5rem;
+    font-size: 1.9rem;
+    line-height: 1.25;
+    letter-spacing: -.01em;
+  }
+
+  .subtitle {
+    margin: 0 0 2rem;
+    font-size: 1.05rem;
+    color: var(--muted);
+  }
+
+  /* ---------- Metadata table ---------- */
+
+  table { border-collapse: collapse; width: 100%; }
+
+  .meta th,
+  .meta td {
+    text-align: left;
+    vertical-align: top;
+    padding: .5rem .75rem .5rem 0;
+    border-bottom: 1px solid var(--rule);
+    font-size: .92rem;
+  }
+
+  .meta th {
+    width: 11rem;
+    font-weight: 600;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  .meta tr:last-child th,
+  .meta tr:last-child td { border-bottom: none; }
+
+  /* ---------- Table of contents ---------- */
+
+  .toc {
+    background: var(--panel);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 3rem;
+    font-size: .92rem;
+  }
+
+  .toc h2 {
+    margin: 0 0 .75rem;
+    font-size: .75rem;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 700;
+  }
+
+  .toc ol { margin: 0; padding-left: 1.35rem; }
+  .toc li { margin: .2rem 0; }
+  .toc a { color: var(--accent); text-decoration: none; }
+  .toc a:hover { text-decoration: underline; }
+
+  /* ---------- Section headings ---------- */
+
+  section { margin-bottom: 3rem; }
+
+  h2.section {
+    font-size: 1.35rem;
+    margin: 0 0 1.25rem;
+    padding-bottom: .5rem;
+    border-bottom: 2px solid var(--accent);
+    letter-spacing: -.01em;
+  }
+
+  h2.section .num {
+    color: var(--muted);
+    font-weight: 400;
+    margin-right: .5rem;
+  }
+
+  h3 {
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: var(--muted);
+    margin: 1.75rem 0 .5rem;
+    font-weight: 700;
+  }
+
+  p { margin: 0 0 1rem; }
+
+  ul, ol { margin: 0 0 1rem; padding-left: 1.5rem; }
+  li { margin: .3rem 0; }
+
+  code {
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+                 "Liberation Mono", monospace;
+    font-size: .875em;
+    background: #eef0f4;
+    padding: .1em .35em;
+    border-radius: 3px;
+    word-break: break-word;
+  }
+
+  pre {
+    background: var(--code-bg);
+    color: var(--code-ink);
+    padding: 1rem 1.15rem;
+    border-radius: 6px;
+    overflow-x: auto;
+    margin: 0 0 1.25rem;
+    font-size: .82rem;
+    line-height: 1.55;
+    tab-size: 2;
+  }
+
+  pre code {
+    background: none;
+    padding: 0;
+    color: inherit;
+    font-size: inherit;
+    white-space: pre;
+  }
+
+  /* ---------- Callout ---------- */
+
+  .callout {
+    background: var(--critical-bg);
+    border-left: 4px solid var(--critical-ink);
+    border-radius: 0 6px 6px 0;
+    padding: 1rem 1.25rem;
+    margin: 0 0 1.5rem;
+  }
+
+  .callout .label {
+    display: block;
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--critical-ink);
+    margin-bottom: .4rem;
+  }
+
+  .callout p:last-child { margin-bottom: 0; }
+
+  .note {
+    background: var(--panel);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    padding: 1rem 1.25rem;
+    margin: 0 0 1.5rem;
+    font-size: .92rem;
+  }
+
+  .note p:last-child { margin-bottom: 0; }
+
+  /* ---------- Data tables ---------- */
+
+  .data {
+    margin: 0 0 1.5rem;
+    font-size: .9rem;
+  }
+
+  .data caption {
+    caption-side: top;
+    text-align: left;
+    font-size: .75rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding-bottom: .5rem;
+  }
+
+  .data th,
+  .data td {
+    text-align: left;
+    vertical-align: top;
+    padding: .55rem .8rem;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .data thead th {
+    background: var(--panel);
+    border-top: 1px solid var(--rule);
+    border-bottom: 2px solid var(--rule);
+    font-size: .78rem;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  .data tbody tr:last-child td { border-bottom: 1px solid var(--rule); }
+
+  .data td.num,
+  .data th.num { text-align: right; white-space: nowrap; }
+
+  .data td.id {
+    font-weight: 700;
+    white-space: nowrap;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: .85rem;
+  }
+
+  /* ---------- Severity badges ---------- */
+
+  .badge {
+    display: inline-block;
+    padding: .12em .55em;
+    border-radius: 3px;
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    vertical-align: .05em;
+  }
+
+  .sev-critical { background: var(--critical-bg); color: var(--critical-ink); }
+  .sev-high     { background: var(--high-bg);     color: var(--high-ink); }
+  .sev-medium   { background: var(--medium-bg);   color: var(--medium-ink); }
+  .sev-low      { background: var(--low-bg);      color: var(--low-ink); }
+  .sev-ops      { background: var(--ops-bg);      color: var(--ops-ink); }
+
+  .status {
+    font-size: .78rem;
+    color: var(--muted);
+    font-weight: 600;
+    letter-spacing: .04em;
+  }
+
+  .status.confirmed { color: #146c2e; }
+  .status.untested  { color: #9a4b00; }
+
+  /* ---------- Finding blocks ---------- */
+
+  .finding {
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    padding: 1.5rem 1.75rem 1.25rem;
+    margin: 0 0 2rem;
+    background: #fff;
+  }
+
+  .finding > header {
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: .9rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .finding > header h3 {
+    margin: 0 0 .5rem;
+    font-size: 1.08rem;
+    text-transform: none;
+    letter-spacing: 0;
+    color: var(--ink);
+    font-weight: 700;
+    line-height: 1.35;
+  }
+
+  .finding .meta-line {
+    font-size: .82rem;
+    color: var(--muted);
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem 1.25rem;
+    align-items: center;
+  }
+
+  .finding h4 {
+    font-size: .76rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 1.4rem 0 .4rem;
+    font-weight: 700;
+  }
+
+  .finding h4:first-of-type { margin-top: 0; }
+
+  .finding p:last-child,
+  .finding ul:last-child,
+  .finding ol:last-child,
+  .finding pre:last-child { margin-bottom: 0; }
+
+  /* ---------- Footer ---------- */
+
+  footer {
+    border-top: 1px solid var(--rule);
+    padding-top: 1.5rem;
+    font-size: .85rem;
+    color: var(--muted);
+  }
+
+  /* ---------- Responsive ---------- */
+
+  @media (max-width: 640px) {
+    .doc { padding: 1.75rem 1.1rem 3rem; }
+    h1 { font-size: 1.45rem; }
+    .finding { padding: 1.15rem 1.1rem; }
+    .meta th { width: auto; display: block; border-bottom: none; padding-bottom: 0; }
+    .meta td { display: block; padding-top: 0; }
+    .data { font-size: .82rem; }
+    .data th, .data td { padding: .45rem .5rem; }
+  }
+
+  /* ---------- Print ---------- */
+
+  @media print {
+    body { font-size: 10.5pt; }
+    .doc { max-width: none; padding: 0; }
+    .toc { break-inside: avoid; }
+    .finding { break-inside: auto; page-break-inside: auto; }
+    .finding > header { break-after: avoid; page-break-after: avoid; }
+    pre { background: #f2f2f2; color: #111; border: 1px solid #ccc;
+          break-inside: avoid; page-break-inside: avoid; }
+    a { color: inherit; text-decoration: none; }
+  }
+</style>
+</head>
+<body>
+<div class="doc">
+
+  <!-- ================= COVER ================= -->
+  <header class="cover">
+    <p class="kicker">Internal / Confidential</p>
+    <h1>Crush Research — Checkout &amp; Discount Security Assessment</h1>
+    <p class="subtitle">Findings, Exploits, and Reproduction Procedures</p>
+
+    <table class="meta">
+      <tr><th scope="row">Date</th><td>October 25, 2026</td></tr>
+      <tr><th scope="row">Prepared for</th><td>Management / Engineering Leadership</td></tr>
+      <tr><th scope="row">Scope</th><td>Cart, checkout, and all discount systems (coupons, Build-a-Pack bundles, store credit, timed sales, payment-method discounts, free shipping)</td></tr>
+      <tr><th scope="row">Method</th><td>Black-box testing from a standard customer browser — public pages, shipped JavaScript analysis, browser-console tampering, and live API probes. Authorized by the site owner. No orders were placed and no payment cards were charged.</td></tr>
+      <tr><th scope="row">Classification</th><td>INTERNAL / CONFIDENTIAL</td></tr>
+    </table>
+  </header>
+
+  <!-- ================= TOC ================= -->
+  <nav class="toc" aria-label="Table of contents">
+    <h2>Contents</h2>
+    <ol>
+      <li><a href="#s1">Executive Summary</a></li>
+      <li><a href="#s2">Findings at a Glance</a></li>
+      <li><a href="#s3">How to Read This Document</a></li>
+      <li><a href="#s4">Detailed Findings with Reproduction</a>
+        <ol>
+          <li><a href="#f1">F1 — Coupon discounts computed from a customer-supplied cart total</a></li>
+          <li><a href="#f2">F2 — Build-a-Pack bundles bypass all server-side price checks</a></li>
+          <li><a href="#f3">F3 — Cart prices stored and totaled in the customer's browser</a></li>
+          <li><a href="#f4">F4 — Store credit redemption is a client-side claim</a></li>
+          <li><a href="#f5">F5 — Payment-method discounts (BTC / Zelle / LinkMoney)</a></li>
+          <li><a href="#f6">F6 — Purchase limits enforced only in the browser</a></li>
+          <li><a href="#f7">F7 — Sale expiration &amp; grace window enforced client-side</a></li>
+          <li><a href="#f8">F8 — Internal business data exposed to every visitor</a></li>
+          <li><a href="#f9">F9 — Database layer (Prisma) errors in the browser console</a></li>
+          <li><a href="#f10">F10 — Affiliate tracking blocked sitewide by CSP</a></li>
+          <li><a href="#f11">F11 — CSP contains unsafe-inline / unsafe-eval</a></li>
+          <li><a href="#f12">F12 — Analytics accept self-declared visitor IDs</a></li>
+        </ol>
+      </li>
+      <li><a href="#s5">Detectability Ranking — What to Fix First and Why</a></li>
+      <li><a href="#s6">Remediation Roadmap</a></li>
+      <li><a href="#s7">Phase 2 — Required Verification (Not Yet Performed)</a></li>
+    </ol>
+  </nav>
+
+  <main>
+
+    <!-- ================= 1. EXEC SUMMARY ================= -->
+    <section id="s1">
+      <h2 class="section"><span class="num">1</span>Executive Summary</h2>
+
+      <p>This assessment tested whether customers can obtain prices or discounts below what the store intends to charge. The answer, confirmed with live testing against the production site, is that the storefront trusts the customer's browser with money math in several places.</p>
+
+      <div class="callout">
+        <span class="label">The headline finding — confirmed</span>
+        <p>The coupon system calculates discount amounts from a cart total supplied by the customer's browser, without verifying it against the actual cart. In testing, a request claiming a $2,775.00 cart (actual: $277.50) received a discount exactly 10× the correct amount. A claim of $1 quadrillion returned a computed $100 trillion discount. No upper limit or cart cross-check exists.</p>
+      </div>
+
+      <h3>Supporting findings (confirmed by demonstration)</h3>
+      <ul>
+        <li>Product prices are stored and totaled in the customer's browser, and were successfully edited using nothing but the built-in developer console.</li>
+        <li>The "Build a Pack" bundle flow — the store's deepest discount channel (up to 30% off) — bypasses <strong>both</strong> the server cart sync <strong>and</strong> the server price-validation system. It is the least-guarded path in the checkout.</li>
+        <li>Store credit redemption is computed entirely client-side and is only presented to the server as a claim at the moment of order submission.</li>
+      </ul>
+
+      <h3>The decisive unknown</h3>
+      <p>All of these converge on a single component: the order-creation endpoint (the final "Place Order" request). It was deliberately <strong>not</strong> exercised in this phase. If it recomputes pricing from the database, these findings degrade to display-layer bugs. If it trusts client-supplied prices, discount amounts, or credit claims, the store is exposed to direct, arbitrary price manipulation.</p>
+      <p>Phase 2 (<a href="#s7">Section 7</a>) verifies this using a manual payment method so no charge occurs. <strong>This verification should be completed immediately.</strong></p>
+
+      <h3>Operational finding (revenue impact, not security)</h3>
+      <p>The affiliate tracking script (GoAffPro) is blocked on every page by the site's own Content-Security-Policy. Affiliate referrals are currently not being recorded at all.</p>
+    </section>
+
+    <!-- ================= 2. AT A GLANCE ================= -->
+    <section id="s2">
+      <h2 class="section"><span class="num">2</span>Findings at a Glance</h2>
+
+      <table class="data">
+        <caption>Finding summary — severity and verification status</caption>
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Finding</th>
+            <th scope="col">Severity</th>
+            <th scope="col">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="id">F1</td>
+            <td>Coupon discount computed from customer-supplied cart total — any value honored, no ceiling</td>
+            <td><span class="badge sev-critical">Critical</span></td>
+            <td class="status confirmed">Confirmed (live API)</td>
+          </tr>
+          <tr>
+            <td class="id">F2</td>
+            <td>Build-a-Pack bundles bypass server cart sync <em>and</em> server price validation</td>
+            <td><span class="badge sev-high">High</span></td>
+            <td class="status confirmed">Confirmed (code + demo)</td>
+          </tr>
+          <tr>
+            <td class="id">F3</td>
+            <td>Cart prices editable in the browser console; tampered prices persist into checkout summary</td>
+            <td><span class="badge sev-high">High</span></td>
+            <td class="status confirmed">Confirmed (demo)</td>
+          </tr>
+          <tr>
+            <td class="id">F4</td>
+            <td>Store credit redemption is a client-side claim until order submission</td>
+            <td><span class="badge sev-high">High</span></td>
+            <td class="status confirmed">Confirmed (design)</td>
+          </tr>
+          <tr>
+            <td class="id">F5</td>
+            <td>Payment-method discounts (BTC / Zelle / LinkMoney) — discount may not be bound to the rail actually used</td>
+            <td><span class="badge sev-medium">Medium</span></td>
+            <td class="status untested">Untested</td>
+          </tr>
+          <tr>
+            <td class="id">F6</td>
+            <td>Purchase limits (max-per-order, monthly caps, companion-product rules) enforced only in the UI</td>
+            <td><span class="badge sev-medium">Medium</span></td>
+            <td class="status confirmed">Confirmed (client-only)</td>
+          </tr>
+          <tr>
+            <td class="id">F7</td>
+            <td>Sale expiration &amp; 15-minute grace window enforced client-side — expired prices may persist</td>
+            <td><span class="badge sev-medium">Medium</span></td>
+            <td class="status confirmed">Confirmed (client-only)</td>
+          </tr>
+          <tr>
+            <td class="id">F8</td>
+            <td>Internal business data exposed to every visitor (exact inventory, weekly sales, admin route map)</td>
+            <td><span class="badge sev-medium">Medium</span></td>
+            <td class="status confirmed">Confirmed</td>
+          </tr>
+          <tr>
+            <td class="id">F9</td>
+            <td>Database layer (Prisma) errors in the browser console — server code present in client bundles</td>
+            <td><span class="badge sev-medium">Medium</span></td>
+            <td class="status confirmed">Confirmed</td>
+          </tr>
+          <tr>
+            <td class="id">F10</td>
+            <td>Affiliate script (GoAffPro) blocked sitewide by Content-Security-Policy — tracking is dead</td>
+            <td><span class="badge sev-ops">Operational</span></td>
+            <td class="status confirmed">Confirmed</td>
+          </tr>
+          <tr>
+            <td class="id">F11</td>
+            <td>CSP weakened by <code>unsafe-inline</code> / <code>unsafe-eval</code></td>
+            <td><span class="badge sev-low">Low</span></td>
+            <td class="status confirmed">Confirmed</td>
+          </tr>
+          <tr>
+            <td class="id">F12</td>
+            <td>Analytics accept self-declared visitor IDs</td>
+            <td><span class="badge sev-low">Low</span></td>
+            <td class="status confirmed">Confirmed</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ================= 3. HOW TO READ ================= -->
+    <section id="s3">
+      <h2 class="section"><span class="num">3</span>How to Read This Document</h2>
+
+      <p>Each finding contains: what it is, the evidence observed, step-by-step reproduction (including the exact script used), business impact, and the required fix. All reproduction steps use only the Chrome/Brave developer console (opened with <kbd>F12</kbd>) on the live storefront while logged in as a standard customer account. No special tools are required.</p>
+
+      <div class="note">
+        <p><strong>A note on evidence labels:</strong></p>
+        <ul>
+          <li><strong>CONFIRMED</strong> — reproduced live during this assessment.</li>
+          <li><strong>UNTESTED</strong> — mechanism identified, but exploitation not completed; listed because the risk pattern is well established.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ================= 4. DETAILED FINDINGS ================= -->
+    <section id="s4">
+      <h2 class="section"><span class="num">4</span>Detailed Findings with Reproduction</h2>
+
+      <!-- ---------- F1 ---------- -->
+      <article class="finding" id="f1">
+        <header>
+          <h3>F1 — Coupon discounts computed from a customer-supplied cart total</h3>
+          <p class="meta-line">
+            <span class="badge sev-critical">Critical</span>
+            <span class="status confirmed">Confirmed at the API layer</span>
+          </p>
+        </header>
+
+        <h4>What it is</h4>
+        <p>When a coupon is applied, the browser tells the server what the cart subtotal is, and the server computes the discount amount from that number without checking the real cart. The two affected endpoints:</p>
+        <pre><code>POST /api/coupons/validate
+POST /api/coupons/auto-apply</code></pre>
+
+        <h4>Evidence (live, October 25)</h4>
+        <p>A 10%-off coupon (<code>RORY</code>) was validated against different claimed subtotals:</p>
+
+        <table class="data">
+          <caption>Claimed subtotal vs. server-computed discount</caption>
+          <thead>
+            <tr>
+              <th scope="col">Claimed subtotal</th>
+              <th scope="col">Server's computed discount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>$277.50 (real)</td><td>$27.75 — correct</td></tr>
+            <tr><td>$2,775.00</td><td>$277.50 — 10×, invented number honored</td></tr>
+            <tr><td>$1 quadrillion</td><td>$100 trillion discount — no ceiling</td></tr>
+            <tr><td>−$100.00</td><td>Rejected 400 — "Valid subtotal is required"</td></tr>
+            <tr><td>"27750" (string)</td><td>Rejected 400 — strict typing present</td></tr>
+            <tr><td>Same code twice</td><td>Rejected — "already applied" (dup guard present)</td></tr>
+          </tbody>
+        </table>
+
+        <p>The endpoint validates that the number is <em>plausible</em> — not that it is <em>real</em>.</p>
+
+        <h4>How to reproduce</h4>
+        <ol>
+          <li>Log in as a customer, open any page, press <kbd>F12</kbd>, go to the Console tab.</li>
+          <li>Paste and run:</li>
+        </ol>
+        <pre><code>fetch('/api/coupons/validate', {
+  method: 'POST',
+  headers: {'Content-Type': 'application/json'},
+  body: JSON.stringify({code: 'RORY', subtotal: 10000000,
+                        existingCouponCodes: []})
+}).then(r =&gt; r.json()).then(j =&gt; console.log(j));</code></pre>
+        <ol start="3">
+          <li>Observe the response: <code>valid: true</code> with <code>discountAmount: 1000000</code> ($10,000.00 off) — computed from a subtotal that was simply invented.</li>
+        </ol>
+
+        <h4>Business impact</h4>
+        <p>If the order-creation step honors this computed amount (verified in Phase 2), any customer can manufacture unlimited discounts on demand. Even as a validation-layer-only bug, it proves the discount engine performs money math on untrusted input.</p>
+
+        <h4>Required fix</h4>
+        <ul>
+          <li>The endpoint already receives the cart's item list. Compute the subtotal server-side from item IDs against database prices. Never read a client "subtotal."</li>
+          <li>Return the coupon's percent/rules only — never a computed currency amount.</li>
+          <li>Apply the same fix to <code>/api/coupons/auto-apply</code>.</li>
+          <li>Add a maximum-discount sanity cap as defense in depth.</li>
+        </ul>
+      </article>
+
+      <!-- ---------- F2 ---------- -->
+      <article class="finding" id="f2">
+        <header>
+          <h3>F2 — Build-a-Pack bundles bypass all server-side price checks</h3>
+          <p class="meta-line">
+            <span class="badge sev-high">High</span>
+            <span class="status confirmed">Confirmed — architecture + demonstration</span>
+          </p>
+        </header>
+
+        <h4>What it is</h4>
+        <p>Two server checkpoints exist for regular cart items — a cart sync (<code>PUT /api/cart</code>) and a price re-validation (<code>POST /api/cart/validate-prices</code>). Analysis of the shipped JavaScript shows <strong>both</strong> explicitly exclude bundle (Build-a-Pack) lines:</p>
+        <pre><code>items.filter(e =&gt; !e.bundleGroupId &amp;&amp; !e.presaleCampaignPackId)</code></pre>
+        <p>Bundle lines carry their price, their claimed discount percent, and their claimed pre-discount value purely in the browser, and are never shown to the server until checkout. The store's deepest discount channel is its least guarded.</p>
+
+        <h4>Evidence</h4>
+        <p>During testing, a 10-pack was built, one line's price was edited in the console (Adamax 1032 Grade reduced from $51.80 to $27.30), and the tampered values survived a page reload and flowed into the checkout order summary uncorrected. Regular cart items are re-validated by the server and corrected; bundle items are not.</p>
+
+        <h4>How to reproduce — basic bundle price tamper</h4>
+        <ol>
+          <li>Log in, build any pack at <code>/multi-pack</code>, add it to the cart.</li>
+          <li>Press <kbd>F12</kbd> → Console, paste:</li>
+        </ol>
+        <pre><code>let cart = JSON.parse(localStorage.getItem('crush-cart'));
+cart = cart.map(i =&gt; i.bundleGroupId ? {...i, price: 100} : i);
+localStorage.setItem('crush-cart', JSON.stringify(cart));
+location.reload();</code></pre>
+        <ol start="3">
+          <li>Open the cart. Every bundle line now shows $1.00.</li>
+          <li>Proceed to checkout and observe the order summary carries the tampered prices.</li>
+        </ol>
+
+        <h4>Variant attacks (same console technique)</h4>
+
+        <p><strong>A. Phantom pack</strong> — keep one item, keep the 30% 10-pack discount:</p>
+        <pre><code>let cart = JSON.parse(localStorage.getItem('crush-cart'));
+cart = cart.filter(i =&gt; !i.bundleGroupId || i.bundleSlotIndex === 0);
+localStorage.setItem('crush-cart', JSON.stringify(cart));
+location.reload();</code></pre>
+        <p>If the server charges the discounted price for a single vial, the pack discount field is being trusted without verifying the pack contents.</p>
+
+        <p><strong>B. Tier downgrade</strong> — keep 3 of 10 lines:</p>
+        <pre><code>cart = cart.filter(i =&gt; !i.bundleGroupId || i.bundleSlotIndex &lt; 3);</code></pre>
+        <p>Correct behavior: re-price at the 3-item tier. Vulnerable behavior: the 30% per-vial rate sticks.</p>
+
+        <p><strong>C. ID pairing</strong> — on one line, swap <code>productId</code>/<code>packSizeId</code> to a more expensive product while keeping the cheap line price. Tests whether the server verifies that the pack ID belongs to the product.</p>
+
+        <h4>Required fix</h4>
+        <p>Rebuild bundle pricing server-side at order creation: accept only product/pack IDs and quantities; derive the discount tier from the <strong>final</strong> item count and the promotion table; validate the promotion window against the server clock.</p>
+      </article>
+
+      <!-- ---------- F3 ---------- -->
+      <article class="finding" id="f3">
+        <header>
+          <h3>F3 — Cart prices stored and totaled in the customer's browser</h3>
+          <p class="meta-line">
+            <span class="badge sev-high">High</span>
+            <span class="status confirmed">Confirmed — client behavior demonstrated</span>
+          </p>
+        </header>
+
+        <h4>What it is</h4>
+        <p>The cart lives in browser local storage (<code>crush-cart</code>) with a per-line price field. The order summary subtotal is computed in the browser. Editing it requires no tools beyond <kbd>F12</kbd>.</p>
+
+        <h4>Evidence</h4>
+        <p>Prices were rewritten repeatedly during testing (e.g., all Epitalon lines in a pack reduced $27.30 → $22.30), persisted across reloads, and the tampered subtotal ($277.50) was subsequently transmitted to server endpoints — the coupon endpoints received exactly <code>27750</code>.</p>
+
+        <h4>Mitigating design note</h4>
+        <p>For <strong>regular</strong> (non-bundle) items, the cart sync transmits only <code>{productId, packSizeId, quantity}</code> — no prices — and a server endpoint re-validates and corrects changed prices. If order creation follows the same pattern for everything, this finding is cosmetic. That must be verified at the order-creation step (<a href="#s7">Section 7</a>). Bundle lines (F2) receive no such correction.</p>
+
+        <h4>Diagnostic script — view the cart's raw state at any time</h4>
+        <pre><code>console.table(JSON.parse(localStorage.getItem('crush-cart') || '[]')
+  .map(i =&gt; ({name: i.productName, price: i.price / 100,
+              qty: i.quantity, bundle: !!i.bundleGroupId})));</code></pre>
+      </article>
+
+      <!-- ---------- F4 ---------- -->
+      <article class="finding" id="f4">
+        <header>
+          <h3>F4 — Store credit redemption is a client-side claim</h3>
+          <p class="meta-line">
+            <span class="badge sev-high">High</span>
+            <span class="status confirmed">Confirmed — design</span>
+            <span class="status untested">Charge-time behavior untested</span>
+          </p>
+        </header>
+
+        <h4>What it is</h4>
+        <p>The store-credit stepper at checkout fires no network requests; the applied amount exists only in browser memory and is presented to the server as a claim inside the final order request. The customer's actual balance <strong>is</strong> held server-side (<code>GET /api/rewards</code>) — good — but the claimed redemption amount is never validated before order submission.</p>
+
+        <h4>Evidence</h4>
+        <ul>
+          <li>Clicking the credit +/− stepper produces zero network activity.</li>
+          <li>The browser storage key <code>crush-redeemed-points</code> held <code>'853'</code> after applying credit. Overwriting it and reloading reset the widget to $0.00 — the key is <strong>not</strong> read on page load, which closes casual tampering but confirms the order request is the only place the claim exists.</li>
+        </ul>
+
+        <h4>How to test the over-claim (applies more credit than the account holds)</h4>
+        <p>Because the claim only exists inside the outgoing order request, testing requires intercepting that request. This script watches all outgoing API calls, logs them, and rewrites any credit/points/redeem field to 5000 ($50.00) in flight:</p>
+
+        <ol>
+          <li>Build a cart, apply credit normally ("Use max"), fill the checkout form.</li>
+          <li>Press <kbd>F12</kbd> → Console, paste:</li>
+        </ol>
+
+        <pre><code>(() =&gt; {
+  const INFLATE_TO = 5000;
+  window.__origFetch = window.__origFetch || window.fetch;
+  window.fetch = async (url, opts) =&gt; {
+    if (typeof url === 'string' &amp;&amp; url.includes('/api/')
+        &amp;&amp; opts?.body &amp;&amp; typeof opts.body === 'string') {
+      try {
+        const body = JSON.parse(opts.body);
+        let hit = false;
+        const walk = (o, path = '') =&gt; {
+          if (!o || typeof o !== 'object') return;
+          for (const k of Object.keys(o)) {
+            const v = o[k];
+            if (/credit|point|redeem/i.test(k)
+                &amp;&amp; typeof v === 'number' &amp;&amp; v &gt; 0) {
+              console.log('[INFLATE]', path + k, v, '→', INFLATE_TO);
+              o[k] = INFLATE_TO; hit = true;
+            } else if (v &amp;&amp; typeof v === 'object') walk(v, path + k + '.');
+          }
+        };
+        walk(body);
+        if (/order|checkout|pay|intent/i.test(url))
+          console.log('[CAPTURE]', url, JSON.parse(JSON.stringify(body)));
+        if (hit) opts = {...opts, body: JSON.stringify(body)};
+      } catch (e) {}
+    }
+    return window.__origFetch(url, opts);
+  };
+  console.log('Interceptor armed.');
+})();</code></pre>
+
+        <ol start="3">
+          <li>Choose a <strong>manual</strong> payment method (Bitcoin or Zelle). These create the order as "awaiting payment" — <strong>no charge occurs</strong>.</li>
+          <li>Click Place Order. The console prints the full order request (<code>[CAPTURE]</code>) and any inflated credit field (<code>[INFLATE]</code>).</li>
+          <li>Open <code>/admin/orders</code> and read the created order:
+            <ul>
+              <li>Credit line shows −$50.00 → server honored the claim. <strong>CRITICAL.</strong></li>
+              <li>Credit line shows −$8.53 → server clamped to the real balance. Safe.</li>
+              <li>Order rejected with 4xx → server validates. Vector closed.</li>
+            </ul>
+            <p>Also re-check the balance: <code>fetch('/api/rewards').then(r =&gt; r.json())</code>. A negative balance or a drop exceeding the real charge is critical.</p>
+          </li>
+          <li>Cancel the pending test order in admin.</li>
+          <li>Remove the interceptor: <code>window.fetch = window.__origFetch</code></li>
+        </ol>
+
+        <h4>Additional credit attacks for Phase 2</h4>
+        <ul>
+          <li><strong>Negative claim</strong> (<code>points: -1000</code>): a naive "balance &gt;= claimed" check <strong>passes</strong> for negative values, and debit math of (balance − claimed) would <em>increase</em> the balance — minting credit.</li>
+          <li><strong>Race</strong>: two browser windows, same account, credit applied in both, both orders completed — checks for double-spend of one balance.</li>
+          <li><strong>Refund double-dip</strong>: refund a credit-paid order and verify the customer does not receive both the cash and the restored credit.</li>
+          <li><strong>Credit earning credit</strong>: verify orders paid with store credit do not earn full rewards on the credit-covered portion.</li>
+        </ul>
+
+        <h4>Required fix</h4>
+        <p>Validate and debit credit atomically inside the order transaction (conditional <code>UPDATE ... WHERE balance &gt;= amount</code>), reject non-positive amounts, and reconcile restoration on refunds/cancellations.</p>
+      </article>
+
+      <!-- ---------- F5 ---------- -->
+      <article class="finding" id="f5">
+        <header>
+          <h3>F5 — Payment-method discounts (BTC / Zelle / LinkMoney)</h3>
+          <p class="meta-line">
+            <span class="badge sev-medium">Medium</span>
+            <span class="status untested">Untested</span>
+          </p>
+        </header>
+
+        <p>The checkout loads a <code>/api/payment-discounts</code> endpoint, indicating discounts tied to payment method. The established abuse pattern for this feature: select a discounted method (e.g., crypto) to receive the discount, then complete payment through a different rail — if the server does not bind the discount to the payment method actually charged.</p>
+
+        <h4>Tests</h4>
+        <ul>
+          <li>Apply a payment-method discount, switch methods at the final step, and check whether the order total retains the discount.</li>
+          <li>Manual rails (Zelle/BTC) create "awaiting payment" orders — verify orders can never be marked paid or fulfilled without confirmed receipt.</li>
+        </ul>
+      </article>
+
+      <!-- ---------- F6 ---------- -->
+      <article class="finding" id="f6">
+        <header>
+          <h3>F6 — Purchase limits enforced only in the browser</h3>
+          <p class="meta-line">
+            <span class="badge sev-medium">Medium</span>
+            <span class="status confirmed">Confirmed — client-only</span>
+          </p>
+        </header>
+
+        <p>All of the following are enforced purely through the user interface (disabled buttons and quantity clamps in the shipped JavaScript):</p>
+        <ul>
+          <li>Maximum per order and per presale campaign</li>
+          <li>Monthly purchase caps (e.g., Hospira bacteriostatic water: 5/month)</li>
+          <li>"Must be purchased with a different product" rules</li>
+        </ul>
+        <p>None of these stop a direct API request that skips the UI entirely.</p>
+
+        <h4>Fix</h4>
+        <p>Re-check all limits against the customer's order history inside the order-creation transaction.</p>
+      </article>
+
+      <!-- ---------- F7 ---------- -->
+      <article class="finding" id="f7">
+        <header>
+          <h3>F7 — Sale expiration &amp; 15-minute grace window enforced client-side</h3>
+          <p class="meta-line">
+            <span class="badge sev-medium">Medium</span>
+            <span class="status confirmed">Confirmed — client-only</span>
+          </p>
+        </header>
+
+        <p>When a sale ends, the browser waits 15 minutes, then re-validates prices and displays "your cart prices have been updated." If the order endpoint does not independently compare the sale's end timestamp against the server clock, any cart assembled during a sale can check out at expired sale prices indefinitely (old browser tab, restored saved cart, or skipping the re-validation call). Presale start/end windows carry the same exposure.</p>
+
+        <h4>Test</h4>
+        <p>Add items during a sale, keep the tab asleep past expiry, and check out. Compare the charged total against current full pricing.</p>
+      </article>
+
+      <!-- ---------- F8 ---------- -->
+      <article class="finding" id="f8">
+        <header>
+          <h3>F8 — Internal business data exposed to every visitor</h3>
+          <p class="meta-line">
+            <span class="badge sev-medium">Medium</span>
+            <span class="status confirmed">Confirmed</span>
+          </p>
+        </header>
+
+        <p>The data payload shipped to every browser includes:</p>
+        <ul>
+          <li>Exact per-product inventory allocation counts (<code>qtyAllocated</code>)</li>
+          <li>Weekly units sold per product (<code>weeklySold</code>)</li>
+          <li>Internal promotion/campaign IDs and sort-order metadata</li>
+          <li>A complete map of admin routes (<code>/admin/coupons</code>, <code>/admin/discount-rules</code>, <code>/admin/orders/new</code>, <code>/admin/prices</code>, …) shipped inside the public bundle</li>
+          <li>Predictable internal product IDs (e.g., <code>p-reta-10</code>) beside random UUIDs</li>
+        </ul>
+        <p>This is competitor-sensitive commercial data and ready-made reconnaissance for an attacker.</p>
+
+        <h4>Fix</h4>
+        <p>Strip server-only fields from the serialized page payload, and confirm every admin route enforces role checks server-side — especially manual order creation (<code>/admin/orders/new</code>), which likely permits custom pricing.</p>
+      </article>
+
+      <!-- ---------- F9 ---------- -->
+      <article class="finding" id="f9">
+        <header>
+          <h3>F9 — Database layer (Prisma) errors in the browser console</h3>
+          <p class="meta-line">
+            <span class="badge sev-medium">Medium</span>
+            <span class="status confirmed">Confirmed</span>
+          </p>
+        </header>
+
+        <p>The browser console shows <code>[prisma] DATABASE_URL is missing</code> — a server-side database ORM warning executing in visitors' browsers, emitted from shared client JavaScript bundles. A module touching the database layer is being bundled into client code. Risks: stack/configuration disclosure, and the underlying import pattern (a client component importing server modules) is how query logic and schema internals leak to browsers.</p>
+
+        <h4>Fix</h4>
+        <p>Trace the import chain (a <code>"use client"</code> component transitively importing the Prisma client); add the <code>server-only</code> package to DB modules so the build fails loudly if it recurs.</p>
+      </article>
+
+      <!-- ---------- F10 ---------- -->
+      <article class="finding" id="f10">
+        <header>
+          <h3>F10 — Affiliate tracking (GoAffPro) blocked sitewide by security policy</h3>
+          <p class="meta-line">
+            <span class="badge sev-ops">Operational</span>
+            <span class="status confirmed">Confirmed</span>
+            <span class="status">High business impact — not a security flaw</span>
+          </p>
+        </header>
+
+        <h4>Evidence (browser console, every page)</h4>
+        <pre><code>"Loading the script 'https://api.goaffpro.com/loader.js' violates the
+ Content Security Policy directive: script-src 'self' 'unsafe-inline'
+ 'unsafe-eval' https://secure.nmi.com https://js.stripe.com ..."</code></pre>
+
+        <p>The policy allowlist covers NMI, Stripe, Apple Pay, Facebook and TikTok — but not <code>api.goaffpro.com</code>. The affiliate loader is blocked for every visitor: referrals and commissions are not being recorded.</p>
+
+        <h4>Fix</h4>
+        <p>Add <code>https://api.goaffpro.com</code> to <code>script-src</code> (and <code>connect-src</code> if its API calls require it).</p>
+      </article>
+
+      <!-- ---------- F11 ---------- -->
+      <article class="finding" id="f11">
+        <header>
+          <h3>F11 — CSP contains <code>unsafe-inline</code> and <code>unsafe-eval</code></h3>
+          <p class="meta-line">
+            <span class="badge sev-low">Low</span>
+            <span class="status confirmed">Confirmed</span>
+          </p>
+        </header>
+
+        <p>These directives largely defeat the XSS-protection value of the policy. Tightening is a larger project (payment iframes complicate a strict policy) but belongs on the roadmap for a site handling payments.</p>
+      </article>
+
+      <!-- ---------- F12 ---------- -->
+      <article class="finding" id="f12">
+        <header>
+          <h3>F12 — Analytics endpoints accept self-declared visitor IDs</h3>
+          <p class="meta-line">
+            <span class="badge sev-low">Low</span>
+            <span class="status confirmed">Confirmed</span>
+          </p>
+        </header>
+
+        <p><code>/api/analytics/pageview</code> and <code>/api/analytics/heartbeat</code> accept client-supplied session and visitor IDs, so traffic metrics are spoofable. No direct financial impact.</p>
+      </article>
+
+    </section>
+
+    <!-- ================= 5. DETECTABILITY ================= -->
+    <section id="s5">
+      <h2 class="section"><span class="num">5</span>Detectability Ranking — What to Fix First and Why</h2>
+
+      <p>Not all fraud is equally visible. Ranked by how hard abuse is to catch:</p>
+
+      <h3>1. Line-price / bundle tampering (F2 / F3) — the most silent</h3>
+      <p>A tampered order looks completely normal: valid products, valid pack structure, plausible total. No discount line is ever created (the "discount" is baked into unit prices). There is no ledger to reconcile, no error condition, no ceiling, and it is repeatable from fresh accounts. Smart abuse takes $20 per order, forever — invisible per-order, visible only as slightly soft margins that get blamed on discount mix. The store is doubly blind because bundles skip price validation entirely, and the validation that <em>does</em> exist for regular items corrects tampering silently — nobody is ever alerted that an attempt occurred.</p>
+
+      <h3>2. Coupon subtotal inflation (F1) — largest magnitude, but louder in data</h3>
+      <p>Unbounded per transaction (a $1 trillion discount was computed), but it leaves an explicit, queryable trail: a discount line on the order. A single report — "orders where discount exceeds X% of subtotal" or "discount doesn't match the coupon's terms" — surfaces every instance retroactively.</p>
+
+      <h3>3. Store credit over-claim (F4) — noisiest by design</h3>
+      <p>A balance exists, so abuse has a ceiling per account; it is account-bound (identity attached, bannable); redemptions must reconcile against a balance in bookkeeping; and if the server validates at all, attempts produce errors — loud by construction.</p>
+
+      <div class="note">
+        <p><strong>Conclusion:</strong> Fix order-time server repricing first (closes F1–F4 together), and pair it with mismatch <strong>logging</strong> — silently correcting a tampered price protects revenue but leaves you unaware the attempt happened.</p>
+      </div>
+    </section>
+
+    <!-- ================= 6. ROADMAP ================= -->
+    <section id="s6">
+      <h2 class="section"><span class="num">6</span>Remediation Roadmap</h2>
+
+      <h3>P0 — Revenue-critical (immediately)</h3>
+      <ol>
+        <li>Order creation must recompute <strong>everything</strong> server-side from the database, in one transaction: line prices, bundle tiers, sale prices (server clock), coupon discounts (from the server's own subtotal), store credit (validated against the DB balance), shipping, and payment-method discounts. Accept from the client <strong>only</strong>: item IDs, quantities, coupon codes, and a payment-method selection.</li>
+        <li><code>/api/coupons/validate</code> and <code>/api/coupons/auto-apply</code>: ignore client subtotals; compute from item IDs; return percents, never amounts.</li>
+        <li>Atomic store-credit debit inside the order transaction; reject non-positive redemption values.</li>
+        <li>Mismatch telemetry: when client-claimed and server-computed values differ at order time, log the user, cart, and delta.</li>
+      </ol>
+
+      <h3>P1 — High (this month)</h3>
+      <ol start="5">
+        <li>Extend server cart sync and price validation to bundle/presale lines.</li>
+        <li>Enforce purchase limits, companion rules, and sale/presale windows server-side.</li>
+        <li>CSP: allow GoAffPro (restores affiliate tracking); plan removal of <code>unsafe-inline</code> / <code>unsafe-eval</code>.</li>
+        <li>Remove DB-layer imports from client bundles (<code>server-only</code> guards).</li>
+      </ol>
+
+      <h3>P2 — Medium</h3>
+      <ol start="9">
+        <li>Strip internal fields from client payloads; remove the admin route map from public bundles.</li>
+        <li>Rate-limit coupon validation to slow code guessing.</li>
+        <li>Verify Supabase row-level security on coupon/discount/price tables (the anon key is public by design; RLS is the only gate).</li>
+      </ol>
+    </section>
+
+    <!-- ================= 7. PHASE 2 ================= -->
+    <section id="s7">
+      <h2 class="section"><span class="num">7</span>Phase 2 — Required Verification (Not Yet Performed)</h2>
+
+      <p>The decisive artifact never captured in this phase is the final order-creation request. It determines whether the Critical/High findings are chargeable exploits or display-layer bugs. All steps below are executable <strong>without charging a card</strong> — Bitcoin/Zelle orders are created as "awaiting payment" and can be cancelled in admin:</p>
+
+      <ol>
+        <li>Capture the order-creation request body. If it contains per-line prices, discount amounts, or credit amounts as client-writable fields, escalate Findings F1–F4 to active exploits immediately.</li>
+        <li>Place one fully tampered test order via a manual-payment rail; read the created order's total in <code>/admin/orders</code>; cancel the pending order.</li>
+        <li>Credit edge cases at charge time: over-claim, negative values, concurrent double-spend, refund restoration.</li>
+        <li>Payment-method discount binding (claim crypto discount, pay by card).</li>
+        <li>Coupon endpoint rate-limiting / enumeration resistance.</li>
+        <li>Refund/cancellation reconciliation (cash vs. credit paths).</li>
+      </ol>
+    </section>
+
+  </main>
+
+  <footer>
+    <p><strong>Assessment basis:</strong> point-in-time, black-box, no server code access, no orders placed, no charges made. A retest after remediation is recommended.</p>
+  </footer>
+
+</div>
+</body>
+</html>

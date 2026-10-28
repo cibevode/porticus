@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Crush Research — Security Assessment &amp; Fix Handoff</title>
+<style>
+  :root {
+    --ink: #1a1a1a; --muted: #5b6470; --rule: #d8dde3;
+    --bg: #ffffff; --panel: #f7f8fa;
+    --code-bg: #1e2229; --code-ink: #e6e9ef;
+    --critical-bg: #fdecea; --critical-ink: #a3160d;
+    --high-bg: #fef1dc; --high-ink: #9a4b00;
+    --medium-bg: #fdf8d9; --medium-ink: #7a6100;
+    --low-bg: #e6eefb; --low-ink: #1d4ed8;
+    --ops-bg: #f1e7fd; --ops-ink: #6b21a8;
+    --accent: #2b3a4a; --go: #146c2e;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 16px; line-height: 1.6;
+  }
+  .doc { max-width: 62rem; margin: 0 auto; padding: 3rem 2rem 5rem; }
+
+  .cover { border-top: 6px solid var(--accent); border-bottom: 1px solid var(--rule); padding: 2rem 0 1.75rem; margin-bottom: 2.5rem; }
+  .kicker { margin: 0 0 .75rem; font-size: .72rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--critical-ink); }
+  h1 { margin: 0 0 .5rem; font-size: 1.9rem; line-height: 1.25; letter-spacing: -.01em; }
+  .subtitle { margin: 0 0 2rem; font-size: 1.05rem; color: var(--muted); }
+
+  table { border-collapse: collapse; width: 100%; }
+  .meta th, .meta td { text-align: left; vertical-align: top; padding: .5rem .75rem .5rem 0; border-bottom: 1px solid var(--rule); font-size: .92rem; }
+  .meta th { width: 11rem; font-weight: 600; color: var(--muted); white-space: nowrap; }
+  .meta tr:last-child th, .meta tr:last-child td { border-bottom: none; }
+
+  .toc { background: var(--panel); border: 1px solid var(--rule); border-radius: 6px; padding: 1.25rem 1.5rem; margin-bottom: 3rem; font-size: .92rem; }
+  .toc h2 { margin: 0 0 .75rem; font-size: .75rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
+  .toc ol { margin: 0; padding-left: 1.35rem; }
+  .toc li { margin: .2rem 0; }
+  .toc a { color: var(--accent); text-decoration: none; }
+  .toc a:hover { text-decoration: underline; }
+  .toc .tools { margin-top: .9rem; padding-top: .75rem; border-top: 1px dashed var(--rule); }
+  .toc .tools button {
+    font: inherit; font-size: .8rem; cursor: pointer; margin-right: .5rem;
+    background: #fff; border: 1px solid var(--rule); border-radius: 4px; padding: .3rem .7rem; color: var(--accent);
+  }
+  .toc .tools button:hover { background: var(--panel); }
+
+  section { margin-bottom: 3rem; }
+  h2.section { font-size: 1.35rem; margin: 0 0 1.25rem; padding-bottom: .5rem; border-bottom: 2px solid var(--accent); letter-spacing: -.01em; }
+  h2.section .num { color: var(--muted); font-weight: 400; margin-right: .5rem; }
+  h3.sub { font-size: 1rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin: 1.75rem 0 .5rem; font-weight: 700; }
+  p { margin: 0 0 1rem; }
+  ul, ol { margin: 0 0 1rem; padding-left: 1.5rem; }
+  li { margin: .3rem 0; }
+
+  code { font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace; font-size: .875em; background: #eef0f4; padding: .1em .35em; border-radius: 3px; word-break: break-word; }
+  pre { background: var(--code-bg); color: var(--code-ink); padding: 1rem 1.15rem; border-radius: 0 0 6px 6px; overflow-x: auto; margin: 0; font-size: .82rem; line-height: 1.55; tab-size: 2; }
+  pre code { background: none; padding: 0; color: inherit; font-size: inherit; white-space: pre; }
+  section > pre, .finding > pre, .note pre { border-radius: 6px; margin-bottom: 1.25rem; }
+
+  .callout { background: var(--critical-bg); border-left: 4px solid var(--critical-ink); border-radius: 0 6px 6px 0; padding: 1rem 1.25rem; margin: 0 0 1.5rem; }
+  .callout .label { display: block; font-size: .72rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--critical-ink); margin-bottom: .4rem; }
+  .callout p:last-child { margin-bottom: 0; }
+  .note { background: var(--panel); border: 1px solid var(--rule); border-radius: 6px; padding: 1rem 1.25rem; margin: 0 0 1.5rem; font-size: .92rem; }
+  .note p:last-child { margin-bottom: 0; }
+  .note.green { background: #eaf6ec; border-color: #bfe3c6; }
+
+  .data { margin: 0 0 1.5rem; font-size: .9rem; }
+  .data caption { caption-side: top; text-align: left; font-size: .75rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); padding-bottom: .5rem; }
+  .data th, .data td { text-align: left; vertical-align: top; padding: .55rem .8rem; border-bottom: 1px solid var(--rule); }
+  .data thead th { background: var(--panel); border-top: 1px solid var(--rule); border-bottom: 2px solid var(--rule); font-size: .78rem; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
+  .data td.id { font-weight: 700; white-space: nowrap; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .85rem; }
+
+  .badge { display: inline-block; padding: .12em .55em; border-radius: 3px; font-size: .72rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; white-space: nowrap; vertical-align: .05em; }
+  .sev-critical { background: var(--critical-bg); color: var(--critical-ink); }
+  .sev-high { background: var(--high-bg); color: var(--high-ink); }
+  .sev-medium { background: var(--medium-bg); color: var(--medium-ink); }
+  .sev-low { background: var(--low-bg); color: var(--low-ink); }
+  .sev-ops { background: var(--ops-bg); color: var(--ops-ink); }
+  .status { font-size: .78rem; color: var(--muted); font-weight: 600; letter-spacing: .04em; }
+  .status.confirmed { color: var(--go); }
+  .status.untested { color: var(--high-ink); }
+  .tag-inferred { font-size: .72rem; font-weight: 700; color: var(--high-ink); background: var(--high-bg); padding: .1em .5em; border-radius: 3px; letter-spacing: .05em; }
+
+  .finding { border: 1px solid var(--rule); border-radius: 8px; padding: 1.5rem 1.75rem 1.5rem; margin: 0 0 2rem; background: #fff; }
+  .finding > header { border-bottom: 1px solid var(--rule); padding-bottom: .9rem; margin-bottom: 1.25rem; }
+  .finding > header h3 { margin: 0 0 .5rem; font-size: 1.08rem; color: var(--ink); font-weight: 700; line-height: 1.35; }
+  .finding .meta-line { font-size: .82rem; color: var(--muted); display: flex; flex-wrap: wrap; gap: .5rem 1.25rem; align-items: center; }
+  .finding h4 { font-size: .76rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 1.4rem 0 .4rem; font-weight: 700; }
+  .finding h4:first-of-type { margin-top: 0; }
+
+  /* ---------- Accordion panels ---------- */
+  details.panel { border: 1px solid var(--rule); border-radius: 6px; margin: 0 0 1rem; overflow: hidden; }
+  details.panel > summary {
+    cursor: pointer; list-style: none; padding: .65rem 1rem;
+    background: var(--panel); font-size: .85rem; font-weight: 600; color: var(--accent);
+    display: flex; align-items: center; gap: .55rem; user-select: none;
+  }
+  details.panel > summary::-webkit-details-marker { display: none; }
+  details.panel > summary::before { content: "▸"; color: var(--muted); font-size: .9rem; transition: transform .12s ease; }
+  details.panel[open] > summary::before { content: "▾"; }
+  details.panel > summary:hover { background: #eef0f4; }
+  details.panel > summary .hint { margin-left: auto; font-weight: 400; font-size: .75rem; color: var(--muted); }
+  details.panel.fix > summary { background: #eaf6ec; color: var(--go); }
+  details.panel.fix > summary:hover { background: #ddf0e0; }
+  details.panel .panel-body { padding: 1rem 1.15rem 1.15rem; border-top: 1px solid var(--rule); }
+  details.panel .panel-body > *:first-child { margin-top: 0; }
+  details.panel .panel-body > *:last-child { margin-bottom: 0; }
+  details.panel .panel-body pre { border-radius: 6px; margin: 0 0 1rem; }
+  details.panel .panel-body pre:last-child { margin-bottom: 0; }
+  .srcfile { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .75rem; color: var(--muted); background: #eef0f4; padding: .35rem .6rem; border-radius: 4px 4px 0 0; border: 1px solid var(--rule); border-bottom: none; }
+  .srcfile + pre { border-radius: 0 0 6px 6px; }
+
+  footer { border-top: 1px solid var(--rule); padding-top: 1.5rem; font-size: .85rem; color: var(--muted); }
+
+  @media (max-width: 640px) {
+    .doc { padding: 1.75rem 1.1rem 3rem; }
+    h1 { font-size: 1.45rem; }
+    .finding { padding: 1.15rem 1.1rem; }
+    .meta th { width: auto; display: block; border-bottom: none; padding-bottom: 0; }
+    .meta td { display: block; padding-top: 0; }
+  }
+  @media print {
+    body { font-size: 10.5pt; }
+    .doc { max-width: none; padding: 0; }
+    .toc .tools { display: none; }
+    details.panel { border: 1px solid #999; }
+    details.panel > summary { background: #eee; }
+    details.panel:not([open]) > summary::after { content: "  — [expand before printing]"; font-weight: 400; color: #666; }
+    pre { background: #f2f2f2; color: #111; border: 1px solid #ccc; }
+    a { color: inherit; text-decoration: none; }
+  }
+</style>
+</head>
+<body>
+<div class="doc">
+
+  <!-- ================= COVER ================= -->
+  <header class="cover">
+    <p class="kicker">Internal / Confidential — Engineering Handoff Edition</p>
+    <h1>Crush Research — Checkout &amp; Discount Security Assessment</h1>
+    <p class="subtitle">Full finding context, root causes, reproduction scripts, and ready-to-adapt fix implementations</p>
+
+    <table class="meta">
+      <tr><th scope="row">Date</th><td>October 28, 2026</td></tr>
+      <tr><th scope="row">Prepared for</th><td>Engineering / AI coding model tasked with remediation</td></tr>
+      <tr><th scope="row">Intended use</th><td>Load this document into the context of the model (or give to the developer) <strong>together with repository access</strong>. It contains everything needed to understand and fix each bug. See <a href="#s0">Section 0</a> for the exact handoff procedure.</td></tr>
+      <tr><th scope="row">Scope</th><td>Cart, checkout, and all discount systems (coupons, Build-a-Pack bundles, store credit, timed sales, payment-method discounts, free shipping)</td></tr>
+      <tr><th scope="row">Method</th><td>Black-box testing from a standard customer browser, authorized by the site owner. No orders placed; no cards charged.</td></tr>
+      <tr><th scope="row">Classification</th><td>INTERNAL / CONFIDENTIAL</td></tr>
+    </table>
+  </header>
+
+  <!-- ================= TOC ================= -->
+  <nav class="toc" aria-label="Table of contents">
+    <h2>Contents</h2>
+    <ol>
+      <li><a href="#s0">How to Hand This Document to an AI Model</a></li>
+      <li><a href="#s1">System Context &amp; Architecture</a></li>
+      <li><a href="#s2">Executive Summary</a></li>
+      <li><a href="#s3">Findings at a Glance</a></li>
+      <li><a href="#s4">Detailed Findings, Root Causes &amp; Fix Implementations (F1–F12)</a></li>
+      <li><a href="#s5">Remediation Roadmap</a></li>
+      <li><a href="#s6">Phase 2 — Verification Still Required</a></li>
+      <li><a href="#s7">Acceptance Tests — How to Prove Each Fix Works</a></li>
+    </ol>
+    <div class="tools">
+      <button type="button" onclick="document.querySelectorAll('details.panel').forEach(d=>d.open=true)">Expand all panels</button>
+      <button type="button" onclick="document.querySelectorAll('details.panel').forEach(d=>d.open=false)">Collapse all</button>
+      <span style="font-size:.78rem;color:var(--muted)">Code and scripts live inside expandable panels. Expand all before printing.</span>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- ================= 0. HANDOFF ================= -->
+    <section id="s0">
+      <h2 class="section"><span class="num">0</span>How to Hand This Document to an AI Model</h2>
+
+      <p>This document is written to serve as complete briefing material for an AI coding assistant (or a human engineer) with access to the codebase. Identifiers observed in production traffic and shipped JavaScript are stated plainly. Identifiers that were <em>inferred</em> but not directly observed are marked <span class="tag-inferred">INFERRED</span> — the model must map these to the real names in the repository before editing.</p>
+
+      <h3 class="sub">Procedure</h3>
+      <ol>
+        <li>Give the model repository access (or paste the relevant route handlers alongside this document).</li>
+        <li>Paste this entire document into the model's context.</li>
+        <li>Use the kickoff prompt below.</li>
+        <li>Require the name-mapping table (step 2 of the prompt) before any code changes.</li>
+        <li>After each fix, require the acceptance test from <a href="#s7">Section 7</a> with before/after output.</li>
+      </ol>
+
+      <details class="panel" open>
+        <summary>Kickoff prompt — copy and send to the fixing model <span class="hint">ready to paste</span></summary>
+        <div class="panel-body">
+<pre><code>You are a senior full-stack engineer fixing security findings in our
+storefront: Next.js (App Router) + Prisma + Supabase Postgres.
+
+The attached document is a black-box security assessment. Work as follows:
+
+1. Read Section 1 (system context) and the endpoint inventory table.
+2. BEFORE editing anything, produce a name-mapping table: every identifier
+   marked INFERRED or PROBABLE in the document → the real identifier in this
+   repository (file paths, route names, Prisma model/field names, env vars).
+   Ask me for any file you cannot locate. Do not guess.
+3. Implement fixes in roadmap order (Section 5): P0 first, then P1, then P2.
+   Each finding in Section 4 contains a "Fix implementation" panel with
+   reference code — adapt it to the real schema, do not copy blindly.
+4. The single non-negotiable rule: the server NEVER trusts client-supplied
+   prices, subtotals, discount amounts, credit amounts, or bundle tier
+   claims. All money math happens server-side, inside the order transaction.
+5. After each fix, run the acceptance test in Section 7 for that finding and
+   show me before/after evidence (request/response pairs or test output).
+6. Do not change public API shapes the storefront depends on without
+   updating the caller in the same change.</code></pre>
+        </div>
+      </details>
+    </section>
+
+    <!-- ================= 1. SYSTEM CONTEXT ================= -->
+    <section id="s1">
+      <h2 class="section"><span class="num">1</span>System Context &amp; Architecture</h2>
+
+      <h3 class="sub">Stack (observed)</h3>
+      <ul>
+        <li><strong>Frontend:</strong> Next.js App Router. Cart state in browser <code>localStorage</code> under key <code>crush-cart</code>, including a per-line <code>price</code> snapshot in cents.</li>
+        <li><strong>Other client keys:</strong> <code>crush-redeemed-points</code> (store-credit claim; <em>not</em> re-read on page load), <code>crush-applied-coupon-codes</code>.</li>
+        <li><strong>Backend:</strong> Next.js route handlers + Prisma ORM + Supabase Postgres (project ref <code>fwzmeqmcapejahfynvcn</code>). Supabase anon key is public by design — Row Level Security is the only database gate.</li>
+        <li><strong>Payments:</strong> NMI and Stripe (card), plus manual rails: Bitcoin, Zelle, LinkMoney. Manual-rail orders are created as "awaiting payment".</li>
+        <li><strong>Affiliate:</strong> GoAffPro (shop id <code>eekimyxlen</code>), currently blocked by CSP — see F10.</li>
+        <li><strong>Promos:</strong> "Pack Attack" build-a-pack tiers — 3-pack 20%, 5-pack 25%, 10-pack 30% — campaign end observed as <code>2026-11-01T05:59:00Z</code>. Bundle cart lines carry <code>bundleGroupId</code>, <code>bundleSlotIndex</code>, <code>bundleDiscountPercent</code>, <code>bundleOriginalPriceCents</code>, <code>bundleSaleCampaignId</code>.</li>
+      </ul>
+
+      <h3 class="sub">Endpoint inventory and trust assessment</h3>
+      <table class="data">
+        <caption>Observed API surface (names observed in traffic / shipped JS unless marked)</caption>
+        <thead>
+          <tr><th scope="col">Endpoint</th><th scope="col">What the client sends</th><th scope="col">Trust problem</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>POST /api/coupons/validate</code></td><td><code>{code, subtotal, existingCouponCodes}</code></td><td><strong>Discount computed from client subtotal. No cart cross-check, no ceiling.</strong> (F1)</td></tr>
+          <tr><td><code>POST /api/coupons/auto-apply</code></td><td>subtotal</td><td>Same pattern as validate. (F1)</td></tr>
+          <tr><td><code>PUT /api/cart</code></td><td><code>{items: [{productId, packSizeId, quantity}]}</code></td><td>Good shape (IDs only) — <strong>but bundle lines are filtered out and never synced.</strong> (F2)</td></tr>
+          <tr><td><code>POST /api/cart/validate-prices</code></td><td>regular items</td><td>Server re-validates regular lines — <strong>bundle lines excluded by the same filter.</strong> (F2)</td></tr>
+          <tr><td><code>GET /api/rewards</code></td><td>—</td><td>Server-authoritative credit balance. Good.</td></tr>
+          <tr><td><code>GET /api/payment-discounts</code></td><td>—</td><td>Discount-by-rail exists; binding of discount → rail unverified. (F5)</td></tr>
+          <tr><td><code>POST /api/orders</code> <span class="tag-inferred">INFERRED</span></td><td>full order incl. credit claim</td><td><strong>Decisive unknown — capture in Phase 2 (Section 6).</strong> All findings converge here.</td></tr>
+          <tr><td><code>GET /api/admin/*</code> (orders, analytics, customers, profit-loss)</td><td>—</td><td>Return <code>{"error":"Forbidden"}</code> unauthenticated. Verified gated. Good.</td></tr>
+        </tbody>
+      </table>
+
+      <h3 class="sub">Data model sketch <span class="tag-inferred">INFERRED — verify against schema.prisma</span></h3>
+      <p>Provided so the fixing model has a working mental model. Field names are educated guesses from observed payloads.</p>
+      <details class="panel">
+        <summary>Inferred Prisma schema sketch <span class="hint">expand</span></summary>
+        <div class="panel-body">
+<div class="srcfile">prisma/schema.prisma — INFERRED, map before use</div>
+<pre><code>model Product {
+  id        String     @id
+  slug      String
+  name      String
+  packSizes PackSize[]
+  // NOT for public payload: qtyAllocated Int, weeklySold Int
+}
+
+model PackSize {
+  id             String   @id
+  productId      String
+  label          String
+  priceCents     Int
+  salePriceCents Int?
+  saleCampaign   SaleCampaign?
+}
+
+model SaleCampaign {
+  id       String   @id
+  startsAt DateTime
+  endsAt   DateTime
+}
+
+model BundlePromo {             // "Pack Attack"
+  id     String @id
+  tiers  Json                   // [{minQty:3,percentOff:20},{minQty:5,percentOff:25},{minQty:10,percentOff:30}]
+  endsAt DateTime
+}
+
+model Coupon {
+  code             String    @id
+  percentOff       Int?
+  amountOffCents   Int?
+  maxDiscountCents Int?
+  active           Boolean
+  expiresAt        DateTime?
+}
+
+model RewardAccount {
+  userId       String @id
+  balanceCents Int
+}
+
+model Order {
+  id                 String @id
+  userId             String
+  subtotalCents      Int
+  discountCents      Int
+  creditAppliedCents Int
+  shippingCents      Int
+  totalCents         Int
+  paymentMethod      String
+  status             String   // awaiting_payment | paid | cancelled | refunded
+  items              OrderItem[]
+  createdAt          DateTime @default(now())
+}
+
+model OrderItem {
+  id         String @id
+  orderId    String
+  packSizeId String
+  quantity   Int
+  unitCents  Int     // server-computed at order time
+}</code></pre>
+        </div>
+      </details>
+
+      <div class="note">
+        <p><strong>The one principle behind every fix in this document:</strong> the client is an untrusted witness. It may <em>display</em> anything, but the server must derive every cent — line price, bundle tier, sale price, coupon discount, credit debit, shipping, payment-rail discount — from database truth, inside the order transaction, against the server clock.</p>
+      </div>
+    </section>
+
+    <!-- ================= 2. EXEC SUMMARY ================= -->
+    <section id="s2">
+      <h2 class="section"><span class="num">2</span>Executive Summary</h2>
+
+      <div class="callout">
+        <span class="label">Headline — confirmed live</span>
+        <p>The coupon engine computes discounts from a cart total supplied by the customer's browser. Claimed $2,775 (real: $277.50) → 10× discount honored. Claimed $1 quadrillion → $100 trillion discount computed. No ceiling, no cart cross-check.</p>
+      </div>
+
+      <ul>
+        <li>Cart prices live in the browser and were edited with only the dev console; tampered prices survived reload and flowed into the checkout summary.</li>
+        <li>Build-a-Pack bundles — the deepest discount channel (up to 30%) — bypass <strong>both</strong> server cart sync <strong>and</strong> server price validation.</li>
+        <li>Store credit redemption is a client-side claim first presented inside the final order request.</li>
+      </ul>
+
+      <p><strong>Decisive unknown:</strong> the order-creation endpoint was deliberately not exercised. If it recomputes from the database, F1–F4 degrade to display bugs; if it trusts client values, they are direct price-manipulation exploits. Verification procedure is in <a href="#s6">Section 6</a> and is safe to run (manual payment rails create cancellable "awaiting payment" orders).</p>
+
+      <p><strong>Detectability note (why fix order matters):</strong> line-price/bundle tampering is the most silent abuse (no discount line, no ledger, no error, repeatable). Coupon inflation is loudest in magnitude but leaves a queryable discount line. Credit over-claim is noisiest (balance ceiling, account-bound). Fix order-time server repricing first — it closes F1–F4 together — and pair it with mismatch <em>logging</em>, because today's silent price-correction means attack attempts are never even recorded.</p>
+    </section>
+
+    <!-- ================= 3. AT A GLANCE ================= -->
+    <section id="s3">
+      <h2 class="section"><span class="num">3</span>Findings at a Glance</h2>
+      <table class="data">
+        <thead>
+          <tr><th scope="col">#</th><th scope="col">Finding</th><th scope="col">Severity</th><th scope="col">Status</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="id">F1</td><td>Coupon discount computed from customer-supplied cart total — no ceiling</td><td><span class="badge sev-critical">Critical</span></td><td class="status confirmed">Confirmed (live API)</td></tr>
+          <tr><td class="id">F2</td><td>Build-a-Pack bundles bypass server cart sync and price validation</td><td><span class="badge sev-high">High</span></td><td class="status confirmed">Confirmed</td></tr>
+          <tr><td class="id">F3</td><td>Cart prices stored and totaled in the browser</td><td><span class="badge sev-high">High</span></td><td class="status confirmed">Confirmed</td></tr>
+          <tr><td class="id">F4</td><td>Store credit redemption is a client-side claim until order submission</td><td><span class="badge sev-high">High</span></td><td class="status confirmed">Design confirmed / charge-time untested</td></tr>
+          <tr><td class="id">F5</td><td>Payment-method discounts possibly not bound to the rail used</td><td><span class="badge sev-medium">Medium</span></td><td class="status untested">Untested</td></tr>
+          <tr><td class="id">F6</td><td>Purchase limits enforced only in the UI</td><td><span class="badge sev-medium">Medium</span></td><td class="status confirmed">Confirmed</td></tr>
+          <tr><td class="id">F7</td><td>Sale expiration &amp; grace window enforced client-side</td><td><span class="badge sev-medium">Medium</span></td><td class="status confirmed">Confirmed</td></tr>
+          <tr><td class="id">F8</td><td>Internal business data in public payloads (inventory, weekly sales, admin route map)</td><td><span class="badge sev-medium">Medium</span></td><td class="status confirmed">Confirmed</td></tr>
+          <tr><td class="id">F9</td><td>Prisma (DB layer) warning executing in the browser console</td><td><span class="badge sev-medium">Medium</span></td><td class="status confirmed">Confirmed</td></tr>
+          <tr><td class="id">F10</td><td>GoAffPro affiliate tracking blocked sitewide by CSP</td><td><span class="badge sev-ops">Operational</span></td><td class="status confirmed">Confirmed</td></tr>
+          <tr><td class="id">F11</td><td>CSP weakened by unsafe-inline / unsafe-eval</td><td><span class="badge sev-low">Low</span></td><td class="status confirmed">Confirmed</td></tr>
+          <tr><td class="id">F12</td><td>Analytics accept self-declared visitor IDs</td><td><span class="badge sev-low">Low</span></td><td class="status confirmed">Confirmed</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ================= 4. DETAILED FINDINGS ================= -->
+    <section id="s4">
+      <h2 class="section"><span class="num">4</span>Detailed Findings, Root Causes &amp; Fix Implementations</h2>
+
+      <!-- ========== F1 ========== -->
+      <article class="finding" id="f1">
+        <header>
+          <h3>F1 — Coupon discounts computed from a customer-supplied cart total</h3>
+          <p class="meta-line"><span class="badge sev-critical">Critical</span><span class="status confirmed">Confirmed at the API layer</span><span>Probable files: <code>app/api/coupons/validate/route.ts</code>, <code>app/api/coupons/auto-apply/route.ts</code> <span class="tag-inferred">PROBABLE</span></span></p>
+        </header>
+
+        <h4>What happens</h4>
+        <p>The client POSTs a coupon code <em>and the subtotal</em>. The server multiplies and returns a currency amount, never looking at the cart. Input hygiene exists (negatives and strings rejected 400, duplicate codes rejected) but the value's <em>truthfulness</em> is never checked, and no upper bound exists.</p>
+
+        <table class="data">
+          <caption>Observed: claimed subtotal vs. server-computed discount (10% code RORY)</caption>
+          <thead><tr><th scope="col">Claimed subtotal</th><th scope="col">Server response</th></tr></thead>
+          <tbody>
+            <tr><td>$277.50 (real)</td><td>$27.75 — correct</td></tr>
+            <tr><td>$2,775.00</td><td>$277.50 — invented number honored</td></tr>
+            <tr><td>$1 quadrillion</td><td>$100 trillion discount — no ceiling</td></tr>
+            <tr><td>−$100 / "27750" (string)</td><td>400 "Valid subtotal is required" — syntax checked, truth not</td></tr>
+          </tbody>
+        </table>
+
+        <details class="panel">
+          <summary>Reproduction script <span class="hint">browser console</span></summary>
+          <div class="panel-body">
+<pre><code>fetch('/api/coupons/validate', {
+  method: 'POST',
+  headers: {'Content-Type': 'application/json'},
+  body: JSON.stringify({code: 'RORY', subtotal: 10000000, existingCouponCodes: []})
+}).then(r =&gt; r.json()).then(j =&gt; console.log(j));
+// Observed: valid: true, discountAmount: 1000000  ($10,000.00 off an invented subtotal)</code></pre>
+          </div>
+        </details>
+
+        <details class="panel fix">
+          <summary>Fix implementation — server-side subtotal, caps, percents-only responses <span class="hint">reference code</span></summary>
+          <div class="panel-body">
+            <p>Change the contract: the client sends <strong>item IDs + quantities + the code</strong>. The server prices the cart (shared <code>priceCart</code>, see F2/F3) and computes the discount itself. A display amount may be returned, but the order endpoint must recompute it regardless.</p>
+<div class="srcfile">app/api/coupons/validate/route.ts</div>
+<pre><code>import { NextResponse } from "next/server";
+import { prisma } from "@/lib/prisma";
+import { priceCart } from "@/lib/pricing";      // F2/F3 — server pricing
+import { rateLimit } from "@/lib/rateLimit";    // any limiter; 10/min/IP
+
+export async function POST(req: Request) {
+  if (!rateLimit(req)) return NextResponse.json({ error: "Slow down" }, { status: 429 });
+
+  const { code, items } = await req.json();          // NOTE: no client subtotal
+  if (typeof code !== "string" || !Array.isArray(items))
+    return NextResponse.json({ valid: false, reason: "bad_request" }, { status: 400 });
+
+  const coupon = await prisma.coupon.findUnique({ where: { code: code.toUpperCase() } });
+  if (!coupon || !coupon.active || (coupon.expiresAt &amp;&amp; coupon.expiresAt &lt; new Date()))
+    return NextResponse.json({ valid: false, reason: "invalid_or_expired" });
+
+  const priced = await priceCart(prisma, items);     // server-computed subtotal
+  const discountCents = computeCouponDiscount(coupon, priced.subtotalCents);
+
+  return NextResponse.json({ valid: true, code: coupon.code, discountCents });
+}
+
+export function computeCouponDiscount(coupon, subtotalCents) {
+  const raw = coupon.percentOff
+    ? Math.floor(subtotalCents * coupon.percentOff / 100)
+    : Math.min(coupon.amountOffCents ?? 0, subtotalCents);
+  // Defense in depth: per-coupon cap and absolute cap, never more than the subtotal
+  const cap = Math.min(coupon.maxDiscountCents ?? 100_000, 100_000); // $1,000 absolute
+  return Math.max(0, Math.min(raw, cap, subtotalCents));
+}</code></pre>
+            <p>Apply the identical change to <code>/api/coupons/auto-apply</code>. Any client code that previously sent <code>subtotal</code> must be updated to send <code>items</code> (it already has them).</p>
+          </div>
+        </details>
+      </article>
+
+      <!-- ========== F2 ========== -->
+      <article class="finding" id="f2">
+        <header>
+          <h3>F2 — Build-a-Pack bundles bypass all server-side price checks</h3>
+          <p class="meta-line"><span class="badge sev-high">High</span><span class="status confirmed">Confirmed — architecture + demonstration</span><span>Probable files: cart store chunk, <code>app/api/cart/route.ts</code>, <code>app/api/cart/validate-prices/route.ts</code> <span class="tag-inferred">PROBABLE</span></span></p>
+        </header>
+
+        <h4>Root cause (observed in shipped JS)</h4>
+        <p>Both server checkpoints explicitly exclude bundle and presale lines:</p>
+        <pre><code>items.filter(e =&gt; !e.bundleGroupId &amp;&amp; !e.presaleCampaignPackId)</code></pre>
+        <p>Bundle lines carry <code>price</code>, <code>bundleDiscountPercent</code>, and <code>bundleOriginalPriceCents</code> purely in the browser. A line edited from $51.80 → $27.30 survived reload and flowed into the checkout summary uncorrected.</p>
+
+        <details class="panel">
+          <summary>Reproduction scripts — tamper, phantom pack, tier downgrade, ID pairing <span class="hint">4 variants</span></summary>
+          <div class="panel-body">
+            <p><strong>Basic tamper</strong> — set every bundle line to $1.00, reload, proceed to checkout, observe summary:</p>
+<pre><code>let cart = JSON.parse(localStorage.getItem('crush-cart'));
+cart = cart.map(i =&gt; i.bundleGroupId ? {...i, price: 100} : i);
+localStorage.setItem('crush-cart', JSON.stringify(cart));
+location.reload();</code></pre>
+            <p><strong>Phantom pack</strong> — keep 1 of 10 lines, keep the 30% claim:</p>
+<pre><code>let cart = JSON.parse(localStorage.getItem('crush-cart'));
+cart = cart.filter(i =&gt; !i.bundleGroupId || i.bundleSlotIndex === 0);
+localStorage.setItem('crush-cart', JSON.stringify(cart));
+location.reload();</code></pre>
+            <p><strong>Tier downgrade</strong> — keep 3 of 10 lines; correct behavior is re-pricing at the 3-item tier:</p>
+<pre><code>cart = cart.filter(i =&gt; !i.bundleGroupId || i.bundleSlotIndex &lt; 3);</code></pre>
+            <p><strong>ID pairing</strong> — on one line, swap <code>productId</code>/<code>packSizeId</code> to a pricier product while keeping the cheap line price; tests whether the server verifies that pack belongs to product.</p>
+          </div>
+        </details>
+
+        <details class="panel fix">
+          <summary>Fix implementation — shared server-side pricing module (also fixes F3, F7) <span class="hint">reference code</span></summary>
+          <div class="panel-body">
+            <p>One module prices <em>any</em> cart from database truth: base prices, sale prices (server clock — fixes F7), and bundle tiers derived from the <strong>final</strong> item count per bundle group. Client-sent prices and percents are never read.</p>
+<div class="srcfile">lib/pricing.ts</div>
+<pre><code>import "server-only";
+
+// items: [{ productId, packSizeId, quantity, bundleGroupId? }]
+export async function priceCart(tx, items) {
+  const packSizeIds = [...new Set(items.map(i =&gt; i.packSizeId))];
+  const packSizes = await tx.packSize.findMany({
+    where: { id: { in: packSizeIds } },
+    include: { product: true, saleCampaign: true },
+  });
+  const byId = new Map(packSizes.map(p =&gt; [p.id, p]));
+  const now = new Date();                       // server clock — F7
+
+  // Bundle tier lookup from the FINAL count per bundleGroupId — F2
+  const bundleCounts = {};
+  for (const i of items)
+    if (i.bundleGroupId) bundleCounts[i.bundleGroupId] =
+      (bundleCounts[i.bundleGroupId] ?? 0) + i.quantity;
+
+  const promo = await tx.bundlePromo.findFirst({
+    where: { endsAt: { gt: now } }, orderBy: { endsAt: "desc" },
+  });
+  const tierFor = (count) =&gt; !promo ? 0 :
+    (promo.tiers.filter(t =&gt; count &gt;= t.minQty).pop()?.percentOff ?? 0);
+
+  let subtotalCents = 0;
+  const lines = items.map(i =&gt; {
+    const ps = byId.get(i.packSizeId);
+    if (!ps || ps.productId !== i.productId)    // ID-pairing check — F2 variant C
+      throw new Error("INVALID_ITEM:" + i.packSizeId);
+
+    let unit = ps.priceCents;
+    const sc = ps.saleCampaign;
+    if (ps.salePriceCents &amp;&amp; sc &amp;&amp; sc.startsAt &lt;= now &amp;&amp; now &lt;= sc.endsAt)
+      unit = ps.salePriceCents;                  // sale only if live on server clock
+
+    if (i.bundleGroupId) {
+      const pct = tierFor(bundleCounts[i.bundleGroupId]);
+      unit = Math.floor(unit * (100 - pct) / 100);
+    }
+    const lineCents = unit * i.quantity;
+    subtotalCents += lineCents;
+    return { ...i, unitCents: unit, lineCents };
+  });
+
+  return { lines, subtotalCents };
+}</code></pre>
+            <p>Then remove the exclusions so bundles flow through the existing checkpoints:</p>
+<div class="srcfile">client cart sync + validate-prices call sites</div>
+<pre><code>// BEFORE (shipped today):
+items.filter(e =&gt; !e.bundleGroupId &amp;&amp; !e.presaleCampaignPackId)
+// AFTER: send everything; the server treats bundleGroupId as a grouping hint only.
+items</code></pre>
+          </div>
+        </details>
+      </article>
+
+      <!-- ========== F3 ========== -->
+      <article class="finding" id="f3">
+        <header>
+          <h3>F3 — Cart prices stored and totaled in the customer's browser</h3>
+          <p class="meta-line"><span class="badge sev-high">High</span><span class="status confirmed">Confirmed — client behavior demonstrated</span></p>
+        </header>
+        <h4>What happens</h4>
+        <p><code>crush-cart</code> in localStorage holds a per-line price snapshot; the order-summary subtotal is computed in the browser. Tampered values ($277.50 after edits) were transmitted to server endpoints verbatim.</p>
+        <details class="panel">
+          <summary>Diagnostic — view raw cart state at any time <span class="hint">browser console</span></summary>
+          <div class="panel-body">
+<pre><code>console.table(JSON.parse(localStorage.getItem('crush-cart') || '[]')
+  .map(i =&gt; ({name: i.productName, price: i.price / 100,
+              qty: i.quantity, bundle: !!i.bundleGroupId})));</code></pre>
+          </div>
+        </details>
+        <details class="panel fix">
+          <summary>Fix <span class="hint">policy + covered code</span></summary>
+          <div class="panel-body">
+            <p>No new code beyond F2's <code>priceCart</code> — the fix is policy: browser prices are <strong>display-only</strong>. The order request must carry only <code>{productId, packSizeId, quantity, bundleGroupId?}</code> per line. Client may keep its snapshot for UX, but nothing the server persists may derive from it. See the master order handler in <a href="#s5">Section 5</a>.</p>
+          </div>
+        </details>
+      </article>
+
+      <!-- ========== F4 ========== -->
+      <article class="finding" id="f4">
+        <header>
+          <h3>F4 — Store credit redemption is a client-side claim</h3>
+          <p class="meta-line"><span class="badge sev-high">High</span><span class="status confirmed">Design confirmed</span><span class="status untested">Charge-time untested</span></p>
+        </header>
+        <h4>What happens</h4>
+        <ul>
+          <li>The credit +/− stepper fires zero network requests; the claim exists only in browser memory until the order request.</li>
+          <li><code>crush-redeemed-points</code> is not read on page load (overwrite + reload → widget resets to $0.00), so the order request is the only carrier of the claim.</li>
+          <li>The real balance <em>is</em> server-side (<code>GET /api/rewards</code>) — good — but the claimed amount is never validated before submission.</li>
+        </ul>
+
+        <details class="panel">
+          <summary>Test harness — in-flight interceptor that inflates any credit field to 5000 <span class="hint">browser console</span></summary>
+          <div class="panel-body">
+<pre><code>(() =&gt; {
+  const INFLATE_TO = 5000;
+  window.__origFetch = window.__origFetch || window.fetch;
+  window.fetch = async (url, opts) =&gt; {
+    if (typeof url === 'string' &amp;&amp; url.includes('/api/')
+        &amp;&amp; opts?.body &amp;&amp; typeof opts.body === 'string') {
+      try {
+        const body = JSON.parse(opts.body);
+        let hit = false;
+        const walk = (o, path = '') =&gt; {
+          if (!o || typeof o !== 'object') return;
+          for (const k of Object.keys(o)) {
+            const v = o[k];
+            if (/credit|point|redeem/i.test(k) &amp;&amp; typeof v === 'number' &amp;&amp; v &gt; 0) {
+              console.log('[INFLATE]', path + k, v, '→', INFLATE_TO);
+              o[k] = INFLATE_TO; hit = true;
+            } else if (v &amp;&amp; typeof v === 'object') walk(v, path + k + '.');
+          }
+        };
+        walk(body);
+        if (/order|checkout|pay|intent/i.test(url))
+          console.log('[CAPTURE]', url, JSON.parse(JSON.stringify(body)));
+        if (hit) opts = {...opts, body: JSON.stringify(body)};
+      } catch (e) {}
+    }
+    return window.__origFetch(url, opts);
+  };
+  console.log('Interceptor armed.');
+})();</code></pre>
+            <p>Procedure: apply credit normally → arm interceptor → choose a <strong>manual</strong> rail (BTC/Zelle — order is created "awaiting payment", no charge) → Place Order → read the order in <code>/admin/orders</code> (credit line −$50.00 = CRITICAL; −$8.53 = clamped; 4xx = validated) → re-check <code>/api/rewards</code> → cancel the pending order → <code>window.fetch = window.__origFetch</code>.</p>
+          </div>
+        </details>
+
+        <details class="panel fix">
+          <summary>Fix implementation — atomic, guarded debit inside the order transaction <span class="hint">reference code</span></summary>
+          <div class="panel-body">
+<div class="srcfile">lib/credit.ts</div>
+<pre><code>import "server-only";
+
+export async function debitCredit(tx, userId, cents) {
+  if (!Number.isInteger(cents) || cents &lt;= 0)
+    throw new Error("BAD_CREDIT_AMOUNT");          // kills the negative-mint attack
+  const updated = await tx.$executeRaw`
+    UPDATE "RewardAccount"
+    SET "balanceCents" = "balanceCents" - ${cents}
+    WHERE "userId" = ${userId} AND "balanceCents" &gt;= ${cents}`;
+  if (updated === 0) throw new Error("INSUFFICIENT_CREDIT");  // race-safe: single UPDATE
+  return cents;
+}
+
+// On refund/cancel, restore inside the same transaction, and only the
+// portion that was actually paid in credit:
+export async function restoreCredit(tx, userId, cents) {
+  if (cents &gt; 0) await tx.$executeRaw`
+    UPDATE "RewardAccount" SET "balanceCents" = "balanceCents" + ${cents}
+    WHERE "userId" = ${userId}`;
+}</code></pre>
+            <p>Also verify in Phase 2: concurrent double-spend (two windows, one balance), refund double-dip (cash + restored credit), and that credit-paid portions do not earn new rewards.</p>
+          </div>
+        </details>
+      </article>
+
+      <!-- ========== F5 ========== -->
+      <article class="finding" id="f5">
+        <header>
+          <h3>F5 — Payment-method discounts (BTC / Zelle / LinkMoney)</h3>
+          <p class="meta-line"><span class="badge sev-medium">Medium</span><span class="status untested">Untested</span></p>
+        </header>
+        <p>Established abuse pattern: claim the crypto discount, complete via a different rail, keep the discount. Test: apply a payment-method discount, switch methods at the final step, check the order total.</p>
+        <details class="panel fix">
+          <summary>Fix implementation — bind discount to the rail actually charged <span class="hint">reference code</span></summary>
+          <div class="panel-body">
+<pre><code>// At order creation: store the method ON the order and price from it.
+const pmDiscount = await tx.paymentDiscount.findFirst({
+  where: { method: paymentMethod, active: true },
+});
+const pmDiscountCents = pmDiscount
+  ? Math.floor((subtotalCents - couponCents) * pmDiscount.percentOff / 100)
+  : 0;
+
+// In the payment-confirmation webhook / admin "mark paid" action:
+if (confirmedRail !== order.paymentMethod)
+  throw new Error("PAYMENT_METHOD_MISMATCH");   // re-price or reject
+// Manual rails: order.status stays "awaiting_payment" until confirmed receipt;
+// fulfillment queries must filter status === "paid".</code></pre>
+          </div>
+        </details>
+      </article>
+
+      <!-- ========== F6 ========== -->
+      <article class="finding" id="f6">
+        <header>
+          <h3>F6 — Purchase limits enforced only in the browser</h3>
+          <p class="meta-line"><span class="badge sev-medium">Medium</span><span class="status confirmed">Confirmed — client-only</span></p>
+        </header>
+        <p>Max-per-order, monthly caps (e.g., bacteriostatic water 5/month), and "must be purchased with another product" rules exist only as disabled buttons and quantity clamps. Direct API requests skip the UI entirely.</p>
+        <details class="panel fix">
+          <summary>Fix implementation — server-side limit checks in the order transaction <span class="hint">reference code</span></summary>
+          <div class="panel-body">
+<pre><code>async function enforcePurchaseLimits(tx, userId, items) {
+  const monthStart = new Date(); monthStart.setDate(1); monthStart.setHours(0,0,0,0);
+  for (const item of items) {
+    const limit = await tx.purchaseLimit.findFirst({ where: { packSizeId: item.packSizeId } });
+    if (!limit) continue;
+    const prior = await tx.orderItem.aggregate({
+      _sum: { quantity: true },
+      where: { packSizeId: item.packSizeId,
+               order: { userId, createdAt: { gte: monthStart },
+                        status: { notIn: ["cancelled"] } } },
+    });
+    if ((prior._sum.quantity ?? 0) + item.quantity &gt; limit.maxPerMonth)
+      throw new Error("LIMIT_EXCEEDED:" + item.packSizeId);
+    if (limit.requiresCompanion) {
+      const hasCompanion = items.some(x =&gt; x.packSizeId !== item.packSizeId);
+      if (!hasCompanion) throw new Error("COMPANION_REQUIRED:" + item.packSizeId);
+    }
+  }
+}</code></pre>
+          </div>
+        </details>
+      </article>
+
+      <!-- ========== F7 ========== -->
+      <article class="finding" id="f7">
+        <header>
+          <h3>F7 — Sale expiration &amp; 15-minute grace window enforced client-side</h3>
+          <p class="meta-line"><span class="badge sev-medium">Medium</span><span class="status confirmed">Confirmed — client-only</span></p>
+        </header>
+        <p>The browser waits 15 minutes after a sale ends, then re-validates and shows "your cart prices have been updated." A sleeping tab, restored cart, or skipped re-validation may preserve expired prices indefinitely. Test: assemble a cart during a sale, sleep past expiry, check out, compare against full price.</p>
+        <details class="panel fix">
+          <summary>Fix <span class="hint">covered by F2</span></summary>
+          <div class="panel-body">
+            <p>Already fixed by <code>priceCart</code> (F2): sale prices apply only when <code>startsAt &lt;= now &lt;= endsAt</code> using the <strong>server</strong> clock at order time. The 15-minute grace window may remain as a client-side UX courtesy, but it must have no effect on the charged total. Same check covers presale start/end windows.</p>
+          </div>
+        </details>
+      </article>
+
+      <!-- ========== F8 ========== -->
+      <article class="finding" id="f8">
+        <header>
+          <h3>F8 — Internal business data exposed to every visitor</h3>
+          <p class="meta-line"><span class="badge sev-medium">Medium</span><span class="status confirmed">Confirmed</span></p>
+        </header>
+        <p>Public page payloads include exact per-product inventory (<code>qtyAllocated</code>), weekly units sold (<code>weeklySold</code>), internal campaign IDs, a full admin route map (<code>/admin/coupons</code>, <code>/admin/discount-rules</code>, <code>/admin/orders/new</code>, <code>/admin/prices</code>…), and predictable product IDs (<code>p-reta-10</code>). Financial admin endpoints themselves return Forbidden unauthenticated (verified) — but <code>/admin/orders/new</code> likely permits custom pricing and must be role-checked server-side like the rest.</p>
+        <details class="panel fix">
+          <summary>Fix implementation — explicit selects, split the admin bundle <span class="hint">reference code</span></summary>
+          <div class="panel-body">
+<div class="srcfile">shop page data query (server component / route handler)</div>
+<pre><code>// Select ONLY what the storefront renders. Never pass full rows to the client.
+const products = await prisma.product.findMany({
+  select: {
+    id: true, slug: true, name: true, description: true,
+    packSizes: { select: { id: true, label: true, priceCents: true,
+                           salePriceCents: true, saleCampaign: { select: { endsAt: true } } } },
+    // qtyAllocated, weeklySold, internal notes: deliberately omitted
+  },
+});</code></pre>
+            <p>Move the admin navigation/route map into the <code>/admin</code> segment so it is never in the public bundle, and confirm every <code>/api/admin/*</code> handler calls the same <code>requireAdmin()</code> guard — especially manual order creation.</p>
+          </div>
+        </details>
+      </article>
+
+      <!-- ========== F9 ========== -->
+      <article class="finding" id="f9">
+        <header>
+          <h3>F9 — Prisma (database layer) executing in browser bundles</h3>
+          <p class="meta-line"><span class="badge sev-medium">Medium</span><span class="status confirmed">Confirmed</span></p>
+        </header>
+        <p>Console shows <code>[prisma] DATABASE_URL is missing</code> — a server ORM initializing in visitors' browsers because a <code>"use client"</code> component transitively imports a DB module. Symptom is cosmetic; the import pattern is how schema internals and query logic leak. (Whether the connection-string <em>value</em> was ever inlined should be ruled out with a bundle search for <code>postgres://</code>.)</p>
+        <details class="panel fix">
+          <summary>Fix implementation — server-only guard <span class="hint">reference code</span></summary>
+          <div class="panel-body">
+<pre><code>npm i server-only</code></pre>
+<div class="srcfile">lib/prisma.ts</div>
+<pre><code>import "server-only";            // build now FAILS if any client component imports this
+import { PrismaClient } from "@prisma/client";
+
+const globalForPrisma = globalThis;
+export const prisma = globalForPrisma.__prisma ?? new PrismaClient();
+if (process.env.NODE_ENV !== "production") globalForPrisma.__prisma = prisma;</code></pre>
+            <p>Fix the offending import chain the build error reveals (usually: move a data fetch into a server component or route handler).</p>
+          </div>
+        </details>
+      </article>
+
+      <!-- ========== F10 ========== -->
+      <article class="finding" id="f10">
+        <header>
+          <h3>F10 — GoAffPro affiliate tracking blocked sitewide by CSP</h3>
+          <p class="meta-line"><span class="badge sev-ops">Operational</span><span class="status confirmed">Confirmed</span></p>
+        </header>
+        <p>Console on every page: <em>"Loading the script 'https://api.goaffpro.com/loader.js' violates the Content Security Policy directive: script-src…"</em>. The allowlist covers NMI, Stripe, Apple Pay, Facebook, TikTok — but not GoAffPro. Referrals and commissions are not being recorded.</p>
+        <details class="panel fix">
+          <summary>Fix implementation — CSP allowlist <span class="hint">reference code</span></summary>
+          <div class="panel-body">
+<div class="srcfile">next.config.js (or wherever headers are set)</div>
+<pre><code>const csp = [
+  "default-src 'self'",
+  "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://secure.nmi.com https://js.stripe.com https://api.goaffpro.com",
+  "connect-src 'self' https://api.goaffpro.com https://*.supabase.co https://secure.nmi.com https://api.stripe.com",
+  "frame-src https://secure.nmi.com https://js.stripe.com https://hooks.stripe.com",
+  "img-src 'self' data: https:",
+  "style-src 'self' 'unsafe-inline'",
+].join("; ");
+
+module.exports = {
+  async headers() {
+    return [{ source: "/(.*)",
+      headers: [{ key: "Content-Security-Policy", value: csp }] }];
+  },
+};</code></pre>
+            <p>Verify after deploy: load any page, confirm the loader script fires and the CSP console error is gone; place a test referral click and confirm it appears in the GoAffPro dashboard.</p>
+          </div>
+        </details>
+      </article>
+
+      <!-- ========== F11 ========== -->
+      <article class="finding" id="f11">
+        <header>
+          <h3>F11 — CSP contains unsafe-inline and unsafe-eval</h3>
+          <p class="meta-line"><span class="badge sev-low">Low</span><span class="status confirmed">Confirmed</span></p>
+        </header>
+        <p>These directives largely defeat the policy's XSS value. Roadmap item: migrate to a nonce-based policy via middleware (<code>script-src 'nonce-…' 'strict-dynamic'</code>), removing <code>unsafe-eval</code> first. Payment iframes (NMI/Stripe) complicate a strict policy — stage it behind a <code>Content-Security-Policy-Report-Only</code> header first and watch reports before enforcing.</p>
+      </article>
+
+      <!-- ========== F12 ========== -->
+      <article class="finding" id="f12">
+        <header>
+          <h3>F12 — Analytics accept self-declared visitor IDs</h3>
+          <p class="meta-line"><span class="badge sev-low">Low</span><span class="status confirmed">Confirmed</span></p>
+        </header>
+        <p><code>/api/analytics/pageview</code> and <code>/api/analytics/heartbeat</code> accept client-supplied session/visitor IDs, so metrics are spoofable. No financial impact. Fix: issue the visitor ID as a server-set <code>HttpOnly</code> cookie and derive identity from it server-side, ignoring body fields.</p>
+      </article>
+
+    </section>
+
+    <!-- ================= 5. ROADMAP ================= -->
+    <section id="s5">
+      <h2 class="section"><span class="num">5</span>Remediation Roadmap</h2>
+
+      <h3 class="sub">P0 — Revenue-critical</h3>
+      <ol>
+        <li><strong>Order creation recomputes everything server-side, in one transaction</strong> (reference below): line prices, bundle tiers, sale prices (server clock), coupons (server subtotal), credit (atomic debit), shipping, payment-rail discount. Client sends only item IDs, quantities, coupon codes, and a payment-method choice.</li>
+        <li>F1: coupon endpoints ignore client subtotals; caps added.</li>
+        <li>F4: atomic credit debit; reject non-positive amounts.</li>
+        <li>Mismatch telemetry: when client-claimed and server-computed values differ at order time, log user, cart, and delta.</li>
+      </ol>
+
+      <details class="panel fix" open>
+        <summary>P0 master reference — order creation handler <span class="hint">the centerpiece</span></summary>
+        <div class="panel-body">
+<div class="srcfile">app/api/orders/route.ts — INFERRED path; adapt to the real endpoint found in Phase 2</div>
+<pre><code>import { NextResponse } from "next/server";
+import { prisma } from "@/lib/prisma";
+import { priceCart } from "@/lib/pricing";
+import { debitCredit } from "@/lib/credit";
+import { computeCouponDiscount } from "@/app/api/coupons/validate/route";
+import { getSessionUser } from "@/lib/auth";
+
+export async function POST(req: Request) {
+  const user = await getSessionUser(req);
+  if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+  const body = await req.json();
+  // Accept ONLY these. Ignore any prices/totals/credits the client volunteers.
+  const { items, couponCodes = [], creditToApplyCents = 0, paymentMethod } = body;
+
+  try {
+    const order = await prisma.$transaction(async (tx) =&gt; {
+      // 1. Server pricing: base + sales (server clock) + bundle tiers   [F2,F3,F7]
+      const priced = await priceCart(tx, items);
+
+      // 2. Coupons against the SERVER subtotal                          [F1]
+      let couponCents = 0;
+      for (const code of couponCodes) {
+        const c = await tx.coupon.findUnique({ where: { code: String(code).toUpperCase() } });
+        if (c?.active &amp;&amp; (!c.expiresAt || c.expiresAt &gt; new Date()))
+          couponCents += computeCouponDiscount(c, priced.subtotalCents);
+      }
+
+      // 3. Payment-rail discount bound to the chosen method             [F5]
+      const pm = await tx.paymentDiscount.findFirst({ where: { method: paymentMethod, active: true } });
+      const pmCents = pm ? Math.floor((priced.subtotalCents - couponCents) * pm.percentOff / 100) : 0;
+
+      // 4. Purchase limits                                              [F6]
+      await enforcePurchaseLimits(tx, user.id, items);
+
+      // 5. Credit: atomic, guarded debit                                [F4]
+      const creditCents = creditToApplyCents &gt; 0
+        ? await debitCredit(tx, user.id, Math.min(creditToApplyCents,
+            priced.subtotalCents - couponCents - pmCents))
+        : 0;
+
+      // 6. Shipping from the POST-discount total
+      const preShip = priced.subtotalCents - couponCents - pmCents - creditCents;
+      const shippingCents = preShip &gt;= 20000 ? 0 : await getShippingCents(body.address);
+
+      // 7. Mismatch telemetry — see attempts even when we correct them
+      if (body.claimedSubtotalCents &amp;&amp; body.claimedSubtotalCents !== priced.subtotalCents)
+        await tx.securityEvent.create({ data: { userId: user.id, kind: "PRICE_MISMATCH",
+          payload: { claimed: body.claimedSubtotalCents, actual: priced.subtotalCents, items } } });
+
+      // 8. Persist with server-computed numbers only
+      return tx.order.create({ data: {
+        userId: user.id,
+        subtotalCents: priced.subtotalCents,
+        discountCents: couponCents + pmCents,
+        creditAppliedCents: creditCents,
+        shippingCents,
+        totalCents: preShip + shippingCents,
+        paymentMethod,
+        status: paymentMethod === "card" ? "pending_capture" : "awaiting_payment",
+        items: { create: priced.lines.map(l =&gt; ({
+          packSizeId: l.packSizeId, quantity: l.quantity, unitCents: l.unitCents })) },
+      }});
+    });
+    return NextResponse.json({ orderId: order.id });
+  } catch (e) {
+    const known = ["INSUFFICIENT_CREDIT","BAD_CREDIT_AMOUNT","LIMIT_EXCEEDED",
+                   "COMPANION_REQUIRED","INVALID_ITEM","PAYMENT_METHOD_MISMATCH"];
+    const msg = String(e?.message ?? e);
+    if (known.some(k =&gt; msg.includes(k)))
+      return NextResponse.json({ error: msg }, { status: 400 });
+    throw e;
+  }
+}</code></pre>
+        </div>
+      </details>
+
+      <h3 class="sub">P1 — High (this month)</h3>
+      <ol start="5">
+        <li>F2: extend cart sync + price validation to bundle/presale lines (remove the filter).</li>
+        <li>F6/F7: enforce limits, companion rules, and sale/presale windows server-side.</li>
+        <li>F10: allow GoAffPro in CSP (restores affiliate tracking) — trivial, do immediately.</li>
+        <li>F9: <code>server-only</code> guards on DB modules.</li>
+      </ol>
+
+      <h3 class="sub">P2 — Medium</h3>
+      <ol start="9">
+        <li>F8: strip internal fields from public payloads; move admin route map out of the public bundle; verify <code>requireAdmin()</code> on every <code>/api/admin/*</code>.</li>
+        <li>Rate-limit coupon validation.</li>
+        <li>Verify Supabase RLS on coupon/discount/price tables (the anon key is public by design).</li>
+        <li>F11/F12: CSP tightening behind Report-Only; cookie-based analytics identity.</li>
+      </ol>
+    </section>
+
+    <!-- ================= 6. PHASE 2 ================= -->
+    <section id="s6">
+      <h2 class="section"><span class="num">6</span>Phase 2 — Verification Still Required</h2>
+      <p>All steps are safe to run: Bitcoin/Zelle orders are created "awaiting payment" and can be cancelled in admin. No card is charged.</p>
+      <ol>
+        <li><strong>Capture the order-creation request body</strong> (the F4 interceptor prints it as <code>[CAPTURE]</code>). If it contains client-writable per-line prices, discount amounts, or credit amounts, F1–F4 are active exploits — escalate immediately.</li>
+        <li>Place one fully tampered test order via a manual rail; read the created order's total in <code>/admin/orders</code>; cancel it.</li>
+        <li>Credit edge cases at charge time: over-claim, negative claim, concurrent double-spend, refund restoration.</li>
+        <li>Payment-method discount binding (claim crypto discount, pay by card).</li>
+        <li>Coupon endpoint rate-limiting / enumeration resistance.</li>
+      </ol>
+    </section>
+
+    <!-- ================= 7. ACCEPTANCE ================= -->
+    <section id="s7">
+      <h2 class="section"><span class="num">7</span>Acceptance Tests — How to Prove Each Fix Works</h2>
+      <table class="data">
+        <thead><tr><th scope="col">Fix</th><th scope="col">Test</th><th scope="col">Pass condition</th></tr></thead>
+        <tbody>
+          <tr><td class="id">F1</td><td>Re-run the F1 probe with <code>subtotal: 10000000</code></td><td>Endpoint no longer accepts a subtotal field; discount reflects the real cart and never exceeds the coupon cap</td></tr>
+          <tr><td class="id">F2</td><td>Tamper a bundle line to $1.00, place manual-rail order</td><td>Created order shows server-priced lines; <code>PRICE_MISMATCH</code> event logged</td></tr>
+          <tr><td class="id">F2</td><td>Phantom-pack variant (1 of 10 lines)</td><td>Order priced at 0% tier (no bundle discount)</td></tr>
+          <tr><td class="id">F2</td><td>ID-pairing variant</td><td>400 <code>INVALID_ITEM</code></td></tr>
+          <tr><td class="id">F4</td><td>Interceptor over-claim to 5000</td><td>400 <code>INSUFFICIENT_CREDIT</code>; balance unchanged</td></tr>
+          <tr><td class="id">F4</td><td>Negative claim <code>-1000</code></td><td>400 <code>BAD_CREDIT_AMOUNT</code>; balance not increased</td></tr>
+          <tr><td class="id">F4</td><td>Two windows spend one balance concurrently</td><td>Exactly one order succeeds</td></tr>
+          <tr><td class="id">F5</td><td>Claim crypto discount, switch to card at final step</td><td>Discount removed or order rejected at confirmation</td></tr>
+          <tr><td class="id">F6</td><td>Direct API order exceeding monthly cap</td><td>400 <code>LIMIT_EXCEEDED</code></td></tr>
+          <tr><td class="id">F7</td><td>Sleep a sale cart past expiry, check out</td><td>Charged at current (non-sale) prices</td></tr>
+          <tr><td class="id">F8</td><td>View page source; search <code>qtyAllocated</code>, <code>weeklySold</code>, <code>/admin/</code></td><td>No matches in public payload/bundles</td></tr>
+          <tr><td class="id">F9</td><td>Import <code>lib/prisma</code> from a client component; build</td><td>Build fails with server-only error; console warning gone in production</td></tr>
+          <tr><td class="id">F10</td><td>Load any page; check console; place test referral</td><td>No CSP error; referral appears in GoAffPro</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+  </main>
+
+  <footer>
+    <p><strong>Assessment basis:</strong> point-in-time, black-box, no server code access, no orders placed, no charges made. Identifiers marked INFERRED/PROBABLE must be mapped to real repository names before implementation. A retest after remediation is recommended.</p>
+  </footer>
+
+</div>
+</body>
+</html>
